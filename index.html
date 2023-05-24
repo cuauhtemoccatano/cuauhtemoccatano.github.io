@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css">
+ </head>
+  <section class="showcase">
+    <header>
+      <h2 class="logo">Viaja</h2>
+      <div class="toggle"></div>
+    </header>
+    <video src="Proyectofinalvideo.mp4" muted loop autoplay></video>
+    <div class="overlay"></div>
+    <div class="text">
+      <h2>NUNCA DEJES DE </h2> 
+      <h3>EXPLORAR EL MUNDO</h3>
+      <p>Todos los viajes tienen destinos secretos que te toca descubrir.</p>
+      <a href="http://google.com">Explora</a>
+    </div>
+    <ul class="social">
+      <li><a href="https://www.facebook.com/GobiernoCDMX"><img src="https://i.ibb.co/x7P24fL/facebook.png"></a></li>
+      <li><a href="https://twitter.com/GobCDMX"><img src="https://i.ibb.co/Wnxq2Nq/twitter.png"></a></li>
+      <li><a href="https://www.instagram.com/gobiernocdmx/"><img src="https://i.ibb.co/ySwtH4B/instagram.png"></a></li>
+    </ul>
+  </section>
+  <div class="menu">
+    <ul>
+      <li><a href="#">Inicio</a></li>
+      <li><a href="https://www.dondeir.com/">Dónde ir</a></li>
+      <li><a href="https://www.cdmx.gob.mx/">Gobierno</a></li>
+    
+    </ul>
+  </div>
+  <script>
+    const menuToggle = document.querySelector('.toggle');
+const showcase = document.querySelector('.showcase');
+
+menuToggle.addEventListener('click', () => {
+  menuToggle.classList.toggle('active');
+  showcase.classList.toggle('active');
+})
+  </script>
+</body>
+</html>
