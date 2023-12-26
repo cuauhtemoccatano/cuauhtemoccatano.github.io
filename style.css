@@ -51,6 +51,11 @@
   cursor: pointer;
 }
 
+.toggle-icon.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 .home {
   height: 100vh;
   display: flex;
