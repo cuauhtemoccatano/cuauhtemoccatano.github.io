@@ -132,6 +132,30 @@
 }
 
 #dark-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   background: #15202b; /*color background*/
   color: #f0f3fd; /*color text*/
+}
+
+#dark-container .logo,
+#dark-container .navbar a {
+  /*color dark mode navbar & logo*/
+  color: #f0f3fd;
+}
+
+#dark-container .navbar a:hover,
+#dark-container .navbar a.active {
+  /*color dark mode navbar active*/
+  color: #37a1f2;
+}
+
+#dark-container {
+  clip-path: circle(0% at 0 0);
+  z-index: 10;
+}
+.active#container {
+  z-index: 1;
 }
