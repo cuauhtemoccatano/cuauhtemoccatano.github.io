@@ -1,4 +1,4 @@
-const container = document.querySelector(".container");
+let container = document.querySelector(".container");
 
 const cloneContainer = container.cloneNode(true);
 cloneContainer.id = "dark-container";
