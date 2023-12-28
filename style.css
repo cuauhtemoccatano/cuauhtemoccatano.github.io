@@ -159,13 +159,6 @@
   color: #37a1f2;
 }
 
-#dark-container.active {
-  z-index: 1;
-  clip-path: circle(150% at 0 0);
-  transition: 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transition-delay: 0s;
-}
-
 .active#container,
 .active#dark-container {
   z-index: 1;
