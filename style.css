@@ -47,39 +47,13 @@
 }
 
 .toggle-icon {
-  background: none;
-  border: none;
   font-size: 24px;
   cursor: pointer;
-  color: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
 }
 
-.toggle-icon.disabled,
-.toggle-icon[disabled] {
+.toggle-icon.disabled {
   pointer-events: none;
   opacity: 0.5;
-}
-
-/* Accessibility: Focus visible styles */
-.navbar a:focus-visible,
-.social-media a:focus-visible,
-.btn:focus-visible,
-.toggle-icon:focus-visible {
-  outline: 2px solid #37a1f2;
-  outline-offset: 4px;
-  border-radius: 4px;
-}
-
-.social-media a:focus-visible {
-  border-radius: 50%;
-}
-
-.btn:focus-visible {
-  border-radius: 40px;
 }
 
 .home {
@@ -189,6 +163,58 @@
 .active#dark-container {
   z-index: 1;
   clip-path: circle(150% at 0 0);
-  transition: 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: clip-path 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition-delay: 0s;
+}
+
+/* For tablets */
+@media screen and (max-width: 1024px) {
+  .home-content h1 {
+    font-size: 44px;
+  }
+
+  .home-img img {
+    width: 40%;
+  }
+}
+
+/* For mobile phones */
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 20px 5%;
+  }
+
+  .navbar a {
+    font-size: 16px;
+    margin-right: 25px;
+  }
+
+  .home {
+    flex-direction: column-reverse;
+    padding: 50px 5%;
+  }
+
+  .home-content {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .home-content h1 {
+    font-size: 36px;
+  }
+
+  .home-content h3 {
+    font-size: 20px;
+  }
+
+  .home-img img {
+    position: relative;
+    width: 90%;
+    right: 0;
+    margin-top: 30px;
+  }
+
+  .social-media {
+    justify-content: center;
+  }
 }
