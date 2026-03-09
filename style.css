@@ -47,13 +47,39 @@
 }
 
 .toggle-icon {
+  background: none;
+  border: none;
   font-size: 24px;
   cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
-.toggle-icon.disabled {
+.toggle-icon.disabled,
+.toggle-icon[disabled] {
   pointer-events: none;
   opacity: 0.5;
+}
+
+/* Accessibility: Focus visible styles */
+.navbar a:focus-visible,
+.social-media a:focus-visible,
+.btn:focus-visible,
+.toggle-icon:focus-visible {
+  outline: 2px solid #37a1f2;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.social-media a:focus-visible {
+  border-radius: 50%;
+}
+
+.btn:focus-visible {
+  border-radius: 40px;
 }
 
 .home {

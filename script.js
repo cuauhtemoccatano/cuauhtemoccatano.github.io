@@ -16,9 +16,21 @@ darkContainerImg.src = "Assets/headshotbw.png";
 
 toggleIcons.forEach((toggle) => {
   toggle.addEventListener("click", () => {
-    toggle.classList.add("disabled");
+    // Disable all toggle buttons during transition to prevent race conditions
+    toggleIcons.forEach((btn) => {
+      btn.classList.add("disabled");
+      if (btn.tagName === "BUTTON") {
+        btn.disabled = true;
+      }
+    });
+
     setTimeout(() => {
-      toggle.classList.remove("disabled");
+      toggleIcons.forEach((btn) => {
+        btn.classList.remove("disabled");
+        if (btn.tagName === "BUTTON") {
+          btn.disabled = false;
+        }
+      });
     }, 1500);
 
     icons.forEach((icon) => {
