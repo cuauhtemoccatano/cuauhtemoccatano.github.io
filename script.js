@@ -5,8 +5,6 @@ cloneContainer.id = "dark-container";
 document.body.appendChild(cloneContainer);
 cloneContainer.classList.remove("active");
 
-const toggleIcons = document.querySelectorAll(".toggle-icon");
-const icons = document.querySelectorAll(".toggle-icon i");
 const darkContainer = document.querySelector("#dark-container");
 const darkContainerImg = document.querySelector(
   "#dark-container .home-img img"
@@ -14,30 +12,43 @@ const darkContainerImg = document.querySelector(
 
 darkContainerImg.src = "Assets/headshotbw.png";
 
-toggleIcons.forEach((toggle) => {
-  toggle.addEventListener("click", () => {
-    // Disable all toggle buttons during transition to prevent race conditions
-    toggleIcons.forEach((btn) => {
-      btn.classList.add("disabled");
-      if (btn.tagName === "BUTTON") {
-        btn.disabled = true;
-      }
-    });
+document.addEventListener("click", (event) => {
+  const toggleBtn = event.target.closest(".toggle-icon");
+  if (!toggleBtn) return;
 
-    setTimeout(() => {
-      toggleIcons.forEach((btn) => {
-        btn.classList.remove("disabled");
-        if (btn.tagName === "BUTTON") {
-          btn.disabled = false;
-        }
-      });
-    }, 1500);
+  const toggleButtons = document.querySelectorAll(".toggle-icon");
+  const icons = document.querySelectorAll(".toggle-icon i");
 
-    icons.forEach((icon) => {
-      icon.classList.toggle("bx-sun");
-    });
-
-    container.classList.toggle("active");
-    darkContainer.classList.toggle("active");
+  // Disable all toggle buttons during transition to prevent race conditions
+  toggleButtons.forEach((btn) => {
+    btn.classList.add("disabled");
+    btn.disabled = true;
   });
+
+  setTimeout(() => {
+    toggleButtons.forEach((btn) => {
+      btn.classList.remove("disabled");
+      btn.disabled = false;
+    });
+  }, 1000);
+
+  const isDarkMode = darkContainer.classList.contains("active");
+
+  icons.forEach((icon) => {
+    if (isDarkMode) {
+      icon.classList.replace("bx-sun", "bx-moon");
+    } else {
+      icon.classList.replace("bx-moon", "bx-sun");
+    }
+  });
+
+  toggleButtons.forEach((btn) => {
+    btn.setAttribute(
+      "aria-label",
+      isDarkMode ? "Switch to dark mode" : "Switch to light mode"
+    );
+  });
+
+  container.classList.toggle("active");
+  darkContainer.classList.toggle("active");
 });
