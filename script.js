@@ -5,39 +5,55 @@ cloneContainer.id = "dark-container";
 document.body.appendChild(cloneContainer);
 cloneContainer.classList.remove("active");
 
-const toggleIcons = document.querySelectorAll(".toggle-icon");
-const icons = document.querySelectorAll(".toggle-icon i");
 const darkContainer = document.querySelector("#dark-container");
-const darkContainerImg = document.querySelector(
-  "#dark-container .home-img img"
-);
+const darkContainerImg = darkContainer.querySelector(".home-img img");
 
-darkContainerImg.src = "Assets/headshotbw.png";
+if (darkContainerImg) {
+  darkContainerImg.src = "Assets/headshotbw.png";
+}
 
-toggleIcons.forEach((toggle) => {
-  toggle.addEventListener("click", () => {
-    // Disable all toggle buttons during transition to prevent race conditions
-    toggleIcons.forEach((btn) => {
-      btn.classList.add("disabled");
-      if (btn.tagName === "BUTTON") {
-        btn.disabled = true;
-      }
-    });
+let isTransitioning = false;
 
-    setTimeout(() => {
-      toggleIcons.forEach((btn) => {
-        btn.classList.remove("disabled");
-        if (btn.tagName === "BUTTON") {
-          btn.disabled = false;
-        }
-      });
-    }, 1500);
+document.addEventListener("click", (e) => {
+  const toggleBtn = e.target.closest(".toggle-icon");
+  if (!toggleBtn || isTransitioning) return;
 
-    icons.forEach((icon) => {
-      icon.classList.toggle("bx-sun");
-    });
+  isTransitioning = true;
 
-    container.classList.toggle("active");
-    darkContainer.classList.toggle("active");
+  const allToggles = document.querySelectorAll(".toggle-icon");
+  const allIcons = document.querySelectorAll(".toggle-icon i");
+  const isDarkMode = container.classList.contains("active");
+
+  // Disable buttons
+  allToggles.forEach((btn) => {
+    btn.classList.add("disabled");
+    btn.disabled = true;
   });
+
+  // Toggle icons and ARIA labels
+  allIcons.forEach((icon) => {
+    icon.classList.toggle("bx-sun");
+    icon.classList.toggle("bx-moon");
+  });
+
+  allToggles.forEach((btn) => {
+    btn.setAttribute(
+      "aria-label",
+      isDarkMode ? "Switch to dark mode" : "Switch to light mode"
+    );
+  });
+
+  // Trigger transition
+  container.classList.toggle("active");
+  darkContainer.classList.toggle("active");
+
+  // Lockout timer matching the CSS transition (1.5s in style.css, but we use a bit less for responsiveness or match it)
+  // style.css has .active#container transition: 1.5s
+  setTimeout(() => {
+    allToggles.forEach((btn) => {
+      btn.classList.remove("disabled");
+      btn.disabled = false;
+    });
+    isTransitioning = false;
+  }, 1000); // 1s lockout is usually enough for UX feedback
 });

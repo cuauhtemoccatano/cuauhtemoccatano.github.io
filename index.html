@@ -4,31 +4,44 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cuauhtemoc Cataño Portfolio Website | Welcome</title>
+    <title>Cuauhtémoc Cataño Portfolio Website | Welcome</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
+      integrity="sha384-42kyIPf7HDYLkGffmxDhSx/3Z/53wGBs3nD6wEFxsbeDc7rMO6mkYbkAcpRsnMU2"
+      crossorigin="anonymous"
     />
   </head>
 
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="container" id="container">
       <header class="header">
         <a href="index.html" class="logo">Cuauhtémoc Cataño.</a>
 
         <nav class="navbar">
-          <a href="index.html" class="active">Home</a>
+          <a href="index.html" class="active" aria-current="page">Home</a>
           <a href="about.html">About</a>
           <a href="skills.html">Skills</a>
           <a href="projects.html">Projects</a>
           <a href="contact.html">Contact</a>
         </nav>
-        <button class="toggle-icon" aria-label="Toggle dark mode" type="button">
+        <button
+          class="toggle-icon"
+          aria-label="Switch to dark mode"
+          type="button"
+        >
           <i class="bx bx-moon" id="nav-icon"></i>
         </button>
       </header>
-      <section class="home">
+      <section class="home" id="main-content">
         <div class="home-content">
           <h3>Welcome, I'm</h3>
           <h1>Cuauhtémoc Cataño</h1>
@@ -49,7 +62,12 @@
               <i class="bx bxl-linkedin"></i>
             </a>
           </div>
-          <a href="Assets/CV Cuauhtémoc Cataño.pdf" class="btn">Download CV</a>
+          <a
+            href="Assets/CV Cuauhtémoc Cataño.pdf"
+            class="btn"
+            download="CV_Cuauhtemoc_Catano.pdf"
+            >Download CV</a
+          >
         </div>
         <div class="home-img">
           <img src="Assets/headshot-color.png" alt="Cuauhtémoc Cataño's headshot"/>
