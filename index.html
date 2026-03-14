@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cuauhtemoc Cataño Portfolio Website | Welcome</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
@@ -13,6 +19,7 @@
   </head>
 
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="container" id="container">
       <header class="header">
         <a href="index.html" class="logo">Cuauhtémoc Cataño.</a>
@@ -28,7 +35,7 @@
           <i class="bx bx-moon" id="nav-icon"></i>
         </button>
       </header>
-      <section class="home">
+      <main id="main-content" class="home">
         <div class="home-content">
           <h3>Welcome, I'm</h3>
           <h1>Cuauhtémoc Cataño</h1>
@@ -39,22 +46,39 @@
             Let's transform your ventures with innovation and precision.
           </p>
           <div class="social-media">
-            <a href="https://github.com/cuauhtemoccatano" aria-label="GitHub">
+            <a
+              href="https://github.com/cuauhtemoccatano"
+              aria-label="GitHub"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="bx bxl-github"></i>
             </a>
-            <a href="https://www.instagram.com/cuauhtemoccatano/" aria-label="Instagram">
+            <a
+              href="https://www.instagram.com/cuauhtemoccatano/"
+              aria-label="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="bx bxl-instagram"></i>
             </a>
-            <a href="https://www.linkedin.com/in/cuauhtemoccatano/" aria-label="LinkedIn">
+            <a
+              href="https://www.linkedin.com/in/cuauhtemoccatano/"
+              aria-label="LinkedIn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i class="bx bxl-linkedin"></i>
             </a>
           </div>
-          <a href="Assets/CV Cuauhtémoc Cataño.pdf" class="btn">Download CV</a>
+          <a href="Assets/CV Cuauhtémoc Cataño.pdf" class="btn">
+            Download CV <i class="bx bx-download"></i>
+          </a>
         </div>
         <div class="home-img">
           <img src="Assets/headshot-color.png" alt="Cuauhtémoc Cataño's headshot"/>
         </div>
-      </section>
+      </main>
     </div>
     <script src="script.js"></script>
   </body>
