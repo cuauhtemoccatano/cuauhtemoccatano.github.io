@@ -37,6 +37,13 @@ toggleIcons.forEach((toggle) => {
       icon.classList.toggle("bx-sun");
     });
 
+    const isDarkMode = !container.classList.contains("active");
+    toggleIcons.forEach((btn) => {
+      const label = isDarkMode ? "Toggle light mode" : "Toggle dark mode";
+      btn.setAttribute("aria-label", label);
+      btn.setAttribute("title", label);
+    });
+
     container.classList.toggle("active");
     darkContainer.classList.toggle("active");
   });
