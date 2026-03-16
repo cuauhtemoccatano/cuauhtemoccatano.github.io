@@ -147,12 +147,11 @@ h1, h2, h3, .logo {
 }
 
 .navbar a {
-  font-size: 16px;
+  font-size: 18px;
   color: var(--text-primary);
-  opacity: 0.7;
   font-weight: 500;
-  margin-right: 35px;
-  transition: var(--transition-speed) var(--ease-liquid);
+  margin-left: 35px;
+  transition: 0.3s var(--ease-liquid);
 }
 
 .navbar a:hover,
@@ -280,8 +279,10 @@ h1, h2, h3, .logo {
 
 .social-media a:hover {
   background: var(--accent-color);
-  color: white;
-  transform: translateY(-5px);
+  color: #FAFAFA;
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+  transform: translateY(-5px) scale(1.1);
+  transition: 0.3s var(--ease-liquid);
 }
 
 .btn {

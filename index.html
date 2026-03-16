@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>Cuauhtémoc Cataño | Developer Portfolio</title>
     <meta name="description" content="Cuauhtémoc Cataño - Web, Java and Python Developer Portfolio" />
-    <!-- Standardized link to Boxicons with SRI for security -->
+    <!-- BoxIcons CDN with SRI for security -->
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
@@ -69,37 +69,16 @@
             <p>From lines of code to strategic business growth. I help founders and enterprises build robust software while maintaining the mindful vision of a leader.</p>
             
             <div class="social-media">
-              <a
-                href="https://github.com/cuauhtemoccatano"
-                aria-label="GitHub Profile"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i class="bx bxl-github"></i>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/cuauhtemoccatano/"
-                aria-label="LinkedIn Profile"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i class="bx bxl-linkedin"></i>
-              </a>
-              <a
-                href="https://www.instagram.com/cuauhtemoccatano/"
-                aria-label="Instagram Profile"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i class="bx bxl-instagram"></i>
-              </a>
+              <a href="https://github.com/cuauhtemoccatano" target="_blank" rel="noopener noreferrer"><i class='bx bxl-github' aria-hidden="true"></i></a>
+              <a href="https://www.linkedin.com/in/cuauhtemoccc" target="_blank" rel="noopener noreferrer"><i class='bx bxl-linkedin' aria-hidden="true"></i></a>
+              <a href="https://www.instagram.com/cuauhtemoccc" target="_blank" rel="noopener noreferrer"><i class='bx bxl-instagram' aria-hidden="true"></i></a>
             </div>
             
-            <a href="Assets/CV Cuauhtémoc Cataño.pdf" class="btn" download>Download CV</a>
+            <a href="assets/Cuauhtemoc_Catano_CV.pdf" class="btn" download>Download CV</a>
           </div>
           
           <div class="home-img">
-            <img src="Assets/headshot-color.png" alt="Cuauhtémoc Cataño" />
+            <img src="assets/perfil.png" alt="Headshot of Cuauhtémoc Cataño">
           </div>
         </section>
 
@@ -201,22 +180,26 @@
           <h2 class="section-title">Engineering Excellence</h2>
           
           <div class="engineering-container">
+            <!-- Theme Toggle with ARIA -->
+            <button class="toggle-icon" aria-label="Toggle dark mode" title="Toggle dark mode" type="button">
+                <i class='bx bx-moon' id="nav-icon" aria-hidden="true"></i>
+            </button>
             <!-- Projects -->
             <div class="projects-grid">
               <div class="project-card">
                 <h3>Java Comprehensive</h3>
                 <p>Advanced backend logic, patterns, and robust distributed implementations.</p>
-                <a href="https://github.com/cuauhtemoccatano/Java-comprehesive" class="project-link" target="_blank">View Repo <i class='bx bx-right-arrow-alt'></i></a>
+                <a href="https://github.com/cuauhtemoccatano/Java-Comprehensive" class="project-link" target="_blank" rel="noopener noreferrer">View Repo <i class='bx bx-right-arrow-alt'></i></a>
               </div>
-              <div class="project-card">
+              <div class="project-card" id="projects-2">
                 <h3>Python Solutions</h3>
                 <p>Scalable applications solving complex algorithmic and automation tasks.</p>
-                <a href="https://github.com/cuauhtemoccatano/Pyhton-soluctions" class="project-link" target="_blank">View Repo <i class='bx bx-right-arrow-alt'></i></a>
+                <a href="https://github.com/cuauhtemoccatano/Python-Solutions" class="project-link" target="_blank" rel="noopener noreferrer">View Repo <i class='bx bx-right-arrow-alt'></i></a>
               </div>
-              <div class="project-card">
-                <h3>Arduino/IoT</h3>
+              <div class="project-card" id="projects-3">
+                <h3>Impact & Stats</h3>
                 <p>Hardware/software integration for smart, connected real-world systems.</p>
-                <a href="https://github.com/cuauhtemoccatano" class="project-link" target="_blank">View Projects <i class='bx bx-right-arrow-alt'></i></a>
+                <a href="https://github.com/cuauhtemoccatano" class="project-link" target="_blank" rel="noopener noreferrer">View Projects <i class='bx bx-right-arrow-alt'></i></a>
               </div>
             </div>
 
@@ -268,7 +251,9 @@
             <p>Whether you're scaling a vision or starting a journey, let's architect something remarkable together.</p>
             <div class="contact-buttons">
               <a href="mailto:cuauhtemoccatano@gmail.com" class="btn email-btn"><i class='bx bx-envelope'></i> Send an Email</a>
-              <a href="https://www.linkedin.com/in/cuauhtemoccatano/" class="btn secondary-btn" target="_blank"><i class='bx bxl-linkedin'></i> LinkedIn</a>
+              <a href="https://www.linkedin.com/in/cuauhtemoccc" class="btn" target="_blank" rel="noopener noreferrer">
+                <i class='bx bxl-linkedin'></i> LinkedIn
+              </a>
             </div>
           </div>
         </section>

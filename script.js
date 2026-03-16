@@ -12,6 +12,21 @@ cloneContainer.classList.remove("active");
 // Select interactive elements from BOTH containers
 const toggleIcons = document.querySelectorAll(".toggle-icon");
 const icons = document.querySelectorAll(".toggle-icon i");
+
+/**
+ * Safer Interaction Dispatcher (Prevent rapid clicking during transitions)
+ */
+function setButtonsDisabled(disabled) {
+  const elements = document.querySelectorAll('.toggle-icon, .btn, .social-media a, .project-link');
+  elements.forEach(el => {
+    el.style.pointerEvents = disabled ? 'none' : 'auto';
+  });
+}
+
+/**
+ * Handle Theme Toggle Event (Optimized with Jules' Dynamic Labels)
+ */
+const savedTheme = localStorage.getItem("theme");
 const darkContainer = document.querySelector("#dark-container");
 const darkContainerImg = document.querySelector(
   "#dark-container .home-img img"
@@ -22,25 +37,6 @@ if (darkContainerImg) {
     darkContainerImg.src = "Assets/headshotbw.png";
 }
 
-/**
- * Disables theme toggle buttons during the animation to prevent glitches.
- */
-function setButtonsDisabled(disabled) {
-  toggleIcons.forEach((btn) => {
-    if (disabled) {
-      btn.classList.add("disabled");
-      btn.setAttribute("disabled", "true");
-    } else {
-      btn.classList.remove("disabled");
-      btn.removeAttribute("disabled");
-    }
-  });
-}
-
-/**
- * Handle Theme Toggle Event (Optimized with Persistence)
- */
-const savedTheme = localStorage.getItem("theme");
 if (savedTheme === "dark") {
   // Apply theme immediately on load
   container.classList.add("active");
@@ -53,6 +49,9 @@ if (savedTheme === "dark") {
 
 toggleIcons.forEach((toggle) => {
   toggle.addEventListener("click", () => {
+    // The 'disabled' class and attribute are no longer used for preventing clicks
+    // as pointer-events CSS property is now used.
+    // However, we can keep this check if 'disabled' class is used for styling.
     if (toggle.classList.contains("disabled")) return;
 
     setButtonsDisabled(true);
@@ -65,10 +64,10 @@ toggleIcons.forEach((toggle) => {
     const checkDark = container.classList.contains("active"); // Check current state BEFORE toggling
     localStorage.setItem("theme", !checkDark ? "dark" : "light");
 
-    const label = !checkDark ? "Toggle light mode" : "Toggle dark mode";
+    const nextText = !checkDark ? "Switch to light mode" : "Switch to dark mode";
     toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", label);
-      btn.setAttribute("title", label);
+      btn.setAttribute("aria-label", nextText);
+      btn.setAttribute("title", nextText);
     });
 
     container.classList.toggle("active");
@@ -76,7 +75,7 @@ toggleIcons.forEach((toggle) => {
 
     setTimeout(() => {
       setButtonsDisabled(false);
-    }, 1500);
+    }, 1200); // Jules suggested 1.2s for sync with 0.3s transitions
   });
 });
 
