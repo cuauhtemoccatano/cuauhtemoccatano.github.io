@@ -38,34 +38,42 @@ function setButtonsDisabled(disabled) {
 }
 
 /**
- * Handle Theme Toggle Event
+ * Handle Theme Toggle Event (Optimized with Persistence)
  */
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme === "dark") {
+  // Apply theme immediately on load
+  container.classList.add("active");
+  darkContainer.classList.add("active");
+  icons.forEach((icon) => {
+    icon.classList.add("bx-sun");
+    icon.classList.remove("bx-moon");
+  });
+}
+
 toggleIcons.forEach((toggle) => {
   toggle.addEventListener("click", () => {
-    // Prevent spam clicking while transition is running
     if (toggle.classList.contains("disabled")) return;
 
     setButtonsDisabled(true);
 
-    // Toggle sun/moon icons in all buttons
     icons.forEach((icon) => {
       icon.classList.toggle("bx-sun");
+      icon.classList.toggle("bx-moon");
     });
 
-    // Determine next accessibility label
-    const isNowDarkMode = !container.classList.contains("active");
-    const label = isNowDarkMode ? "Toggle light mode" : "Toggle dark mode";
+    const checkDark = container.classList.contains("active"); // Check current state BEFORE toggling
+    localStorage.setItem("theme", !checkDark ? "dark" : "light");
 
+    const label = !checkDark ? "Toggle light mode" : "Toggle dark mode";
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", label);
       btn.setAttribute("title", label);
     });
 
-    // Trigger the CSS clip-path animation
     container.classList.toggle("active");
     darkContainer.classList.toggle("active");
 
-    // Re-enable interactions after the 1.5s CSS transition ends
     setTimeout(() => {
       setButtonsDisabled(false);
     }, 1500);
@@ -90,24 +98,60 @@ document.addEventListener("mousemove", (e) => {
 });
 
 // High-performance animation loop
+const blobs = document.querySelectorAll(".blob");
+const blobData = [
+  { x: 0, y: 0, targetX: 0, targetY: 0, inertia: 0.05 },
+  { x: 0, y: 0, targetX: 0, targetY: 0, inertia: 0.03 },
+  { x: 0, y: 0, targetX: 0, targetY: 0, inertia: 0.02 }
+];
+
 function updateCursor() {
   // Main cursor: instant follow (no lag)
   cursorX = mouseX;
   cursorY = mouseY;
   
   // Follower: Smooth lag (lerp) for liquid feel
-  // Factor of 0.2 means it moves 20% of the distance each frame
   followerX += (mouseX - followerX) * 0.15;
   followerY += (mouseY - followerY) * 0.15;
 
   cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
   follower.style.transform = `translate3d(${followerX - 15}px, ${followerY - 15}px, 0)`;
 
+  // Dynamic Background Blobs: Deep inertia follow
+  blobs.forEach((blob, i) => {
+    const data = blobData[i];
+    data.targetX = (mouseX - window.innerWidth / 2) * 0.1;
+    data.targetY = (mouseY - window.innerHeight / 2) * 0.1;
+    
+    data.x += (data.targetX - data.x) * data.inertia;
+    data.y += (data.targetY - data.y) * data.inertia;
+    
+    blob.style.transform = `translate3d(${data.x}px, ${data.y}px, 0)`;
+  });
+
   requestAnimationFrame(updateCursor);
 }
 
 // Start the loop
 updateCursor();
+
+/**
+ * Scroll Reveal Logic (Intersection Observer)
+ */
+const revealOptions = {
+  threshold: 0.15,
+  rootMargin: "0px 0px -50px 0px"
+};
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("active");
+    }
+  });
+}, revealOptions);
+
+document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
 
 // Hover interactions
 links.forEach((link) => {
@@ -165,7 +209,7 @@ const terminalBody = document.getElementById("terminal-body");
 
 const commands = {
   help: "Available commands: help, whoami, skills, projects, clear, ls",
-  whoami: "Cuauhtémoc Cataño: Full-Stack Developer, UX Designer, and Passionate Content Creator.",
+  whoami: "Cuauhtémoc Cataño: Developer, Founder, and Podcast Host.",
   skills: "Java, Python, Flutter, JavaScript, React, SQL, Arduino, IoT.",
   projects: "Java Comprehensive, Python Solutions, IoT Smart Systems.",
   ls: "about.txt  skills.py  projects.java  contact.log",
@@ -198,7 +242,8 @@ if (terminalInput) {
 
       const output = document.createElement("div");
       output.className = "terminal-output";
-      output.innerText = commands[input] || `Command not found: ${input}. Type 'help' for options.`;
+      const res = commands[input] || `Command not found: ${input}. Type 'help' for options.`;
+      output.innerText = (input === "whoami" && currentLang === "ES") ? translations.ES.t_whoami : res;
       
       terminalBody.insertBefore(output, terminalInput.parentElement);
       
@@ -212,106 +257,146 @@ if (terminalInput) {
  * Multi-language Support Logic
  */
 const langSwitches = document.querySelectorAll(".lang-switch");
-let currentLang = "EN";const translations = {
+let currentLang = "EN";
+const translations = {
   EN: {
-    home: "Home",
-    about: "About",
-    skills: "Skills",
-    projects: "Engineering",
-    podcasts: "Podcasts",
-    contact: "Contact",
+    home: "Home", about: "About", skills: "Skills", projects: "Engineering", podcasts: "Podcasts", contact: "Contact",
     hero_title: "Architecting Digital Transformation",
     hero_desc: "From lines of code to strategic business growth. I help founders and enterprises build robust software while maintaining the mindful vision of a leader.",
-    trust_label_1: "Strategic Vision",
-    trust_label_2: "Mindful Execution",
-    trust_val_1: '"De Emprendedor a Empresario" Podcast',
-    trust_val_2: '"Viviendo como un Yogui" Podcast',
+    trust_label_1: "Strategic Vision", trust_label_2: "Mindful Execution",
+    trust_val_1: '"De Emprendedor a Empresario" Podcast', trust_val_2: '"Viviendo como un Yogui" Podcast',
     about_title: "About Me",
+    about_p1: "I'm a versatile developer, UX designer, and content creator based in Mexico City. As the founder of Pilea Social Media Marketing Agency, I bridge the gap between technical prowess and strategic marketing.",
+    about_p2: "Beyond code, I'm passionate about sharing knowledge. I host \"De emprendedor a empresario\" and \"Viviendo como un yogui en sociedad\", exploring the intersection of business and mindful living.",
     skills_title: "Skills & Technologies",
+    s_java: "Core specialty. Advanced backend logic, multithreading, and distributed systems architecture.",
+    s_python: "Data science, automation scripts, and robust backend solutions.",
     eng_title: "Engineering Excellence",
+    p1_desc: "Advanced backend logic, patterns, and robust distributed implementations.",
+    p2_desc: "Scalable applications solving complex algorithmic and automation tasks.",
+    p3_desc: "Hardware/software integration for smart, connected real-world systems.",
+    p_link: "View Repo", p_link_3: "View Projects",
+    impact_title: "Direct Impact (Stats)", special_title: "Tech Specialization",
     podcasts_title: "Podcasts & Content",
+    pod1_desc: "Exploring the journey of transformation from a solopreneur to a business owner with strategic vision.",
+    pod2_desc: "Practical wisdom on maintaining inner peace and yogic principles in the modern, fast-paced world.",
     contact_title: "Ready to build the future?",
     contact_desc: "Whether you're scaling a vision or starting a journey, let's architect something remarkable together.",
-    download_cv: "Download CV",
-    terminal_welcome: "Welcome to Cuauhtémoc's interactive shell.",
-    terminal_instruction: "Type 'help' to see available commands."
+    contact_email: "Send an Email", download_cv: "Download CV",
+    t_welcome: "Welcome to Cuauhtémoc's interactive shell.", t_instr: "Type 'help' to see available commands.",
+    t_whoami: "Cuauhtémoc Cataño: Developer, Founder, and Podcast Host."
   },
   ES: {
-    home: "Inicio",
-    about: "Sobre Mí",
-    skills: "Habilidades",
-    projects: "Ingeniería",
-    podcasts: "Podcasts",
-    contact: "Contacto",
+    home: "Inicio", about: "Sobre Mí", skills: "Habilidades", projects: "Ingeniería", podcasts: "Podcasts", contact: "Contacto",
     hero_title: "Arquitectando la Transformación Digital",
     hero_desc: "De líneas de código al crecimiento estratégico. Ayudo a fundadores y empresas a construir software robusto manteniendo la visión consciente de un líder.",
-    trust_label_1: "Visión Estratégica",
-    trust_label_2: "Ejecución Consciente",
-    trust_val_1: 'Podcast "De Emprendedor a Empresario"',
-    trust_val_2: 'Podcast "Viviendo como un Yogui"',
+    trust_label_1: "Visión Estratégica", trust_label_2: "Ejecución Consciente",
+    trust_val_1: 'Podcast "De Emprendedor a Empresario"', trust_val_2: 'Podcast "Viviendo como un Yogui"',
     about_title: "Sobre Mí",
+    about_p1: "Soy un desarrollador versátil, diseñador de UX y creador de contenido basado en la Ciudad de México. Como fundador de la Agencia Pilea, uno la brecha entre la destreza técnica y el marketing estratégico.",
+    about_p2: "Más allá del código, me apasiona compartir conocimiento. Conduzco \"De emprendedor a empresario\" y \"Viviendo como un yogui en sociedad\", explorando la intersección de los negocios y la vida consciente.",
     skills_title: "Habilidades y Tecnologías",
+    s_java: "Especialidad principal. Lógica de backend avanzada, multihreading y arquitectura de sistemas distribuidos.",
+    s_python: "Ciencia de datos, scripts de automatización y soluciones de backend robustas.",
     eng_title: "Excelencia en Ingeniería",
+    p1_desc: "Lógica de backend avanzada, patrones e implementaciones distribuidas robustas.",
+    p2_desc: "Aplicaciones escalables que resuelven tareas complejas de algoritmos y automatización.",
+    p3_desc: "Integración de hardware/software para sistemas conectados e inteligentes.",
+    p_link: "Ver Repositorio", p_link_3: "Ver Proyectos",
+    impact_title: "Impacto Directo (Stats)", special_title: "Especialización Técnica",
     podcasts_title: "Podcasts y Contenido",
+    pod1_desc: "Explorando el viaje de transformación de emprendedor a dueño de negocio con visión estratégica.",
+    pod2_desc: "Sabiduría práctica para mantener la paz interior y los principios yóguicos en el mundo moderno.",
     contact_title: "¿Listo para construir el futuro?",
     contact_desc: "Ya sea que estés escalando una visión o comenzando un viaje, construyamos algo increíble juntos.",
-    download_cv: "Descargar CV",
-    terminal_welcome: "Bienvenido a la terminal interactiva de Cuauhtémoc.",
-    terminal_instruction: "Escribe 'help' para ver los comandos disponibles."
+    contact_email: "Enviar Email", download_cv: "Descargar CV",
+    t_welcome: "Bienvenido a la terminal interactiva de Cuauhtémoc.", t_instr: "Escribe 'help' para ver los comandos disponibles.",
+    t_whoami: "Cuauhtémoc Cataño: Desarrollador, Fundador y Host de Podcast."
   }
 };
 
 function updateLanguage(lang) {
   const t = translations[lang];
   
-  // Header Nav
-  document.querySelectorAll(".navbar a").forEach((link, index) => {
-    const keys = ["home", "about", "skills", "projects", "podcasts", "contact"];
-    link.innerText = t[keys[index]];
+  // Update all instances (Main and Dark Clone)
+  document.querySelectorAll(".navbar").forEach(nav => {
+    nav.querySelectorAll("a").forEach((link, index) => {
+      const keys = ["home", "about", "skills", "projects", "podcasts", "contact"];
+      if (keys[index]) link.innerText = t[keys[index]];
+    });
   });
 
-  // Hero
-  const heroH1 = document.querySelector(".home-content h1");
-  const heroP = document.querySelector(".home-content p");
-  if (heroH1) heroH1.innerText = t.hero_title;
-  if (heroP) heroP.innerText = t.hero_desc;
+  document.querySelectorAll(".home-content h1").forEach(h1 => h1.innerText = t.hero_title);
+  document.querySelectorAll(".home-content p").forEach(p => p.innerText = t.hero_desc);
   
   document.querySelectorAll(".btn").forEach(btn => {
-    if (btn.innerText.includes("CV") || btn.innerText.includes("Descargar")) {
+    if (btn.innerText.includes("CV") || btn.innerText.includes("Descargar") || btn.innerText.includes("Download")) {
       btn.innerText = t.download_cv;
+    }
+    if (btn.classList.contains("email-btn")) {
+      btn.innerHTML = `<i class='bx bx-envelope'></i> ${t.contact_email}`;
     }
   });
 
-  // Trust Bar
-  const trustLabels = document.querySelectorAll(".trust-label");
-  const trustValues = document.querySelectorAll(".trust-value");
-  if (trustLabels[0]) trustLabels[0].innerText = t.trust_label_1;
-  if (trustLabels[1]) trustLabels[1].innerText = t.trust_label_2;
-  if (trustValues[0]) trustValues[0].innerText = t.trust_val_1;
-  if (trustValues[1]) trustValues[1].innerText = t.trust_val_2;
+  document.querySelectorAll(".about-text p").forEach((p, i) => {
+    p.innerText = i === 0 ? t.about_p1 : t.about_p2;
+  });
 
-  // Section Titles & Content
-  const aboutTitle = document.querySelector("#about .section-title");
-  const skillsTitle = document.querySelector("#skills .section-title");
-  const engTitle = document.querySelector("#projects .section-title");
-  const podTitle = document.querySelector("#podcasts .section-title");
-  const contactTitle = document.querySelector("#contact .section-title");
-  const contactDesc = document.querySelector(".contact-content p");
+  document.querySelectorAll(".trust-label").forEach((label, i) => {
+    label.innerText = i % 2 === 0 ? t.trust_label_1 : t.trust_label_2;
+  });
+  document.querySelectorAll(".trust-value").forEach((val, i) => {
+    val.innerText = i % 2 === 0 ? t.trust_val_1 : t.trust_val_2;
+  });
 
-  if (aboutTitle) aboutTitle.innerText = t.about_title;
-  if (skillsTitle) skillsTitle.innerText = t.skills_title;
-  if (engTitle) engTitle.innerText = t.eng_title;
-  if (podTitle) podTitle.innerText = t.podcasts_title;
-  if (contactTitle) contactTitle.innerText = t.contact_title;
-  if (contactDesc) contactDesc.innerText = t.contact_desc;
+  document.querySelectorAll(".section-title").forEach(title => {
+    const section = title.closest("section");
+    if (!section) return;
+    const map = { about: t.about_title, skills: t.skills_title, projects: t.eng_title, podcasts: t.podcasts_title, contact: t.contact_title };
+    if (map[section.id]) title.innerText = map[section.id];
+  });
 
-  // Terminal
-  const welcomeMsg = document.querySelector(".welcome-msg");
-  const instructionMsg = document.querySelector(".instruction-msg");
-  if (welcomeMsg) welcomeMsg.innerText = t.terminal_welcome;
-  if (instructionMsg) instructionMsg.innerText = t.terminal_instruction;
+  document.querySelectorAll(".skill-card").forEach(card => {
+    const p = card.querySelector("p");
+    if (p) {
+      if (p.innerText.includes("Core specialty") || p.innerText.includes("Especialidad principal")) p.innerText = t.s_java;
+      if (p.innerText.includes("Data science") || p.innerText.includes("Ciencia de datos")) p.innerText = t.s_python;
+    }
+  });
 
-  // Update button text
+  document.querySelectorAll(".project-card").forEach(card => {
+    const h3 = card.querySelector("h3");
+    const p = card.querySelector("p");
+    const link = card.querySelector(".project-link");
+    
+    if (h3) {
+      if (h3.innerText.includes("Comprehensive") || h3.innerText.includes("backend")) h3.innerText = "Java Comprehensive";
+      if (h3.innerText.includes("Solutions") || h3.innerText.includes("escalables")) h3.innerText = "Python Solutions";
+      if (h3.innerText.includes("Impact") || h3.innerText.includes("Directo")) h3.innerText = t.impact_title;
+      if (h3.innerText.includes("Specialization") || h3.innerText.includes("Especialización")) h3.innerText = t.special_title;
+    }
+    
+    if (p) {
+      if (p.innerText.includes("Advanced backend") || p.innerText.includes("Lógica de backend")) p.innerText = t.p1_desc;
+      if (p.innerText.includes("Scalable applications") || p.innerText.includes("Aplicaciones escalables")) p.innerText = t.p2_desc;
+      if (p.innerText.includes("Hardware/software") || p.innerText.includes("Integración de hardware")) p.innerText = t.p3_desc;
+      if (p.innerText.includes("solopreneur") || p.innerText.includes("emprendedor a dueño")) p.innerText = t.pod1_desc;
+      if (p.innerText.includes("Practical wisdom") || p.innerText.includes("Sabiduría práctica")) p.innerText = t.pod2_desc;
+    }
+
+    if (link) {
+      link.innerHTML = `${card.id === "projects-3" ? t.p_link_3 : t.p_link} <i class='bx bx-right-arrow-alt'></i>`;
+    }
+  });
+
+  document.querySelectorAll(".contact-content p").forEach(p => p.innerText = t.contact_desc);
+  document.querySelectorAll(".welcome-msg").forEach(msg => msg.innerText = t.t_welcome);
+  document.querySelectorAll(".instruction-msg").forEach(msg => msg.innerText = t.t_instr);
+  document.querySelectorAll(".terminal-output").forEach(out => {
+    if (out.innerText.includes("Cataño: Developer") || out.innerText.includes("Cataño: Desarrollador")) out.innerText = t.t_whoami;
+  });
+
+  // Update button text for switcher
   langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
 }
 
