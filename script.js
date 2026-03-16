@@ -28,11 +28,13 @@ function setButtonsDisabled(disabled) {
  */
 const savedTheme = localStorage.getItem("theme");
 const darkContainer = document.querySelector("#dark-container");
-const darkContainerImg = document.querySelector(
-  "#dark-container .home-img img"
-);
+const darkContainerImg = document.querySelector("#dark-container .home-img img");
+const lightContainerImg = document.querySelector(".container:not(#dark-container) .home-img img");
 
-// High-contrast image for dark mode (Liquid Glass aesthetic)
+// Ensure both images are correctly assigned
+if (lightContainerImg) {
+    lightContainerImg.src = "Assets/headshot-color.png";
+}
 if (darkContainerImg) {
     darkContainerImg.src = "Assets/headshotbw.png";
 }
