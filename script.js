@@ -14,27 +14,36 @@ const darkContainerImg = document.querySelector(
 
 darkContainerImg.src = "Assets/headshotbw.png";
 
+function setButtonsDisabled(disabled) {
+  toggleIcons.forEach((btn) => {
+    if (disabled) {
+      btn.classList.add("disabled");
+      btn.disabled = true;
+    } else {
+      btn.classList.remove("disabled");
+      btn.disabled = false;
+    }
+  });
+}
+
 toggleIcons.forEach((toggle) => {
   toggle.addEventListener("click", () => {
-    // Disable all toggle buttons during transition to prevent race conditions
-    toggleIcons.forEach((btn) => {
-      btn.classList.add("disabled");
-      if (btn.tagName === "BUTTON") {
-        btn.disabled = true;
-      }
-    });
+    setButtonsDisabled(true);
 
     setTimeout(() => {
-      toggleIcons.forEach((btn) => {
-        btn.classList.remove("disabled");
-        if (btn.tagName === "BUTTON") {
-          btn.disabled = false;
-        }
-      });
+      setButtonsDisabled(false);
     }, 1500);
 
     icons.forEach((icon) => {
       icon.classList.toggle("bx-sun");
+    });
+
+    const isDarkMode = container.classList.contains("active");
+    const nextText = isDarkMode ? "Toggle dark mode" : "Toggle light mode";
+
+    toggleIcons.forEach((btn) => {
+      btn.setAttribute("aria-label", nextText);
+      btn.setAttribute("title", nextText);
     });
 
     container.classList.toggle("active");
