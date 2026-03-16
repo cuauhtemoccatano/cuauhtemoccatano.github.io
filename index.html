@@ -1,66 +1,273 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Cuauhtémoc Cataño - Web, Java and Python Developer Portfolio"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>Cuauhtémoc Cataño | Developer Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta name="description" content="Cuauhtémoc Cataño - Web, Java and Python Developer Portfolio" />
+    <!-- Standardized link to Boxicons with SRI for security -->
     <link
-      rel="stylesheet"
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+      integrity="sha384-42kyIPf7HDYLkGffmxDhSx/3Z/53wGBs3nD6wEFxsbeDc7rMO6mkYbkAcpRsnMU2"
+      crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
+    <!-- Skip link for accessibility -->
+    <a href="#home" class="skip-link">Skip to main content</a>
+    
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <div class="container" id="container">
       <header class="header">
         <a href="/" class="logo">Cuauhtémoc Cataño</a>
+        
+        <input type="checkbox" id="check" aria-hidden="true">
+        <label for="check" class="icons" aria-label="Open navigation menu">
+          <i class='bx bx-menu' id="menu-icon"></i>
+          <i class='bx bx-x' id="close-icon"></i>
+        </label>
 
         <nav class="navbar">
-          <a href="#home" class="active">Home</a>
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
+          <a href="#home" class="active" style="--i:1;">Home</a>
+          <a href="#about" style="--i:2;">About</a>
+          <a href="#skills" style="--i:3;">Skills</a>
+          <a href="#projects" style="--i:4;">Projects</a>
+          <a href="#podcasts" style="--i:5;">Podcasts</a>
+          <a href="#contact" style="--i:6;">Contact</a>
         </nav>
-
-        <button class="toggle-icon" aria-label="Toggle theme">
-          <i class="bx bx-moon"></i>
-        </button>
+        
+        <div class="header-actions">
+          <button class="lang-switch" id="lang-switch" aria-label="Switch Language">ES</button>
+          <button
+            class="toggle-icon"
+            aria-label="Toggle dark mode"
+            title="Toggle dark mode"
+          >
+            <i class="bx bx-moon"></i>
+          </button>
+        </div>
       </header>
 
       <main>
-        <section id="home" class="home">
+        <section class="home" id="home">
           <div class="home-content">
-            <h1>Web & Software Developer</h1>
-            <p>Crafting digital experiences with code and creativity</p>
+            <h1>Architecting Digital Transformation</h1>
+            <p>From lines of code to strategic business growth. I help founders and enterprises build robust software while maintaining the mindful vision of a leader.</p>
+            
             <div class="social-media">
               <a
                 href="https://github.com/cuauhtemoccatano"
                 aria-label="GitHub Profile"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <i class="bx bxl-github"></i>
               </a>
               <a
                 href="https://www.linkedin.com/in/cuauhtemoccatano/"
                 aria-label="LinkedIn Profile"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <i class="bx bxl-linkedin"></i>
               </a>
+              <a
+                href="https://www.instagram.com/cuauhtemoccatano/"
+                aria-label="Instagram Profile"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="bx bxl-instagram"></i>
+              </a>
             </div>
-            <a href="Assets/CV Cuauhtémoc Cataño.pdf" class="btn" download
-              >Download CV</a
-            >
+            
+            <a href="Assets/CV Cuauhtémoc Cataño.pdf" class="btn" download>Download CV</a>
           </div>
+          
           <div class="home-img">
             <img src="Assets/headshot-color.png" alt="Cuauhtémoc Cataño" />
           </div>
         </section>
+
+        <!-- Trust / Authority Banner -->
+        <div class="trust-bar">
+          <div class="trust-item">
+            <span class="trust-label">Strategic Vision</span>
+            <span class="trust-value">"De Emprendedor a Empresario" Podcast</span>
+          </div>
+          <div class="trust-item spacer"></div>
+          <div class="trust-item">
+            <span class="trust-label">Mindful Execution</span>
+            <span class="trust-value">"Viviendo como un Yogui" Podcast</span>
+          </div>
+        </div>
+
+        <!-- About Section -->
+        <section class="about" id="about">
+          <h2 class="section-title">About Me</h2>
+          <div class="about-container">
+            <div class="about-text">
+              <p>
+                I'm a versatile developer, UX designer, and content creator based in Mexico City. 
+                As the founder of <strong>Pilea Social Media Marketing Agency</strong>, I bridge the gap 
+                between technical prowess and strategic marketing.
+              </p>
+              <p>
+                Beyond code, I'm passionate about sharing knowledge. I host <strong>"De emprendedor a empresario"</strong> 
+                and <strong>"Viviendo como un yogui en sociedad"</strong>, exploring the intersection of business 
+                and mindful living.
+              </p>
+            </div>
+          </div>
+          
+          <!-- Interactive Terminal -->
+          <div class="terminal-window">
+            <div class="terminal-header">
+              <div class="terminal-buttons">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <div class="terminal-title">bash — cuauhtemoc — 80x24</div>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+              <div class="terminal-output welcome-msg">Welcome to Cuauhtémoc's interactive shell.</div>
+              <div class="terminal-output instruction-msg">Type 'help' to see a list of available commands.</div>
+              <br>
+              <div class="terminal-line">
+                <span class="prompt">guest@portfolio:~$</span>
+                <span class="typed-text">whoami</span>
+              </div>
+              <div class="terminal-output">
+                Cuauhtémoc Cataño: Developer, Founder, and Podcast Host.
+              </div>
+              <div class="terminal-line">
+                <span class="prompt">guest@portfolio:~$</span>
+                <input type="text" id="terminal-input" autofocus spellcheck="false">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills" id="skills">
+          <h2 class="section-title">Skills & Technologies</h2>
+          <div class="skills-grid bento-grid">
+            <div class="skill-card bento-item-large">
+              <i class='bx bxl-java'></i>
+              <h3>Java</h3>
+              <p>Core specialty. Advanced backend logic, multithreading, and distributed systems architecture.</p>
+            </div>
+            <div class="skill-card bento-item-medium">
+              <i class='bx bxl-python'></i>
+              <h3>Python</h3>
+              <p>Data science, automation scripts, and robust backend solutions.</p>
+            </div>
+            <div class="skill-card bento-item-small">
+              <i class='bx bxl-flutter'></i>
+              <h3>Flutter</h3>
+            </div>
+            <div class="skill-card bento-item-small">
+              <i class='bx bxl-html5'></i>
+              <h3>Web</h3>
+            </div>
+            <div class="skill-card bento-item-small">
+              <i class='bx bxl-react'></i>
+              <h3>React</h3>
+            </div>
+            <div class="skill-card bento-item-small">
+              <i class='bx bxl-postgresql'></i>
+              <h3>SQL</h3>
+            </div>
+          </div>
+        </section>
+
+        <!-- Engineering Excellence Section -->
+        <section class="engineering" id="projects">
+          <h2 class="section-title">Engineering Excellence</h2>
+          
+          <div class="engineering-container">
+            <!-- Projects -->
+            <div class="projects-grid">
+              <div class="project-card">
+                <h3>Java Comprehensive</h3>
+                <p>Advanced backend logic, patterns, and robust distributed implementations.</p>
+                <a href="https://github.com/cuauhtemoccatano/Java-comprehesive" class="project-link" target="_blank">View Repo <i class='bx bx-right-arrow-alt'></i></a>
+              </div>
+              <div class="project-card">
+                <h3>Python Solutions</h3>
+                <p>Scalable applications solving complex algorithmic and automation tasks.</p>
+                <a href="https://github.com/cuauhtemoccatano/Pyhton-soluctions" class="project-link" target="_blank">View Repo <i class='bx bx-right-arrow-alt'></i></a>
+              </div>
+              <div class="project-card">
+                <h3>Arduino/IoT</h3>
+                <p>Hardware/software integration for smart, connected real-world systems.</p>
+                <a href="https://github.com/cuauhtemoccatano" class="project-link" target="_blank">View Projects <i class='bx bx-right-arrow-alt'></i></a>
+              </div>
+            </div>
+
+            <!-- GitHub Evidence -->
+            <div class="stats-grid">
+              <div class="stats-card project-card">
+                <h3>Direct Impact (Stats)</h3>
+                <div class="stats-img-container">
+                  <img src="https://github-readme-stats.vercel.app/api?username=cuauhtemoccatano&show_icons=true&theme=transparent&hide_border=true&title_color=2563EB&text_color=09090B&icon_color=2563EB" alt="GitHub Stats" id="github-stats-img">
+                </div>
+              </div>
+              <div class="stats-card project-card">
+                <h3>Tech Specialization</h3>
+                <div class="stats-img-container">
+                  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=cuauhtemoccatano&layout=compact&theme=transparent&hide_border=true&title_color=2563EB&text_color=09090B" alt="Top Languages" id="github-langs-img">
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Podcasts Section -->
+        <section class="podcasts" id="podcasts">
+          <h2 class="section-title">Podcasts & Content</h2>
+          <div class="podcasts-grid">
+            <div class="podcast-card project-card">
+              <div class="podcast-badge">Business</div>
+              <h3>De Emprendedor a Empresario</h3>
+              <p>Exploring the journey of transformation from a solopreneur to a business owner with strategic vision.</p>
+              <div class="podcast-player">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/show/5R6uB1Z5O7Z3h9X1H2m3Y4?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+            <div class="podcast-card project-card">
+              <div class="podcast-badge">Mindfulness</div>
+              <h3>Viviendo como un Yogui en Sociedad</h3>
+              <p>Practical wisdom on maintaining inner peace and yogic principles in the modern, fast-paced world.</p>
+              <div class="podcast-player">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/show/3xO1W2v3H4Z5A6B7C8D9E0?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+          <h2 class="section-title">Ready to build the future?</h2>
+          <div class="contact-content card-glass">
+            <p>Whether you're scaling a vision or starting a journey, let's architect something remarkable together.</p>
+            <div class="contact-buttons">
+              <a href="mailto:cuauhtemoccatano@gmail.com" class="btn email-btn"><i class='bx bx-envelope'></i> Send an Email</a>
+              <a href="https://www.linkedin.com/in/cuauhtemoccatano/" class="btn secondary-btn" target="_blank"><i class='bx bxl-linkedin'></i> LinkedIn</a>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
+    
     <script src="script.js"></script>
   </body>
 </html>
