@@ -399,5 +399,12 @@ langSwitches.forEach(btn => {
   btn.addEventListener("click", () => {
     currentLang = currentLang === "EN" ? "ES" : "EN";
     updateLanguage(currentLang);
+    localStorage.setItem("preferredLang", currentLang);
   });
 });
+
+// Initialize Language on Load
+const savedLang = localStorage.getItem("preferredLang");
+const browserLang = navigator.language.startsWith("es") ? "ES" : "EN";
+currentLang = savedLang || browserLang;
+updateLanguage(currentLang);
