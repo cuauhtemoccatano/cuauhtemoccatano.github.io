@@ -215,10 +215,10 @@ h1, h2, h3, .logo {
 
 /* Home Section */
 .home {
-  height: 100vh;
+  min-height: 80vh;
   display: flex;
   align-items: center;
-  padding: 60px 10% 0;
+  padding: 100px 10%;
   position: relative;
   overflow: hidden;
 }
@@ -345,11 +345,10 @@ section {
   justify-content: center;
   align-items: center;
   gap: 40px;
-  background: rgba(255, 255, 255, 0.02);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(15, 23, 42, 0.03); /* Darker tint for light mode */
+  border: 1px solid rgba(15, 23, 42, 0.08);
   padding: 15px 0;
-  margin: 40px var(--margin-standard);
+  margin: 40px 10%;
   backdrop-filter: blur(10px);
   border-radius: 12px;
 }
@@ -378,7 +377,7 @@ section {
 .trust-item.spacer {
   height: 30px;
   width: 1px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.1);
 }
 
 @media screen and (max-width: 768px) {
@@ -427,11 +426,11 @@ section {
 }
 
 .terminal-header {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.3); /* Darker header for terminal */
   padding: 10px 15px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .terminal-buttons {
@@ -547,7 +546,7 @@ section {
 
 .skill-card {
   background: var(--card-bg);
-  border: 1px solid var(--card-border);
+  border: 1px solid rgba(15, 23, 42, 0.08); /* More visible border */
   backdrop-filter: var(--glass-blur);
   padding: 40px;
   border-radius: 24px;

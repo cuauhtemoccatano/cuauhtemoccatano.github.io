@@ -66,7 +66,7 @@ Currently represented by the high-contrast wordmark "Cuauhtémoc Cataño" in **A
 
 #### Accessibility
 - **Contrast Ratio**: 4.5:1 minimum for all functional text.
-- **Focus States**: 2px solid Electric Blue.
+- **Focus States**: 2px solid Electric Blue.-
 
 ### Typography
 
