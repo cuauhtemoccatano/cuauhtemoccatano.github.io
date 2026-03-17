@@ -257,16 +257,12 @@ const translations = {
   EN: {
     home: "Home", about: "About", services: "Services", skills: "Skills", projects: "Engineering", podcasts: "Podcasts", contact: "Contact",
     hero_title: "Crafting High-Performance Digital Presences",
-    hero_desc: "You know your business needs to be online, but you don't have to know how. I architect holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
+    hero_desc: "Architecting holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
     trust_label_1: "Brand Strategy", trust_label_2: "Technical Excellence",
     trust_val_1: "Holistic Digital Presence", trust_val_2: "Robust & Scalable Solutions",
     about_title: "The Visionary Behind the Code",
-    about_p1: "I'm more than a developer; I'm a strategic partner for business owners. With a deep background in marketing, branding, and communication, I don't just build websites—I create digital voices that resonate and convert.",
-    about_p2: "As the founder of Pilea and host of two business-focused podcasts, I understand that technology must serve a purpose: visibility, authority, and growth. I provide 'a la carte' digital solutions tailored to your unique business journey.",
-    skills_title: "The Strategic Toolkit",
-    s_java: "Enterprise-grade architecture. Building the robust, reliable backbone for complex business systems.",
-    s_python: "Data-driven automation and smart backend solutions that streamline business operations.",
-    eng_title: "Digital Engineering A La Carte",
+    about_p1: "I'm more than a developer; I'm a strategic partner. With a background in marketing and branding, I create digital voices that resonate.",
+    about_p2: "I provide 'a la carte' digital solutions tailored to your unique business journey.",
     services_title: "Digital Services A La Carte",
     suite_ads_title: "Omnichannel Advertising",
     s_ads_meta: "Meta Ads (FB & IG)",
@@ -294,33 +290,34 @@ const translations = {
     s_tech_apps: "App Development (Custom Apps)",
     s_tech_bots: "AI Chatbots & Flux Integrations",
     book_service: "Book Consultation",
+    skills_title: "The Strategic Toolkit",
+    s_java: "Enterprise-grade architecture. Building the robust backbone for complex systems.",
+    s_python: "Data-driven automation and smart backend solutions that streamline operations.",
+    eng_title: "Digital Engineering A La Carte",
     p1_desc: "Advanced backend logic, patterns, and robust distributed implementations.",
     p2_desc: "Scalable applications solving complex algorithmic and automation tasks.",
     p3_desc: "Hardware/software integration for smart, connected real-world systems.",
     p_link: "View Repo", p_link_3: "View Projects",
     impact_title: "Direct Impact (Stats)", special_title: "Tech Specialization",
     podcasts_title: "Podcasts & Content",
-    pod1_desc: "Exploring the journey of transformation from a solopreneur to a business owner with strategic vision.",
-    pod2_desc: "Practical wisdom on maintaining inner peace and yogic principles in the modern, fast-paced world.",
+    pod1_desc: "The journey from a solopreneur to a business owner with strategic vision.",
+    pod2_desc: "Practical wisdom on yogic principles in the modern world.",
     contact_title: "Ready to build the future?",
-    contact_desc: "Whether you're scaling a vision or starting a journey, let's architect something remarkable together.",
+    contact_desc: "Let's architect something remarkable together.",
     contact_email: "Send an Email", download_cv: "Download CV",
-    t_welcome: "Welcome to Cuauhtémoc's interactive shell.", t_instr: "Type 'help' to see available commands.",
+    t_welcome: "Welcome to Cuauhtémoc's interactive shell.",
+    t_instr: "Type 'help' for options.",
     t_whoami: "Cuauhtémoc Cataño: Developer, Founder, and Podcast Host."
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", podcasts: "Podcasts", contact: "Contacto",
     hero_title: "Presencia Digital de Alto Desempeño",
-    hero_desc: "Sabes que tu negocio debe estar en línea, pero no tienes por qué saber cómo. Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
+    hero_desc: "Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
     trust_label_1: "Estrategia de Marca", trust_label_2: "Excelencia Técnica",
     trust_val_1: "Presencia Digital Holística", trust_val_2: "Soluciones Robustas y Escalables",
-    about_title: "Visionario Detrás del Código",
-    about_p1: "Soy más que un desarrollador; soy un socio estratégico para dueños de negocio. Con una sólida formación en marketing, branding y comunicación, no solo programo sitios—creo voces digitales que resuenan y convierten.",
-    about_p2: "Como fundador de Pilea y host de dos podcasts de negocios, entiendo que la tecnología debe servir a un propósito: visibilidad, autoridad y crecimiento. Ofrezco soluciones digitales 'a la carta' adaptadas a cada etapa de tu empresa.",
-    skills_title: "Herramientas Estratégicas",
-    s_java: "Arquitectura de grado empresarial. El núcleo robusto y confiable para sistemas de negocio complejos.",
-    s_python: "Automatización basada en datos y soluciones inteligentes que optimizan las operaciones de tu empresa.",
-    eng_title: "Ingeniería Digital A La Carta",
+    about_title: "El Visionario Detrás del Código",
+    about_p1: "Soy más que un desarrollador; soy un socio estratégico. Con experiencia en marketing y branding, creo voces digitales que resuenan.",
+    about_p2: "Ofrezco soluciones digitales 'a la carta' adaptadas a tu camino empresarial único.",
     services_title: "Servicios Digitales A La Carta",
     suite_ads_title: "Publicidad Omnicanal",
     s_ads_meta: "Meta Ads (FB e IG)",
@@ -348,18 +345,22 @@ const translations = {
     s_tech_apps: "Desarrollo de Apps a la Medida",
     s_tech_bots: "Chatbots de IA e Integraciones",
     book_service: "Reservar Consultoría",
-    p1_desc: "Lógica de backend avanzada, patrones e implementaciones distribuidas robustas.",
-    p2_desc: "Aplicaciones escalables que resuelven tareas complejas de algoritmos y automatización.",
-    p3_desc: "Integración de hardware/software para sistemas conectados e inteligentes.",
-    p_link: "Ver Repositorio", p_link_3: "Ver Proyectos",
-    impact_title: "Impacto Directo (Stats)", special_title: "Especialización Técnica",
+    skills_title: "El Arsenal Estratégico",
+    s_java: "Arquitectura empresarial. El núcleo robusto y confiable para sistemas complejos.",
+    s_python: "Automatización inteligente y soluciones de backend que optimizan operaciones.",
+    eng_title: "Ingeniería Digital A La Carta",
+    p1_desc: "Lógica de backend avanzada, patrones e implementaciones robustas.",
+    p2_desc: "Aplicaciones escalables que resuelven tareas complejas de automatización.",
+    p3_desc: "Integración de hardware/software para sistemas inteligentes.",
+    p_link: "Ver Repo", p_link_3: "Ver Proyectos",
+    impact_title: "Impacto Directo", special_title: "Especialización Técnica",
     podcasts_title: "Podcasts y Contenido",
-    pod1_desc: "Explorando el viaje de transformación de emprendedor a dueño de negocio con visión estratégica.",
-    pod2_desc: "Sabiduría práctica para mantener la paz interior y los principios yóguicos en el mundo moderno.",
+    pod1_desc: "El viaje de emprendedor a dueño de negocio con visión estratégica.",
+    pod2_desc: "Sabiduría práctica sobre principios yóguicos en el mundo moderno.",
     contact_title: "¿Listo para construir el futuro?",
-    contact_desc: "Ya sea que estés escalando una visión o comenzando un viaje, construyamos algo increíble juntos.",
+    contact_desc: "Diseñemos algo extraordinario juntos.",
     contact_email: "Enviar Email", download_cv: "Descargar CV",
-    t_welcome: "Bienvenido a la terminal interactiva de Cuauhtémoc.", t_instr: "Escribe 'help' para ver los comandos disponibles.",
+    t_welcome: "Bienvenido a la terminal interactiva de Cuauhtémoc.", t_instr: "Escribe 'help' para ver opciones.",
     t_whoami: "Cuauhtémoc Cataño: Desarrollador, Fundador y Host de Podcast."
   }
 };
@@ -367,6 +368,7 @@ const translations = {
 function updateLanguage(lang) {
   const t = translations[lang];
   
+  // 1. Text Content with data-i18n
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.getAttribute("data-i18n");
     if (t[key]) {
@@ -378,15 +380,30 @@ function updateLanguage(lang) {
     }
   });
 
+  // 2. Section Titles Mapping
+  document.querySelectorAll(".section-title").forEach(title => {
+    const section = title.closest("section");
+    if (!section && title.parentElement.classList.contains("podcasts")) return;
+    
+    const id = section ? section.id : "";
+    const titleMap = {
+      about: t.about_title,
+      services: t.services_title,
+      skills: t.skills_title,
+      projects: t.eng_title,
+      podcasts: t.podcasts_title,
+      contact: t.contact_title
+    };
+    if (titleMap[id]) title.innerText = titleMap[id];
+  });
+
+  // 3. Dynamic Elements & Lists
   document.querySelectorAll(".home-content h1").forEach(h1 => h1.innerText = t.hero_title);
   document.querySelectorAll(".home-content p").forEach(p => p.innerText = t.hero_desc);
   
   document.querySelectorAll(".btn").forEach(btn => {
     if (btn.innerText.includes("CV") || btn.innerText.includes("Descargar") || btn.innerText.includes("Download")) {
       btn.innerText = t.download_cv;
-    }
-    if (btn.classList.contains("email-btn")) {
-      btn.innerHTML = `<i class='bx bx-envelope'></i> ${t.contact_email}`;
     }
   });
 
@@ -401,54 +418,26 @@ function updateLanguage(lang) {
     val.innerText = i % 2 === 0 ? t.trust_val_1 : t.trust_val_2;
   });
 
-  document.querySelectorAll(".section-title").forEach(title => {
-    const section = title.closest("section");
-    if (!section) return;
-    const map = { about: t.about_title, services: t.services_title, skills: t.skills_title, projects: t.eng_title, podcasts: t.podcasts_title, contact: t.contact_title };
-    if (map[section.id]) title.innerText = map[section.id];
+  document.querySelectorAll(".skill-card p").forEach(p => {
+    if (p.innerText.includes("Enterprise-grade") || p.innerText.includes("Arquitectura empresarial")) p.innerText = t.s_java;
+    if (p.innerText.includes("Data-driven") || p.innerText.includes("Automatización inteligente")) p.innerText = t.s_python;
   });
 
-  document.querySelectorAll(".skill-card").forEach(card => {
-    const p = card.querySelector("p");
-    if (p) {
-      if (p.innerText.includes("Core specialty") || p.innerText.includes("Especialidad principal")) p.innerText = t.s_java;
-      if (p.innerText.includes("Data science") || p.innerText.includes("Ciencia de datos")) p.innerText = t.s_python;
-    }
-  });
-
-  document.querySelectorAll(".project-card").forEach(card => {
-    const h3 = card.querySelector("h3");
-    const p = card.querySelector("p");
-    const link = card.querySelector(".project-link");
-    
-    if (h3) {
-      if (h3.innerText.includes("Comprehensive") || h3.innerText.includes("backend")) h3.innerText = "Java Comprehensive";
-      if (h3.innerText.includes("Solutions") || h3.innerText.includes("escalables")) h3.innerText = "Python Solutions";
-      if (h3.innerText.includes("Impact") || h3.innerText.includes("Directo")) h3.innerText = t.impact_title;
-      if (h3.innerText.includes("Specialization") || h3.innerText.includes("Especialización")) h3.innerText = t.special_title;
-    }
-    
-    if (p) {
-      if (p.innerText.includes("Advanced backend") || p.innerText.includes("Lógica de backend")) p.innerText = t.p1_desc;
-      if (p.innerText.includes("Scalable applications") || p.innerText.includes("Aplicaciones escalables")) p.innerText = t.p2_desc;
-      if (p.innerText.includes("Hardware/software") || p.innerText.includes("Integración de hardware")) p.innerText = t.p3_desc;
-      if (p.innerText.includes("solopreneur") || p.innerText.includes("emprendedor a dueño")) p.innerText = t.pod1_desc;
-      if (p.innerText.includes("Practical wisdom") || p.innerText.includes("Sabiduría práctica")) p.innerText = t.pod2_desc;
-    }
-
-    if (link) {
-      link.innerHTML = `${card.id === "projects-3" ? t.p_link_3 : t.p_link} <i class='bx bx-right-arrow-alt'></i>`;
-    }
+  document.querySelectorAll(".project-card p").forEach(p => {
+    if (p.innerText.includes("Advanced backend") || p.innerText.includes("Lógica de backend")) p.innerText = t.p1_desc;
+    if (p.innerText.includes("Scalable applications") || p.innerText.includes("Aplicaciones escalables")) p.innerText = t.p2_desc;
+    if (p.innerText.includes("Hardware/software") || p.innerText.includes("Integración de hardware")) p.innerText = t.p3_desc;
+    if (p.innerText.includes("solopreneur") || p.innerText.includes("emprendedor a dueño")) p.innerText = t.pod1_desc;
+    if (p.innerText.includes("wisdom") || p.innerText.includes("Sabiduría")) p.innerText = t.pod2_desc;
   });
 
   document.querySelectorAll(".contact-content p").forEach(p => p.innerText = t.contact_desc);
   document.querySelectorAll(".welcome-msg").forEach(msg => msg.innerText = t.t_welcome);
   document.querySelectorAll(".instruction-msg").forEach(msg => msg.innerText = t.t_instr);
   document.querySelectorAll(".terminal-output").forEach(out => {
-    if (out.innerText.includes("Cataño: Developer") || out.innerText.includes("Cataño: Desarrollador")) out.innerText = t.t_whoami;
+    if (out.innerText.includes("Cataño:") ) out.innerText = t.t_whoami;
   });
 
-  // Update button text for switcher
   langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
 }
 

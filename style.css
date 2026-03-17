@@ -155,17 +155,17 @@ h1, h2, h3, .logo {
 }
 
 .logo {
-  font-size: 26px;
+  font-size: 22px;
   color: var(--text-primary);
   font-weight: 700;
   margin-right: auto;
 }
 
 .navbar a {
-  font-size: 18px;
+  font-size: 16px;
   color: var(--text-primary);
   font-weight: 500;
-  margin-left: 35px;
+  margin-left: 20px;
   transition: 0.3s var(--ease-liquid);
 }
 
