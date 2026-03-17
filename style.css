@@ -1,16 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Light Mode - Liquid Glass */
+  /* Light Mode - Standard */
   --bg-primary: #FAFAFA;
-  --text-primary: #0F172A; /* Darker slate for better readability */
-  --text-muted: #475569; /* Slate-600 for subtext */
+  --text-primary: #0F172A;
+  --text-muted: #475569;
   --accent-color: #2563EB;
-  --card-bg: rgba(255, 255, 255, 0.7); /* More opaque for light mode */
-  --card-border: rgba(15, 23, 42, 0.1); /* Visible border in light mode */
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(15, 23, 42, 0.1);
   --glass-blur: blur(12px) saturate(180%);
   --transition-speed: 0.4s;
   --ease-liquid: cubic-bezier(0.4, 0, 0.2, 1);
+  --header-bg: rgba(255, 255, 255, 0.4);
+  --terminal-header: rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode {
+  --bg-primary: #09090B;
+  --text-primary: #F8FAFC;
+  --text-muted: #94A3B8;
+  --accent-color: #3B82F6;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --header-bg: rgba(9, 9, 11, 0.8);
+  --terminal-header: rgba(0, 0, 0, 0.5);
 }
 
 /* Reset and Global Styles */
@@ -131,13 +144,14 @@ h1, h2, h3, .logo {
   left: 0;
   width: 100%;
   padding: 30px 10%;
-  background: var(--card-bg);
+  background: var(--header-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border-bottom: 1px solid var(--card-border);
   display: flex;
   align-items: center;
   z-index: 500;
+  transition: background var(--transition-speed), border var(--transition-speed);
 }
 
 .logo {
@@ -773,8 +787,13 @@ section {
   filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
 }
 
-#dark-container #github-stats-img,
-#dark-container #github-langs-img {
+#github-stats-img,
+#github-langs-img {
+  transition: filter 0.5s var(--ease-liquid);
+}
+
+body.dark-mode #github-stats-img,
+body.dark-mode #github-langs-img {
   filter: invert(0.9) hue-rotate(180deg) brightness(1.2);
 }
 
@@ -789,62 +808,26 @@ section {
   margin-bottom: 30px;
 }
 
-/* Dark Mode Transition and Container */
-#dark-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100vh;
-  background: #09090B;
-  color: #FAFAFA;
-  clip-path: circle(0% at 0 0);
-  transition: clip-path 1.2s cubic-bezier(0.85, 0, 0.15, 1);
-  z-index: -1; /* Keep it below when not active to prevent blocking light mode */
+/* Theme Transition */
+body {
+  transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
-#dark-container section {
-  background: #09090B !important;
+.section-title {
+  color: var(--text-primary);
 }
 
-#dark-container .container { 
-  background: #09090B; 
+.home-img img {
+  transition: transform 0.5s var(--ease-liquid);
 }
 
-#dark-container .logo,
-#dark-container .navbar a,
-#dark-container .home-content h1,
-#dark-container .home-content p,
-#dark-container .toggle-icon,
-#dark-container .section-title,
-#dark-container .about-text p,
-#dark-container .skill-card h3,
-#dark-container .skill-card p,
-#dark-container .project-card h3,
-#dark-container .project-card p,
-#dark-container .project-link,
-#dark-container .contact-content p,
-#dark-container .trust-value,
-#dark-container .trust-label {
-  color: #F8FAFC !important; /* Slate-50 for peak contrast in dark mode */
-}
-
-#dark-container .skill-card p,
-#dark-container .project-card p,
-#dark-container .podcast-card p {
-  color: #94A3B8 !important; /* Slate-400 for muted text in dark mode */
-}
-
-#dark-container .podcast-card h3 {
-  background: linear-gradient(90deg, #F8FAFC, var(--accent-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+body.dark-mode .home-img img {
+  filter: grayscale(1) contrast(1.1);
 }
 
 /* Circle Transition Logic */
-.active#container,
-.active#dark-container {
-  z-index: 1500;
+.active#container {
+  /* This is now handled by body.dark-mode variables */
   clip-path: circle(150% at 0 0);
   transition: clip-path 1.2s cubic-bezier(0.85, 0, 0.15, 1);
 }

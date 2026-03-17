@@ -1,55 +1,22 @@
-// Main container handles the primary light/dark mode state
-const container = document.querySelector(".container");
-
-// Create a duplicate of the entire container for the transition effect
-const cloneContainer = container.cloneNode(true);
-cloneContainer.id = "dark-container";
-document.body.appendChild(cloneContainer);
-
-// Ensure the dark container starts inactive
-cloneContainer.classList.remove("active");
-
-// Select interactive elements from BOTH containers
-const toggleIcons = document.querySelectorAll(".toggle-icon");
-const icons = document.querySelectorAll(".toggle-icon i");
-
-/**
- * Safer Interaction Dispatcher (Prevent rapid clicking during transitions)
- */
-function setButtonsDisabled(disabled) {
-  const elements = document.querySelectorAll('.toggle-icon, .btn, .social-media a, .project-link');
-  elements.forEach(el => {
-    el.style.pointerEvents = disabled ? 'none' : 'auto';
-  });
-}
-
 /**
  * Theme Management Logic
  */
 const savedTheme = localStorage.getItem("theme");
-const darkContainer = document.querySelector("#dark-container");
-const darkContainerImg = document.querySelector("#dark-container .home-img img");
-const lightContainerImg = document.querySelector(".container:not(#dark-container) .home-img img");
-
-// Ensure both images are correctly assigned
-if (lightContainerImg) {
-    lightContainerImg.src = "Assets/headshot-color.png";
-}
-if (darkContainerImg) {
-    darkContainerImg.src = "Assets/headshotbw.png";
-}
+const homeImg = document.querySelector(".home-img img");
+const toggleIcons = document.querySelectorAll(".toggle-icon");
+const icons = document.querySelectorAll(".toggle-icon i");
 
 function applyTheme(theme) {
   if (theme === "dark") {
-    container.classList.add("active");
-    darkContainer.classList.add("active");
+    document.body.classList.add("dark-mode");
+    if (homeImg) homeImg.src = "Assets/headshotbw.png";
     icons.forEach((icon) => {
       icon.classList.add("bx-sun");
       icon.classList.remove("bx-moon");
     });
   } else {
-    container.classList.remove("active");
-    darkContainer.classList.remove("active");
+    document.body.classList.remove("dark-mode");
+    if (homeImg) homeImg.src = "Assets/headshot-color.png";
     icons.forEach((icon) => {
       icon.classList.remove("bx-sun");
       icon.classList.add("bx-moon");
@@ -80,8 +47,8 @@ toggleIcons.forEach((toggle) => {
 
     setButtonsDisabled(true);
 
-    const checkDark = container.classList.contains("active"); // Current state BEFORE toggling
-    const nextTheme = !checkDark ? "dark" : "light";
+    const isDark = document.body.classList.contains("dark-mode");
+    const nextTheme = !isDark ? "dark" : "light";
     
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
@@ -94,9 +61,19 @@ toggleIcons.forEach((toggle) => {
 
     setTimeout(() => {
       setButtonsDisabled(false);
-    }, 1200);
+    }, 400); // Faster feedback now that we don't have heavy cloning
   });
 });
+
+/**
+ * Safer Interaction Dispatcher (Prevent rapid clicking during transitions)
+ */
+function setButtonsDisabled(disabled) {
+  const elements = document.querySelectorAll('.toggle-icon, .btn, .social-media a, .project-link');
+  elements.forEach(el => {
+    el.style.pointerEvents = disabled ? 'none' : 'auto';
+  });
+}
 
 /**
  * Liquid Cursor Logic (Optimized for 60fps responsiveness)
