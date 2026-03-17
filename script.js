@@ -24,7 +24,7 @@ function setButtonsDisabled(disabled) {
 }
 
 /**
- * Handle Theme Toggle Event (Optimized with Jules' Dynamic Labels)
+ * Theme Management Logic
  */
 const savedTheme = localStorage.getItem("theme");
 const darkContainer = document.querySelector("#dark-container");
@@ -39,45 +39,62 @@ if (darkContainerImg) {
     darkContainerImg.src = "Assets/headshotbw.png";
 }
 
-if (savedTheme === "dark") {
-  // Apply theme immediately on load
-  container.classList.add("active");
-  darkContainer.classList.add("active");
-  icons.forEach((icon) => {
-    icon.classList.add("bx-sun");
-    icon.classList.remove("bx-moon");
-  });
+function applyTheme(theme) {
+  if (theme === "dark") {
+    container.classList.add("active");
+    darkContainer.classList.add("active");
+    icons.forEach((icon) => {
+      icon.classList.add("bx-sun");
+      icon.classList.remove("bx-moon");
+    });
+  } else {
+    container.classList.remove("active");
+    darkContainer.classList.remove("active");
+    icons.forEach((icon) => {
+      icon.classList.remove("bx-sun");
+      icon.classList.add("bx-moon");
+    });
+  }
 }
+
+// System Preference Selection
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+// 1. Initial Load: LocalStorage > System Preference
+if (savedTheme) {
+  applyTheme(savedTheme);
+} else {
+  applyTheme(prefersDark.matches ? "dark" : "light");
+}
+
+// 2. Real-time transition when system settings change (if no manual choice)
+prefersDark.addEventListener("change", (e) => {
+  if (!localStorage.getItem("theme")) {
+    applyTheme(e.matches ? "dark" : "light");
+  }
+});
 
 toggleIcons.forEach((toggle) => {
   toggle.addEventListener("click", () => {
-    // The 'disabled' class and attribute are no longer used for preventing clicks
-    // as pointer-events CSS property is now used.
-    // However, we can keep this check if 'disabled' class is used for styling.
     if (toggle.classList.contains("disabled")) return;
 
     setButtonsDisabled(true);
 
-    icons.forEach((icon) => {
-      icon.classList.toggle("bx-sun");
-      icon.classList.toggle("bx-moon");
-    });
+    const checkDark = container.classList.contains("active"); // Current state BEFORE toggling
+    const nextTheme = !checkDark ? "dark" : "light";
+    
+    applyTheme(nextTheme);
+    localStorage.setItem("theme", nextTheme);
 
-    const checkDark = container.classList.contains("active"); // Check current state BEFORE toggling
-    localStorage.setItem("theme", !checkDark ? "dark" : "light");
-
-    const nextText = !checkDark ? "Switch to light mode" : "Switch to dark mode";
+    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
     });
 
-    container.classList.toggle("active");
-    darkContainer.classList.toggle("active");
-
     setTimeout(() => {
       setButtonsDisabled(false);
-    }, 1200); // Jules suggested 1.2s for sync with 0.3s transitions
+    }, 1200);
   });
 });
 
