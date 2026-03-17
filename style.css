@@ -3,10 +3,11 @@
 :root {
   /* Light Mode - Liquid Glass */
   --bg-primary: #FAFAFA;
-  --text-primary: #09090B;
+  --text-primary: #0F172A; /* Darker slate for better readability */
+  --text-muted: #475569; /* Slate-600 for subtext */
   --accent-color: #2563EB;
-  --card-bg: rgba(255, 255, 255, 0.4);
-  --card-border: rgba(255, 255, 255, 0.2);
+  --card-bg: rgba(255, 255, 255, 0.7); /* More opaque for light mode */
+  --card-border: rgba(15, 23, 42, 0.1); /* Visible border in light mode */
   --glass-blur: blur(12px) saturate(180%);
   --transition-speed: 0.4s;
   --ease-liquid: cubic-bezier(0.4, 0, 0.2, 1);
@@ -622,28 +623,87 @@ section {
   border-color: var(--accent-color);
 }
 
-/* Podcasts Section */
-.podcasts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
+/* Podcasts Section - Studio Aesthetic */
+.podcasts {
+  background: radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 50%);
+}
+
+.podcast-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: var(--glass-blur);
+  padding: 40px;
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.5s var(--ease-liquid);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.podcast-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--accent-color);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.podcast-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(37, 99, 235, 0.1);
+  border-color: rgba(37, 99, 235, 0.3);
+}
+
+.podcast-card:hover::before {
+  opacity: 1;
 }
 
 .podcast-badge {
-  display: inline-block;
-  padding: 5px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
   background: rgba(37, 99, 235, 0.1);
   color: var(--accent-color);
-  border-radius: 20px;
-  font-size: 12px;
+  border-radius: 100px;
+  font-size: 13px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+  width: fit-content;
+}
+
+.podcast-card h3 {
+  font-size: 28px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--text-primary), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.podcast-card p {
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 30px;
 }
 
 .podcast-player {
-  margin-top: 20px;
+  margin-top: auto;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+  transition: transform 0.3s;
+}
+
+.podcast-card:hover .podcast-player {
+  transform: translateY(-5px);
 }
 
 .contact-content {
@@ -767,32 +827,19 @@ section {
 #dark-container .contact-content p,
 #dark-container .trust-value,
 #dark-container .trust-label {
-  color: #FAFAFA !important;
-}
-
-#dark-container .trust-label {
-  color: #60A5FA !important; /* Lighter blue for better dark contrast */
-}
-
-#dark-container .header,
-#dark-container .toggle-icon,
-#dark-container .social-media a,
-#dark-container .skill-card,
-#dark-container .project-card,
-#dark-container .card-glass {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
-  backdrop-filter: blur(16px) saturate(180%);
+  color: #F8FAFC !important; /* Slate-50 for peak contrast in dark mode */
 }
 
 #dark-container .skill-card p,
-#dark-container .project-card p {
-  color: rgba(250, 250, 250, 0.8) !important;
+#dark-container .project-card p,
+#dark-container .podcast-card p {
+  color: #94A3B8 !important; /* Slate-400 for muted text in dark mode */
 }
 
-#dark-container .navbar a:hover,
-#dark-container .navbar a.active {
-  color: var(--accent-color);
+#dark-container .podcast-card h3 {
+  background: linear-gradient(90deg, #F8FAFC, var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Circle Transition Logic */
