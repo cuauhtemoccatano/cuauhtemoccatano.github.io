@@ -215,10 +215,10 @@ h1, h2, h3, .logo {
 
 /* Home Section */
 .home {
-  min-height: 80vh;
+  height: 100vh;
   display: flex;
   align-items: center;
-  padding: 100px 10%;
+  padding: 60px 10% 0;
   position: relative;
   overflow: hidden;
 }
