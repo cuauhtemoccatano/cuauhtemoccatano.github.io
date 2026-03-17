@@ -378,13 +378,6 @@ function updateLanguage(lang) {
     }
   });
 
-  document.querySelectorAll(".navbar").forEach(nav => {
-    nav.querySelectorAll("a").forEach((link, index) => {
-      const keys = ["home", "about", "services", "skills", "projects", "podcasts", "contact"];
-      if (keys[index]) link.innerText = t[keys[index]];
-    });
-  });
-
   document.querySelectorAll(".home-content h1").forEach(h1 => h1.innerText = t.hero_title);
   document.querySelectorAll(".home-content p").forEach(p => p.innerText = t.hero_desc);
   
@@ -411,7 +404,7 @@ function updateLanguage(lang) {
   document.querySelectorAll(".section-title").forEach(title => {
     const section = title.closest("section");
     if (!section) return;
-    const map = { about: t.about_title, skills: t.skills_title, projects: t.eng_title, podcasts: t.podcasts_title, contact: t.contact_title };
+    const map = { about: t.about_title, services: t.services_title, skills: t.skills_title, projects: t.eng_title, podcasts: t.podcasts_title, contact: t.contact_title };
     if (map[section.id]) title.innerText = map[section.id];
   });
 
