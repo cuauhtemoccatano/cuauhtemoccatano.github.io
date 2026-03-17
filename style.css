@@ -505,6 +505,83 @@ section {
   color: rgba(255, 255, 255, 0.8);
 }
 
+/* Services Section */
+.services-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  padding: 40px 0;
+}
+
+.service-suite {
+  padding: 35px;
+  border: 1px solid var(--card-border);
+  transition: transform 0.4s var(--ease-liquid), border-color 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 420px;
+}
+
+.service-suite:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--accent-color);
+}
+
+.suite-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.suite-header i {
+  font-size: 2.5rem;
+  color: var(--accent-color);
+  background: rgba(37, 99, 235, 0.1);
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.suite-header h3 {
+  font-size: 1.6rem;
+  font-family: 'Archivo', sans-serif;
+  color: var(--text-primary);
+}
+
+.service-list {
+  list-style: none;
+  margin-bottom: 30px;
+  flex-grow: 1;
+}
+
+.service-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+}
+
+body.dark-mode .service-list li {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.service-list li::before {
+  content: "→";
+  color: var(--accent-color);
+  margin-right: 12px;
+  font-weight: bold;
+}
+
+.service-btn {
+  width: 100%;
+  margin-top: auto;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
 /* Skills Section */
 .skills {
   background: rgba(37, 99, 235, 0.02);
@@ -697,8 +774,9 @@ section {
   line-height: 1.2;
   margin-bottom: 16px;
   font-weight: 700;
-  background: linear-gradient(90deg, var(--text-primary), var(--accent-color));
+  background: linear-gradient(90deg, #F8FAFC, var(--accent-color));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

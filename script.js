@@ -267,6 +267,33 @@ const translations = {
     s_java: "Enterprise-grade architecture. Building the robust, reliable backbone for complex business systems.",
     s_python: "Data-driven automation and smart backend solutions that streamline business operations.",
     eng_title: "Digital Engineering A La Carte",
+    services_title: "Digital Services A La Carte",
+    suite_ads_title: "Omnichannel Advertising",
+    s_ads_meta: "Meta Ads (FB & IG)",
+    s_ads_google: "Google & YouTube Ads",
+    s_ads_pro: "LinkedIn, Amazon & Pinterest",
+    s_ads_niche: "TikTok, Waze & Snapchat Ads",
+    suite_media_title: "Content & Media Studio",
+    s_media_podcast: "Full Podcast Production & Editing",
+    s_media_video: "High-End Video Production",
+    s_media_shorts: "Short-form Video & AI Captions",
+    s_media_ar: "Custom AR Filters for Socials",
+    suite_brand_title: "Identity & Brand Strategy",
+    s_brand_manual: "Brand Identity & Manual Creation",
+    s_brand_logo: "Logo Design & Visual Assets",
+    s_brand_ebook: "E-book Design & Publication",
+    s_brand_story: "Brand Storytelling & Copy",
+    suite_biz_title: "Operations & Growth",
+    s_biz_pa: "Virtual PA & Agenda Management",
+    s_biz_sm: "Full Social Media Management",
+    s_biz_email: "Email Marketing & Automation",
+    s_biz_leads: "Sales Prototyping & Lead Gen",
+    suite_tech_title: "Digital Engineering",
+    s_tech_web: "Custom Shopify & Web Design",
+    s_tech_seo: "SEO & Web Performance Audit",
+    s_tech_apps: "App Development (Custom Apps)",
+    s_tech_bots: "AI Chatbots & Flux Integrations",
+    book_service: "Book Consultation",
     p1_desc: "Advanced backend logic, patterns, and robust distributed implementations.",
     p2_desc: "Scalable applications solving complex algorithmic and automation tasks.",
     p3_desc: "Hardware/software integration for smart, connected real-world systems.",
@@ -294,6 +321,33 @@ const translations = {
     s_java: "Arquitectura de grado empresarial. El núcleo robusto y confiable para sistemas de negocio complejos.",
     s_python: "Automatización basada en datos y soluciones inteligentes que optimizan las operaciones de tu empresa.",
     eng_title: "Ingeniería Digital A La Carta",
+    services_title: "Servicios Digitales A La Carta",
+    suite_ads_title: "Publicidad Omnicanal",
+    s_ads_meta: "Meta Ads (FB e IG)",
+    s_ads_google: "Google y YouTube Ads",
+    s_ads_pro: "LinkedIn, Amazon y Pinterest",
+    s_ads_niche: "TikTok, Waze y Snapchat Ads",
+    suite_media_title: "Estudio de Contenido y Medios",
+    s_media_podcast: "Producción y Edición de Podcast",
+    s_media_video: "Producción de Video de Alta Gama",
+    s_media_shorts: "Videos Cortos y Subtítulos con IA",
+    s_media_ar: "Filtros AR para Redes Sociales",
+    suite_brand_title: "Identidad y Estrategia de Marca",
+    s_brand_manual: "Manuales de Identidad de Marca",
+    s_brand_logo: "Diseño de Logo y Activos Visuales",
+    s_brand_ebook: "Diseño y Publicación de E-books",
+    s_brand_story: "Storytelling y Copy de Marca",
+    suite_biz_title: "Operaciones y Crecimiento",
+    s_biz_pa: "Asistente Virtual y Gestión de Agenda",
+    s_biz_sm: "Gestión Integral de Redes Sociales",
+    s_biz_email: "Email Marketing y Automatización",
+    s_biz_leads: "Prototipado de Ventas y Lead Gen",
+    suite_tech_title: "Ingeniería Digital",
+    s_tech_web: "Diseño Web y Shopify Personalizado",
+    s_tech_seo: "Auditoría de SEO y Rendimiento Web",
+    s_tech_apps: "Desarrollo de Apps a la Medida",
+    s_tech_bots: "Chatbots de IA e Integraciones",
+    book_service: "Reservar Consultoría",
     p1_desc: "Lógica de backend avanzada, patrones e implementaciones distribuidas robustas.",
     p2_desc: "Aplicaciones escalables que resuelven tareas complejas de algoritmos y automatización.",
     p3_desc: "Integración de hardware/software para sistemas conectados e inteligentes.",
@@ -313,10 +367,20 @@ const translations = {
 function updateLanguage(lang) {
   const t = translations[lang];
   
-  // Update all instances (Main and Dark Clone)
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (t[key]) {
+      if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+        el.placeholder = t[key];
+      } else {
+        el.innerText = t[key];
+      }
+    }
+  });
+
   document.querySelectorAll(".navbar").forEach(nav => {
     nav.querySelectorAll("a").forEach((link, index) => {
-      const keys = ["home", "about", "skills", "projects", "podcasts", "contact"];
+      const keys = ["home", "about", "services", "skills", "projects", "podcasts", "contact"];
       if (keys[index]) link.innerText = t[keys[index]];
     });
   });
@@ -400,6 +464,25 @@ langSwitches.forEach(btn => {
     currentLang = currentLang === "EN" ? "ES" : "EN";
     updateLanguage(currentLang);
     localStorage.setItem("preferredLang", currentLang);
+  });
+});
+
+/**
+ * Service Button Logic (Stripe Integration Ready)
+ */
+document.querySelectorAll(".service-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    // Placeholder for Stripe Payment Link Redirect
+    // window.location.href = "https://buy.stripe.com/your_payment_link_here";
+    
+    // For now, scroll to contact section
+    const contactSection = document.querySelector("#contact");
+    if (contactSection) {
+      window.scrollTo({
+        top: contactSection.offsetTop - 80,
+        behavior: "smooth"
+      });
+    }
   });
 });
 
