@@ -212,6 +212,10 @@ const commands = {
 };
 
 if (terminalInput) {
+  terminalBody.addEventListener("click", () => {
+    terminalInput.focus();
+  });
+
   terminalInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       const input = terminalInput.value.toLowerCase().trim();
