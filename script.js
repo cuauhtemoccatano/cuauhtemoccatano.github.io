@@ -255,7 +255,7 @@ const langSwitches = document.querySelectorAll(".lang-switch");
 let currentLang = "EN";
 const translations = {
   EN: {
-    home: "Home", about: "About", skills: "Skills", projects: "Engineering", podcasts: "Podcasts", contact: "Contact",
+    home: "Home", about: "About", services: "Services", skills: "Skills", projects: "Engineering", podcasts: "Podcasts", contact: "Contact",
     hero_title: "Crafting High-Performance Digital Presences",
     hero_desc: "You know your business needs to be online, but you don't have to know how. I architect holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
     trust_label_1: "Brand Strategy", trust_label_2: "Technical Excellence",
@@ -309,7 +309,7 @@ const translations = {
     t_whoami: "Cuauhtémoc Cataño: Developer, Founder, and Podcast Host."
   },
   ES: {
-    home: "Inicio", about: "Sobre Mí", skills: "Habilidades", projects: "Ingeniería", podcasts: "Podcasts", contact: "Contacto",
+    home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", podcasts: "Podcasts", contact: "Contacto",
     hero_title: "Presencia Digital de Alto Desempeño",
     hero_desc: "Sabes que tu negocio debe estar en línea, pero no tienes por qué saber cómo. Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
     trust_label_1: "Estrategia de Marca", trust_label_2: "Excelencia Técnica",
