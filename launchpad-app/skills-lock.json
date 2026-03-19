@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "skills": {
+    "antigravity-design-expert": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "4d38da9c8cecd42762c066637ddce028d1e39aa02fe8cec158e4f03c62ab4fe6"
+    },
+    "api-documentation": {
+      "source": "supercent-io/skills-template",
+      "sourceType": "github",
+      "computedHash": "0e161c4a4f3a3f5bd6949a1ebc833fd61d29f35a4fed307567a8114d003a95fc"
+    },
+    "audit-website": {
+      "source": "squirrelscan/skills",
+      "sourceType": "github",
+      "computedHash": "2c060290f90340e8bb6009502ec936b8ebb3ff889332a43e24bf210528ebba9f"
+    },
+    "branding": {
+      "source": "omer-metin/skills-for-antigravity",
+      "sourceType": "github",
+      "computedHash": "7ed51f00b3422d549d18912748caa85278b17f7b78da43b242ea7ce7a0c8766c"
+    },
+    "create-oo-component-documentation": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "c269a6b3508f07c7fd7c682d4df0badb96f048b5738781fd7682b963c66200d6"
+    },
+    "documentation-writer": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "ee53d65b163cd7eb953a930c95841cfe398cc2c0bd24c06508bbaa07c432be35"
+    },
+    "n8n-workflow-patterns": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "2d9140ca284f5cbf26db8c5ceb1d48b87d81d9b9c493d70074e8cf1e8c054a16"
+    },
+    "nextjs-react-typescript": {
+      "source": "mindrally/skills",
+      "sourceType": "github",
+      "computedHash": "eb995cc826bf48498e0e90969fc7dadfa2ec634002c26cfcfde565134cefa738"
+    },
+    "product-manager-toolkit": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "0881707318feb56179eb769e9710557645aeb3e4c6170afd79561bf29eed5783"
+    },
+    "seo-audit": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "27b04d35ca804d6340f6d791b7f724d4d3706860bab5e54eb031e2c65e42ab27"
+    },
+    "seo-structure-architect": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "242a5e5885a9d87399cf51e31114bc505c18ba71c7b42918a90b06e4836c05f0"
+    },
+    "stripe-integration": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "71eddd454ea79d52dd9f0c3f52d4257cc4c949a5d13679ae254edf5b22818d69"
+    },
+    "ui-ux-pro-max": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "computedHash": "0a413bf988d06481f69bb81df2070741c3ba12dd9f1be2706d57f259c905992d"
+    }
+  }
+}

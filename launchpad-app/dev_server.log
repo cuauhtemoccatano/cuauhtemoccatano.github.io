@@ -1,0 +1,18 @@
+
+> launchpad-builder@0.2.5 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 1314ms
+(node:26541) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ○ Compiling /intelligence ...
+ ✓ Compiled /intelligence in 3.4s (1487 modules)
+ GET /intelligence 200 in 3569ms
+ GET /intelligence 200 in 48ms
+ GET /intelligence 200 in 23ms
+ ✓ Compiled in 521ms (1478 modules)
+[?25h
