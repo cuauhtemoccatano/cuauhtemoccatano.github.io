@@ -12,6 +12,7 @@
   --glass-border: rgba(15, 23, 42, 0.12);
   --glass-blur: blur(24px) saturate(180%);
   --glass-shadow: 0 8px 32px 0 rgba(13, 80, 255, 0.07);
+  --glass-panel-bg: rgba(255, 255, 255, 0.95);
   
   --brand-accent: #2563EB;
   --brand-accent-secondary: #3B82F6;
@@ -32,9 +33,11 @@
   --text-primary: #F8FAFC;
   --text-muted: #94A3B8;
   
-  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(9, 9, 11, 0.7);
   --glass-border: rgba(255, 255, 255, 0.12);
   --glass-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.8);
+  --glass-blur: blur(40px) saturate(200%);
+  --glass-panel-bg: rgba(15, 15, 20, 0.85);
 
   --foreground-rgb: 248, 250, 252;
   --background-rgb: 9, 9, 11;

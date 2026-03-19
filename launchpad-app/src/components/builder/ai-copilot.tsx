@@ -41,7 +41,8 @@ export function AiCopilot({
 
       {/* Premium Copilot Panel */}
       {isOpen && (
-        <div className="absolute bottom-20 right-0 w-[420px] h-[600px] rounded-3xl overflow-hidden shadow-[var(--glass-shadow)] border border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-3xl animate-in slide-in-from-bottom-5 duration-300 flex flex-col">
+        <div className="absolute bottom-24 right-0 w-[440px] h-[650px] rounded-[32px] overflow-hidden shadow-[0_24px_80px_-12px_rgba(0,0,0,0.5)] border border-white/10 bg-[var(--glass-panel-bg)] backdrop-blur-[40px] animate-in slide-in-from-bottom-5 duration-300 flex flex-col">
+          <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-transparent to-zinc-950/40 pointer-events-none" />
           {/* Neural Header */}
           <div className="p-8 bg-zinc-950/50 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -82,12 +83,12 @@ export function AiCopilot({
 
           {/* Interactive Core */}
           <div className="flex-1 p-8 overflow-y-auto space-y-6">
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+            <div className="p-6 rounded-2xl bg-zinc-950/40 backdrop-blur-md border border-white/5 space-y-3 shadow-inner">
               <div className="flex items-center gap-2 text-brand-400">
                 <Shield className="h-4 w-4" />
-                <span className="text-[10px] font-black uppercase tracking-widest">System Insights</span>
+                <span className="text-[10px] font-black uppercase tracking-widest\">System Insights</span>
               </div>
-              <p className="text-sm text-zinc-300 leading-relaxed font-medium">
+              <p className="text-sm text-zinc-100 leading-relaxed font-bold tracking-tight">
                 {language === "es" 
                   ? "Analizando el estado actual. He detectado 3 oportunidades de optimización." 
                   : "Analyzing current project status. I've detected 3 optimization opportunities."}
