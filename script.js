@@ -536,12 +536,28 @@ const suiteMap = {
 document.querySelectorAll(".service-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     // Identify service
-    const suiteTitle = btn.parentElement.querySelector("h3")?.innerText.trim();
-    if (suiteTitle && suiteMap[suiteTitle]) {
+    const h3Element = btn.parentElement.querySelector("h3");
+    const suiteTitle = h3Element?.innerText.trim();
+    const i18nKey = h3Element?.getAttribute("data-i18n");
+    
+    const keyMap = {
+      "suite_ads_title": "Ads",
+      "suite_media_title": "Media",
+      "suite_brand_title": "Brand",
+      "suite_biz_title": "Growth",
+      "suite_tech_title": "Engineering"
+    };
+
+    console.log("Suite Detected:", { suiteTitle, i18nKey });
+
+    if (i18nKey && keyMap[i18nKey]) {
+      serviceSelect.value = keyMap[i18nKey];
+    } else if (suiteTitle && suiteMap[suiteTitle]) {
       serviceSelect.value = suiteMap[suiteTitle];
     } else {
       serviceSelect.value = "General";
     }
+    console.log("Pre-selected Value:", serviceSelect.value);
 
     // Reset flow
     step1.classList.add("active");
