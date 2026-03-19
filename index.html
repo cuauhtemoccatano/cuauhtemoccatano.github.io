@@ -47,8 +47,9 @@
           <a href="#services" style="--i:3;" data-i18n="services">Services</a>
           <a href="#skills" style="--i:4;" data-i18n="skills">Skills</a>
           <a href="#projects" style="--i:5;" data-i18n="projects">Engineering</a>
-          <a href="#podcasts" style="--i:6;" data-i18n="podcasts">Podcasts</a>
-          <a href="#contact" style="--i:7;" data-i18n="contact">Contact</a>
+          <a href="/launchpad-app" style="--i:6;" data-i18n="launchpad_hub">Launchpad</a>
+          <a href="#podcasts" style="--i:7;" data-i18n="podcasts">Podcasts</a>
+          <a href="#contact" style="--i:8;" data-i18n="contact">Contact</a>
         </nav>
         
         <div class="header-actions">
@@ -326,6 +327,50 @@
           </div>
         </section>
 
+        <!-- Brand Discovery Section (Move 3 - Lead Gen) -->
+        <section class="discovery reveal" id="discovery">
+          <div class="discovery-container glass">
+            <div class="discovery-content">
+              <h2 class="section-title" data-i18n="discovery_title">Discover Your Brand's Potential</h2>
+              <p class="section-desc" data-i18n="discovery_desc">Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.</p>
+              
+              <div class="scan-box">
+                <input type="url" id="scan-url" placeholder="https://yourbrand.com" required>
+                <button id="start-scan" class="scan-btn">
+                  <span data-i18n="scan_now">Scan Now</span>
+                  <i class='bx bx-zap'></i>
+                </button>
+              </div>
+
+              <div id="scan-results" class="scan-results-container hidden">
+                <div class="score-circle">
+                  <svg viewBox="0 0 36 36" class="circular-chart">
+                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path id="score-path" class="circle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text x="18" y="20.35" class="percentage" id="score-text">0</text>
+                  </svg>
+                </div>
+                <div class="results-info">
+                  <h4 id="vitals-message" data-i18n="analyzing">Analyzing...</h4>
+                  <div class="vitals-grid">
+                    <div class="vital-item">
+                      <span class="label" data-i18n="performance">Performance</span>
+                      <div class="bar-bg"><div id="bar-perf" class="bar" style="width: 0%"></div></div>
+                    </div>
+                    <div class="vital-item">
+                      <span class="label" data-i18n="identity">Identity</span>
+                      <div class="bar-bg"><div id="bar-ident" class="bar" style="width: 0%"></div></div>
+                    </div>
+                  </div>
+                  <a href="/launchpad-app" class="btn-primary" style="margin-top: 1.5rem; text-decoration: none;">
+                    <span data-i18n="get_full_report">Get Full Intelligence Report</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- Contact Section -->
         <section class="contact reveal" id="contact">
           <h2 class="section-title">Ready to build the future?</h2>
@@ -342,6 +387,84 @@
       </main>
     </div>
     
+    <!-- Premium Booking Modal -->
+    <div class="modal-overlay" id="bookingModal">
+      <div class="modal-content card-glass">
+        <button class="modal-close" aria-label="Close Modal">&times;</button>
+        <div class="modal-header">
+          <h2 data-i18n="modal_title">Book a Discovery Call</h2>
+          <p data-i18n="modal_desc">45 minutes to architect your digital future.</p>
+        </div>
+        <div id="scheduler-container">
+          <!-- Multi-step Booking Flow -->
+          <div class="booking-flow" id="bookingFlow">
+            <!-- Step 1: Info Capture -->
+            <div class="booking-step active" id="step1">
+              <form id="leadCaptureForm" class="premium-form">
+                <div class="input-group">
+                  <input type="text" id="leafName" required placeholder=" ">
+                  <label for="leafName" data-i18n="form_name">Your Name</label>
+                </div>
+                <div class="input-group">
+                  <input type="email" id="leafEmail" required placeholder=" ">
+                  <label for="leafEmail" data-i18n="form_email">Email Address</label>
+                </div>
+                <div class="input-group">
+                  <select id="leafService">
+                    <option value="General" selected data-i18n="suite_general">General Consultation</option>
+                    <option value="Ads" data-i18n="suite_ads_title">Omnichannel Advertising</option>
+                    <option value="Media" data-i18n="suite_media_title">Content & Media Studio</option>
+                    <option value="Brand" data-i18n="suite_brand_title">Identity & Brand Strategy</option>
+                    <option value="Growth" data-i18n="suite_biz_title">Operations & Growth</option>
+                    <option value="Engineering" data-i18n="suite_tech_title">Digital Engineering</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary full-width">
+                  <span data-i18n="btn_next">Pick a Time</span> <i class='bx bx-right-arrow-alt'></i>
+                </button>
+              </form>
+            </div>
+
+            <!-- Step 2: Custom Calendar / Scheduler -->
+            <div class="booking-step" id="step2">
+              <div class="scheduler-header">
+                <button class="back-btn" id="backToStep1"><i class='bx bx-left-arrow-alt'></i></button>
+                <h3 data-i18n="pick_time">Select Date & Time</h3>
+              </div>
+              <!-- Custom Calendar UI or Calendly Embed will go here -->
+              <div id="calendar-anchor">
+                <div class="scheduler-loader">
+                  <div class="spinner"></div>
+                  <p data-i18n="syncing">Syncing availability...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Oracle: AI Brand Voice Assistant -->
+    <div class="oracle-wrapper">
+      <div id="oracle-chat" class="oracle-chat glass hidden">
+        <div class="oracle-header">
+          <i class='bx bx-brain'></i>
+          <span data-i18n="oracle_name">The Oracle</span>
+          <button id="close-oracle"><i class='bx bx-x'></i></button>
+        </div>
+        <div id="oracle-messages" class="oracle-messages">
+          <div class="message bot" data-i18n="oracle_welcome">Welcome. Speak your strategy, and I shall architect the path.</div>
+        </div>
+        <div class="oracle-input-area">
+          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder">
+          <button id="send-oracle"><i class='bx bxs-send'></i></button>
+        </div>
+      </div>
+      <button id="oracle-toggle" class="oracle-toggle glass">
+        <i class='bx bx-message-square-detail'></i>
+      </button>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>

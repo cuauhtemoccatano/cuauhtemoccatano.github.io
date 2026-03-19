@@ -199,54 +199,77 @@ tiltCards.forEach((card) => {
 /**
  * Interactive Terminal Logic
  */
+/**
+ * Advanced Command Center Logic (Phase 3)
+ */
 const terminalInput = document.getElementById("terminal-input");
 const terminalBody = document.getElementById("terminal-body");
 
-const commands = {
-  help: "Available commands: help, whoami, skills, projects, clear, ls",
-  whoami: "Cuauhtémoc Cataño: Developer, Founder, and Podcast Host.",
-  skills: "Java, Python, Flutter, JavaScript, React, SQL, Arduino, IoT.",
-  projects: "Java Comprehensive, Python Solutions, IoT Smart Systems.",
-  ls: "about.txt  skills.py  projects.java  contact.log",
-  clear: ""
+const appendTerminalOutput = (text, type = "output") => {
+  const output = document.createElement("div");
+  output.className = `terminal-${type}`;
+  output.innerText = text;
+  terminalBody.insertBefore(output, terminalInput.parentElement);
+  terminalBody.scrollTop = terminalBody.scrollHeight;
 };
 
 if (terminalInput) {
-  terminalInput.addEventListener("keydown", (e) => {
+  terminalInput.addEventListener("keydown", async (e) => {
     if (e.key === "Enter") {
-      const input = terminalInput.value.toLowerCase().trim();
+      const fullInput = terminalInput.value.trim();
+      if (!fullInput) return;
+
+      const [cmd, ...args] = fullInput.toLowerCase().split(' ');
       
-      // Create a copy of the line with the static input
+      // Echo command
       const line = document.createElement("div");
       line.className = "terminal-line";
-      line.innerHTML = `<span class="prompt">guest@portfolio:~$</span> <span>${input}</span>`;
-      
-      // Clear the current input line
-      terminalInput.value = "";
-      
-      // Insert the previous command line before the actual input line
+      line.innerHTML = `<span class="prompt">founder@brand:~$</span> <span>${fullInput}</span>`;
       terminalBody.insertBefore(line, terminalInput.parentElement);
+      terminalInput.value = "";
 
-      if (input === "clear") {
+      if (cmd === "clear") {
         const lines = terminalBody.querySelectorAll(".terminal-line, .terminal-output");
-        lines.forEach(l => {
-          if (!l.contains(terminalInput)) l.remove();
-        });
+        lines.forEach(l => { if (!l.contains(terminalInput)) l.remove(); });
         return;
       }
 
-      const output = document.createElement("div");
-      output.className = "terminal-output";
-      const res = commands[input] || `Command not found: ${input}. Type 'help' for options.`;
-      output.innerText = (input === "whoami" && currentLang === "ES") ? translations.ES.t_whoami : res;
+      if (cmd === "oracle") {
+        document.getElementById('oracle-chat')?.classList.remove('hidden');
+        appendTerminalOutput("Opening The Oracle interface...", "output");
+        return;
+      }
+
+      // API-based commands
+      appendTerminalOutput("Processing...", "output");
+      const lastOutput = terminalInput.parentElement.previousElementSibling;
+
+      try {
+        // Dynamic API Base for local development
+        const apiBase = window.location.port !== '3000' ? 'http://localhost:3000' : '';
+        const response = await fetch(`${apiBase}/api/terminal/bridge`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ command: cmd, args })
+        });
+        const data = await response.json();
+
+        
+        if (lastOutput.classList.contains('terminal-output') && lastOutput.innerText === "Processing...") {
+          lastOutput.innerText = data.output || data.error;
+        } else {
+          appendTerminalOutput(data.output || data.error, "output");
+        }
+      } catch (err) {
+        if (lastOutput.innerText === "Processing...") lastOutput.innerText = "Bridge connection lost.";
+        else appendTerminalOutput("Bridge connection lost.", "output");
+      }
       
-      terminalBody.insertBefore(output, terminalInput.parentElement);
-      
-      // Scroll to bottom
       terminalBody.scrollTop = terminalBody.scrollHeight;
     }
   });
 }
+
 
 /**
  * Multi-language Support Logic
@@ -255,7 +278,17 @@ const langSwitches = document.querySelectorAll(".lang-switch");
 let currentLang = "EN";
 const translations = {
   EN: {
-    home: "Home", about: "About", services: "Services", skills: "Skills", projects: "Engineering", podcasts: "Podcasts", contact: "Contact",
+    projects: "Engineering", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contact",
+    discovery_title: "Discover Your Brand's Potential",
+    discovery_desc: "Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.",
+    scan_now: "Scan Now",
+    get_full_report: "Get Full Intelligence Report",
+    analyzing: "Analyzing...",
+    performance: "Performance",
+    identity: "Identity",
+    oracle_name: "The Oracle",
+    oracle_welcome: "Welcome. Speak your strategy, and I shall architect the path.",
+    oracle_placeholder: "Ask the Oracle...",
     hero_title: "Crafting High-Performance Digital Presences",
     hero_desc: "Architecting holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
     trust_label_1: "Brand Strategy", trust_label_2: "Technical Excellence",
@@ -307,10 +340,28 @@ const translations = {
     contact_email: "Send an Email", download_cv: "Download CV",
     t_welcome: "Welcome to Cuauhtémoc's interactive shell.",
     t_instr: "Type 'help' for options.",
-    t_whoami: "Cuauhtémoc Cataño: Developer, Founder, and Podcast Host."
+    t_whoami: "Cuauhtémoc Cataño: Developer, Founder, and Podcast Host.",
+    modal_title: "Book a Discovery Call",
+    modal_desc: "45 minutes to architect your digital future.",
+    form_name: "Your Name",
+    form_email: "Email Address",
+    suite_general: "General Consultation",
+    btn_next: "Pick a Time",
+    pick_time: "Select Date & Time",
+    syncing: "Syncing availability..."
   },
   ES: {
-    home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", podcasts: "Podcasts", contact: "Contacto",
+    home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
+    discovery_title: "Descubre el Potencial de tu Marca",
+    discovery_desc: "Ingresa la URL de tu sitio para obtener un Score de Vitalidad de Marca instantáneo e identificar oportunidades de crecimiento.",
+    scan_now: "Escanear Ahora",
+    get_full_report: "Obtener Reporte de Inteligencia Completo",
+    analyzing: "Analizando...",
+    performance: "Desempeño",
+    identity: "Identidad",
+    oracle_name: "El Oráculo",
+    oracle_welcome: "Bienvenida. Habla de tu estrategia y yo trazaré el camino.",
+    oracle_placeholder: "Pregunta al Oráculo...",
     hero_title: "Presencia Digital de Alto Desempeño",
     hero_desc: "Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
     trust_label_1: "Estrategia de Marca", trust_label_2: "Excelencia Técnica",
@@ -361,7 +412,15 @@ const translations = {
     contact_desc: "Diseñemos algo extraordinario juntos.",
     contact_email: "Enviar Email", download_cv: "Descargar CV",
     t_welcome: "Bienvenido a la terminal interactiva de Cuauhtémoc.", t_instr: "Escribe 'help' para ver opciones.",
-    t_whoami: "Cuauhtémoc Cataño: Desarrollador, Fundador y Host de Podcast."
+    t_whoami: "Cuauhtémoc Cataño: Desarrollador, Fundador y Host de Podcast.",
+    modal_title: "Reserva una Llamada de Descubrimiento",
+    modal_desc: "45 minutos para diseñar tu futuro digital.",
+    form_name: "Tu Nombre",
+    form_email: "Correo Electrónico",
+    suite_general: "Consultoría General",
+    btn_next: "Elegir Horario",
+    pick_time: "Selecciona Fecha y Hora",
+    syncing: "Sincronizando disponibilidad..."
   }
 };
 
@@ -450,22 +509,99 @@ langSwitches.forEach(btn => {
 });
 
 /**
- * Service Button Logic (Stripe Integration Ready)
+ * Service Button & Booking Modal Logic
  */
+const bookingModal = document.getElementById("bookingModal");
+const modalClose = document.querySelector(".modal-close");
+const leadForm = document.getElementById("leadCaptureForm");
+const bookingFlow = document.getElementById("bookingFlow");
+const step1 = document.getElementById("step1");
+const step2 = document.getElementById("step2");
+const backBtn = document.getElementById("backToStep1");
+const serviceSelect = document.getElementById("leafService");
+
+const suiteMap = {
+  "Omnichannel Advertising": "Ads",
+  "Publicidad Omnicanal": "Ads",
+  "Content & Media Studio": "Media",
+  "Estudio de Contenido y Medios": "Media",
+  "Identity & Brand Strategy": "Brand",
+  "Identidad y Estrategia de Marca": "Brand",
+  "Operations & Growth": "Growth",
+  "Operaciones y Crecimiento": "Growth",
+  "Digital Engineering": "Engineering",
+  "Ingeniería Digital": "Engineering"
+};
+
 document.querySelectorAll(".service-btn").forEach(btn => {
   btn.addEventListener("click", () => {
-    // Placeholder for Stripe Payment Link Redirect
-    // window.location.href = "https://buy.stripe.com/your_payment_link_here";
-    
-    // For now, scroll to contact section
-    const contactSection = document.querySelector("#contact");
-    if (contactSection) {
-      window.scrollTo({
-        top: contactSection.offsetTop - 80,
-        behavior: "smooth"
-      });
+    // Identify service
+    const suiteTitle = btn.parentElement.querySelector("h3")?.innerText;
+    if (suiteTitle && suiteMap[suiteTitle]) {
+      serviceSelect.value = suiteMap[suiteTitle];
+    } else {
+      serviceSelect.value = "General";
     }
+
+    // Reset flow
+    step1.classList.add("active");
+    step2.classList.remove("active");
+    
+    // Open modal
+    bookingModal.classList.add("active");
+    document.body.style.overflow = "hidden";
   });
+});
+
+// Handle Lead Form Next
+leadForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  
+  const leadData = {
+    name: document.getElementById("leafName").value,
+    email: document.getElementById("leafEmail").value,
+    service: serviceSelect.value,
+    timestamp: new Date().toISOString()
+  };
+
+  console.log("Lead Captured (Ready for Firebase):", leadData);
+  localStorage.setItem("pendingLead", JSON.stringify(leadData));
+
+  // Transition to Step 2
+  step1.classList.remove("active");
+  step2.classList.add("active");
+
+  // In Step 2, we will eventually inject the custom app or Calendly
+  setTimeout(() => {
+    const anchor = document.getElementById("calendar-anchor");
+    anchor.innerHTML = `
+      <div style="text-align:center; padding: 20px;">
+        <p style="margin-bottom: 20px; color: var(--text-muted);">Lead Verified. Ready to Schedule.</p>
+        <a href="https://calendly.com/cuauhtemoccatano/30min" 
+           target="_blank" 
+           class="btn btn-primary">
+           <i class='bx bx-calendar'></i> Open My Calendar
+        </a>
+      </div>
+    `;
+  }, 1000);
+});
+
+backBtn.addEventListener("click", () => {
+  step2.classList.remove("active");
+  step1.classList.add("active");
+});
+
+modalClose.addEventListener("click", () => {
+  bookingModal.classList.remove("active");
+  document.body.style.overflow = "";
+});
+
+bookingModal.addEventListener("click", (e) => {
+  if (e.target === bookingModal) {
+    bookingModal.classList.remove("active");
+    document.body.style.overflow = "";
+  }
 });
 
 // Initialize Language on Load
@@ -473,3 +609,137 @@ const savedLang = localStorage.getItem("preferredLang");
 const browserLang = navigator.language.startsWith("es") ? "ES" : "EN";
 currentLang = savedLang || browserLang;
 updateLanguage(currentLang);
+// Brand Discovery Logic (Move 3)
+const startScanBtn = document.getElementById('start-scan');
+const scanResults = document.getElementById('scan-results');
+const scanUrlInput = document.getElementById('scan-url');
+
+if (startScanBtn) {
+  startScanBtn.addEventListener('click', async () => {
+    const url = scanUrlInput.value;
+    if (!url) return;
+
+    startScanBtn.disabled = true;
+    startScanBtn.innerHTML = `<span>${translations[currentLang].analyzing}</span><i class='bx bx-loader-alt bx-spin'></i>`;
+    
+    try {
+      // Dynamic API Base for local development
+      const apiBase = window.location.port !== '3000' ? 'http://localhost:3000' : '';
+      const response = await fetch(`${apiBase}/api/check-vitals`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url })
+      });
+
+      const data = await response.json();
+
+      if (data.score) {
+        scanResults.classList.remove('hidden');
+        
+        // Animate Score
+        const scoreText = document.getElementById('score-text');
+        const scorePath = document.getElementById('score-path');
+        const message = document.getElementById('vitals-message');
+        
+        message.innerText = data.message;
+        
+        let start = 0;
+        const duration = 1000;
+        const startTime = performance.now();
+
+        function animate(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const currentScore = Math.floor(progress * data.score);
+          
+          scoreText.textContent = currentScore;
+          scorePath.style.strokeDasharray = `${currentScore}, 100`;
+          
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          }
+        }
+        requestAnimationFrame(animate);
+
+        // Animate Bars
+        setTimeout(() => {
+          document.getElementById('bar-perf').style.width = `${data.metrics.performance}%`;
+          document.getElementById('bar-ident').style.width = `${data.metrics.identity}%`;
+        }, 100);
+      }
+    } catch (err) {
+      console.error('Scan failed:', err);
+    } finally {
+      startScanBtn.disabled = false;
+      startScanBtn.innerHTML = `<span>${translations[currentLang].scan_now}</span><i class='bx bx-zap'></i>`;
+    }
+  });
+}
+
+// Oracle AI Chat Logic (Phase 1)
+const oracleToggle = document.getElementById('oracle-toggle');
+const oracleChat = document.getElementById('oracle-chat');
+const closeOracle = document.getElementById('close-oracle');
+const oracleMessages = document.getElementById('oracle-messages');
+const oracleInput = document.getElementById('oracle-input');
+const sendOracle = document.getElementById('send-oracle');
+
+if (oracleToggle) {
+  oracleToggle.addEventListener('click', () => {
+    oracleChat.classList.toggle('hidden');
+    if (!oracleChat.classList.contains('hidden')) {
+      oracleInput.focus();
+    }
+  });
+
+  closeOracle.addEventListener('click', () => {
+    oracleChat.classList.add('hidden');
+  });
+
+  const appendMessage = (text, type) => {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `message ${type}`;
+    msgDiv.innerText = text;
+    oracleMessages.appendChild(msgDiv);
+    oracleMessages.scrollTop = oracleMessages.scrollHeight;
+  };
+
+  const processOracleMessage = async () => {
+    const text = oracleInput.value.trim();
+    if (!text) return;
+
+    appendMessage(text, 'user');
+    oracleInput.value = '';
+    
+    // Typing indicator
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message bot typing';
+    typingDiv.innerText = '...';
+    oracleMessages.appendChild(typingDiv);
+    oracleMessages.scrollTop = oracleMessages.scrollHeight;
+
+    try {
+      // Dynamic API Base for local development
+      const apiBase = window.location.port !== '3000' ? 'http://localhost:3000' : '';
+      const response = await fetch(`${apiBase}/api/oracle/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text })
+      });
+      const data = await response.json();
+      
+      if (typingDiv.parentNode) oracleMessages.removeChild(typingDiv);
+      appendMessage(data.response || "Silence from the Oracle...", 'bot');
+    } catch (err) {
+      console.error('Oracle failed:', err);
+      if (typingDiv.parentNode) oracleMessages.removeChild(typingDiv);
+      appendMessage("Link to the Oracle lost. Check your network.", 'bot');
+    }
+  };
+
+  sendOracle.addEventListener('click', processOracleMessage);
+  oracleInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') processOracleMessage();
+  });
+}
+
