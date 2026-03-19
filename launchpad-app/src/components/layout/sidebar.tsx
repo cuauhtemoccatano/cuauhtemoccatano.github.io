@@ -29,14 +29,14 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Mobile Backdrop */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[110] lg:hidden" 
+          className="fixed inset-0 bg-black/70 backdrop-blur-xl z-[110] lg:hidden" 
           onClick={onClose}
         />
       )}
 
       <aside 
         className={cn(
-          "w-72 flex flex-col h-screen bg-white/80 dark:bg-black/20 backdrop-blur-xl border-r border-zinc-200 dark:border-white/5 transition-all duration-300 ease-in-out font-space",
+          "w-72 flex flex-col h-screen bg-white/95 dark:bg-zinc-950/80 backdrop-blur-3xl border-r border-zinc-200 dark:border-white/5 transition-all duration-300 ease-in-out font-space",
           "fixed inset-y-0 left-0 z-[120] lg:static lg:z-50 lg:translate-x-0",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
           !isOpen && "hidden lg:flex"

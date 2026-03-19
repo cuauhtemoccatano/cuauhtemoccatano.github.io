@@ -83,7 +83,7 @@ export function AiCopilot({
 
           {/* Interactive Core */}
           <div className="flex-1 p-8 overflow-y-auto space-y-6">
-            <div className="p-6 rounded-2xl bg-zinc-950/40 backdrop-blur-md border border-white/5 space-y-3 shadow-inner">
+            <div className="p-6 rounded-2xl bg-zinc-950/60 backdrop-blur-2xl border border-white/5 space-y-3 shadow-inner">
               <div className="flex items-center gap-2 text-brand-400">
                 <Shield className="h-4 w-4" />
                 <span className="text-[10px] font-black uppercase tracking-widest\">System Insights</span>

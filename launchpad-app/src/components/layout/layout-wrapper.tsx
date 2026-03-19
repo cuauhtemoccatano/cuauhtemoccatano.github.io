@@ -28,12 +28,12 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
         isOpen={isSidebarOpen} 
         onClose={() => setIsSidebarOpen(false)} 
       />
-      <div className="flex-1 flex flex-col min-h-screen overflow-hidden relative bg-black/40 backdrop-blur-sm">
+      <div className="flex-1 flex flex-col min-h-screen overflow-hidden relative bg-black/60 backdrop-blur-3xl">
         <MobileHeader 
           isOpen={isSidebarOpen} 
           onToggle={() => setIsSidebarOpen(!isSidebarOpen)} 
         />
-        <main className="flex-1 overflow-auto bg-[var(--surface-color)]/30 backdrop-blur-md border-l-0 lg:border-l-2 border-white/5 transition-all duration-300">
+        <main className="flex-1 overflow-auto bg-zinc-950/40 backdrop-blur-2xl border-l-0 lg:border-l-2 border-white/5 transition-all duration-300">
           {children}
         </main>
         <AiCopilot />
