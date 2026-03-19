@@ -3,6 +3,7 @@ const nextConfig = {
   output: 'export',
   basePath: '/launchpad-app',
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
