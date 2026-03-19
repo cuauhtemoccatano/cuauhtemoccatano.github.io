@@ -42,6 +42,7 @@ export default function Dashboard() {
             className="object-cover transition-transform duration-1000 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, 50vw"
             priority
+            unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/40 to-transparent" />
           <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10 p-6 md:p-8 bg-zinc-900 border border-white/20 rounded-2xl shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
