@@ -536,7 +536,7 @@ const suiteMap = {
 document.querySelectorAll(".service-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     // Identify service
-    const suiteTitle = btn.parentElement.querySelector("h3")?.innerText;
+    const suiteTitle = btn.parentElement.querySelector("h3")?.innerText.trim();
     if (suiteTitle && suiteMap[suiteTitle]) {
       serviceSelect.value = suiteMap[suiteTitle];
     } else {
