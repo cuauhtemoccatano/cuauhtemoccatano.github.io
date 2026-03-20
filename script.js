@@ -205,6 +205,13 @@ tiltCards.forEach((card) => {
 const terminalInput = document.getElementById("terminal-input");
 const terminalBody = document.getElementById("terminal-body");
 
+// UX: Click anywhere in terminal to focus input
+if (terminalBody && terminalInput) {
+  terminalBody.addEventListener("click", () => {
+    terminalInput.focus();
+  });
+}
+
 const appendTerminalOutput = (text, type = "output") => {
   const output = document.createElement("div");
   output.className = `terminal-${type}`;
