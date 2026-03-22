@@ -205,6 +205,12 @@ tiltCards.forEach((card) => {
 const terminalInput = document.getElementById("terminal-input");
 const terminalBody = document.getElementById("terminal-body");
 
+if (terminalBody && terminalInput) {
+  terminalBody.addEventListener("click", () => {
+    terminalInput.focus();
+  });
+}
+
 const appendTerminalOutput = (text, type = "output") => {
   const output = document.createElement("div");
   output.className = `terminal-${type}`;
@@ -427,6 +433,14 @@ const translations = {
 function updateLanguage(lang) {
   const t = translations[lang];
   
+  const langBtn = document.getElementById("lang-switch");
+  if (langBtn) {
+    const nextLang = lang === "EN" ? "Spanish" : "English";
+    const label = `Switch to ${nextLang}`;
+    langBtn.setAttribute("aria-label", label);
+    langBtn.setAttribute("title", label);
+  }
+
   // 1. Text Content with data-i18n
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.getAttribute("data-i18n");
