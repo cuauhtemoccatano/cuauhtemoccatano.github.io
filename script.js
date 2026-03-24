@@ -348,7 +348,14 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    aria_lang: "Switch to Spanish",
+    aria_oracle_open: "Open Oracle Chat",
+    aria_oracle_close: "Close Oracle Chat",
+    aria_oracle_send: "Send message",
+    aria_back: "Back to step 1",
+    aria_terminal: "Terminal Input",
+    aria_oracle: "Ask the Oracle"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +427,14 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    aria_lang: "Cambiar a Inglés",
+    aria_oracle_open: "Abrir Chat del Oráculo",
+    aria_oracle_close: "Cerrar Chat del Oráculo",
+    aria_oracle_send: "Enviar mensaje",
+    aria_back: "Volver al paso 1",
+    aria_terminal: "Entrada de la Terminal",
+    aria_oracle: "Pregunta al Oráculo"
   }
 };
 
@@ -497,7 +511,45 @@ function updateLanguage(lang) {
     if (out.innerText.includes("Cataño:") ) out.innerText = t.t_whoami;
   });
 
-  langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
+  langSwitches.forEach(btn => {
+    btn.innerText = lang === "EN" ? "ES" : "EN";
+    btn.setAttribute("aria-label", t.aria_lang);
+    btn.setAttribute("title", t.aria_lang);
+  });
+
+  const oracleToggle = document.getElementById("oracle-toggle");
+  if (oracleToggle) {
+    oracleToggle.setAttribute("aria-label", t.aria_oracle_open);
+    oracleToggle.setAttribute("title", t.aria_oracle_open);
+  }
+
+  const oracleClose = document.getElementById("close-oracle");
+  if (oracleClose) {
+    oracleClose.setAttribute("aria-label", t.aria_oracle_close);
+    oracleClose.setAttribute("title", t.aria_oracle_close);
+  }
+
+  const oracleSend = document.getElementById("send-oracle");
+  if (oracleSend) {
+    oracleSend.setAttribute("aria-label", t.aria_oracle_send);
+    oracleSend.setAttribute("title", t.aria_oracle_send);
+  }
+
+  const backBtn = document.getElementById("backToStep1");
+  if (backBtn) {
+    backBtn.setAttribute("aria-label", t.aria_back);
+    backBtn.setAttribute("title", t.aria_back);
+  }
+
+  const terminalInput = document.getElementById("terminal-input");
+  if (terminalInput) {
+    terminalInput.setAttribute("aria-label", t.aria_terminal);
+  }
+
+  const oracleInput = document.getElementById("oracle-input");
+  if (oracleInput) {
+    oracleInput.setAttribute("aria-label", t.aria_oracle);
+  }
 }
 
 langSwitches.forEach(btn => {
