@@ -138,7 +138,7 @@
               </div>
               <div class="terminal-line">
                 <span class="prompt">guest@portfolio:~$</span>
-                <input type="text" id="terminal-input" autofocus spellcheck="false">
+                <input type="text" id="terminal-input" spellcheck="false" aria-label="Terminal Input">
               </div>
             </div>
           </div>
@@ -428,7 +428,9 @@
             <!-- Step 2: Custom Calendar / Scheduler -->
             <div class="booking-step" id="step2">
               <div class="scheduler-header">
-                <button class="back-btn" id="backToStep1"><i class='bx bx-left-arrow-alt'></i></button>
+                <button class="back-btn" id="backToStep1" aria-label="Back to step 1" title="Back to step 1">
+                  <i class='bx bx-left-arrow-alt' aria-hidden="true"></i>
+                </button>
                 <h3 data-i18n="pick_time">Select Date & Time</h3>
               </div>
               <!-- Custom Calendar UI or Calendly Embed will go here -->
@@ -448,20 +450,24 @@
     <div class="oracle-wrapper">
       <div id="oracle-chat" class="oracle-chat glass hidden">
         <div class="oracle-header">
-          <i class='bx bx-brain'></i>
+          <i class='bx bx-brain' aria-hidden="true"></i>
           <span data-i18n="oracle_name">The Oracle</span>
-          <button id="close-oracle"><i class='bx bx-x'></i></button>
+          <button id="close-oracle" aria-label="Close Oracle Chat" title="Close Oracle Chat">
+            <i class='bx bx-x' aria-hidden="true"></i>
+          </button>
         </div>
         <div id="oracle-messages" class="oracle-messages">
           <div class="message bot" data-i18n="oracle_welcome">Welcome. Speak your strategy, and I shall architect the path.</div>
         </div>
         <div class="oracle-input-area">
-          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder">
-          <button id="send-oracle"><i class='bx bxs-send'></i></button>
+          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder" aria-label="Ask the Oracle">
+          <button id="send-oracle" aria-label="Send message" title="Send message">
+            <i class='bx bxs-send' aria-hidden="true"></i>
+          </button>
         </div>
       </div>
-      <button id="oracle-toggle" class="oracle-toggle glass">
-        <i class='bx bx-message-square-detail'></i>
+      <button id="oracle-toggle" class="oracle-toggle glass" aria-label="Open Oracle Chat" title="Open Oracle Chat">
+        <i class='bx bx-message-square-detail' aria-hidden="true"></i>
       </button>
     </div>
 
