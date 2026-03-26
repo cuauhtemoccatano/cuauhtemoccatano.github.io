@@ -214,6 +214,10 @@ const appendTerminalOutput = (text, type = "output") => {
 };
 
 if (terminalInput) {
+  terminalBody.addEventListener("click", () => {
+    terminalInput.focus();
+  });
+
   terminalInput.addEventListener("keydown", async (e) => {
     if (e.key === "Enter") {
       const fullInput = terminalInput.value.trim();
@@ -348,7 +352,11 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    oracle_open: "Open The Oracle AI Assistant",
+    oracle_close: "Close The Oracle AI Assistant",
+    lang_en: "Switch to English",
+    lang_es: "Switch to Spanish"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +428,11 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    oracle_open: "Abrir El Oráculo (Asistente IA)",
+    oracle_close: "Cerrar El Oráculo (Asistente IA)",
+    lang_en: "Cambiar a Inglés",
+    lang_es: "Cambiar a Español"
   }
 };
 
@@ -497,7 +509,23 @@ function updateLanguage(lang) {
     if (out.innerText.includes("Cataño:") ) out.innerText = t.t_whoami;
   });
 
-  langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
+  langSwitches.forEach(btn => {
+    btn.innerText = lang === "EN" ? "ES" : "EN";
+    const labelKey = lang === "EN" ? "lang_es" : "lang_en";
+    btn.setAttribute("aria-label", t[labelKey]);
+    btn.setAttribute("title", t[labelKey]);
+  });
+
+  const oracleToggle = document.getElementById("oracle-toggle");
+  const oracleClose = document.getElementById("close-oracle");
+  if (oracleToggle) {
+    oracleToggle.setAttribute("aria-label", t.oracle_open);
+    oracleToggle.setAttribute("title", t.oracle_open);
+  }
+  if (oracleClose) {
+    oracleClose.setAttribute("aria-label", t.oracle_close);
+    oracleClose.setAttribute("title", t.oracle_close);
+  }
 }
 
 langSwitches.forEach(btn => {
