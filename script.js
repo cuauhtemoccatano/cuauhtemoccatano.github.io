@@ -348,7 +348,12 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    oracle_open: "Open Oracle Chat",
+    oracle_close: "Close Oracle Chat",
+    back_to_info: "Back to information step",
+    lang_en: "Switch to English",
+    lang_es: "Switch to Spanish"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +425,12 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    oracle_open: "Abrir Chat del Oráculo",
+    oracle_close: "Cerrar Chat del Oráculo",
+    back_to_info: "Volver al paso de información",
+    lang_en: "Cambiar a Inglés",
+    lang_es: "Cambiar a Español"
   }
 };
 
@@ -497,7 +507,30 @@ function updateLanguage(lang) {
     if (out.innerText.includes("Cataño:") ) out.innerText = t.t_whoami;
   });
 
-  langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
+  langSwitches.forEach(btn => {
+    btn.innerText = lang === "EN" ? "ES" : "EN";
+    const nextLangLabel = lang === "EN" ? t.lang_es : t.lang_en;
+    btn.setAttribute("aria-label", nextLangLabel);
+    btn.setAttribute("title", nextLangLabel);
+  });
+
+  const oracleToggleBtn = document.getElementById("oracle-toggle");
+  if (oracleToggleBtn) {
+    oracleToggleBtn.setAttribute("aria-label", t.oracle_open);
+    oracleToggleBtn.setAttribute("title", t.oracle_open);
+  }
+
+  const oracleCloseBtn = document.getElementById("close-oracle");
+  if (oracleCloseBtn) {
+    oracleCloseBtn.setAttribute("aria-label", t.oracle_close);
+    oracleCloseBtn.setAttribute("title", t.oracle_close);
+  }
+
+  const bookingBackBtn = document.getElementById("backToStep1");
+  if (bookingBackBtn) {
+    bookingBackBtn.setAttribute("aria-label", t.back_to_info);
+    bookingBackBtn.setAttribute("title", t.back_to_info);
+  }
 }
 
 langSwitches.forEach(btn => {
