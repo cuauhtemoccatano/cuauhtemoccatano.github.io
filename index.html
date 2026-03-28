@@ -448,20 +448,20 @@
     <div class="oracle-wrapper">
       <div id="oracle-chat" class="oracle-chat glass hidden">
         <div class="oracle-header">
-          <i class='bx bx-brain'></i>
+          <i class='bx bx-brain' aria-hidden="true"></i>
           <span data-i18n="oracle_name">The Oracle</span>
-          <button id="close-oracle"><i class='bx bx-x'></i></button>
+          <button id="close-oracle" aria-label="Close Oracle" data-i18n-aria-label="oracle_close"><i class='bx bx-x' aria-hidden="true"></i></button>
         </div>
         <div id="oracle-messages" class="oracle-messages">
           <div class="message bot" data-i18n="oracle_welcome">Welcome. Speak your strategy, and I shall architect the path.</div>
         </div>
         <div class="oracle-input-area">
           <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder">
-          <button id="send-oracle"><i class='bx bxs-send'></i></button>
+          <button id="send-oracle" aria-label="Send message" data-i18n-aria-label="oracle_send"><i class='bx bxs-send' aria-hidden="true"></i></button>
         </div>
       </div>
-      <button id="oracle-toggle" class="oracle-toggle glass">
-        <i class='bx bx-message-square-detail'></i>
+      <button id="oracle-toggle" class="oracle-toggle glass" aria-label="Open Oracle Chat" data-i18n-aria-label="oracle_open">
+        <i class='bx bx-message-square-detail' aria-hidden="true"></i>
       </button>
     </div>
 

@@ -53,7 +53,8 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const t = translations[currentLang];
+    const nextText = nextTheme === "dark" ? t.lang_light : t.lang_dark;
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
@@ -268,6 +269,10 @@ if (terminalInput) {
       terminalBody.scrollTop = terminalBody.scrollHeight;
     }
   });
+
+  terminalBody.addEventListener("click", () => {
+    terminalInput.focus();
+  });
 }
 
 
@@ -289,6 +294,13 @@ const translations = {
     oracle_name: "The Oracle",
     oracle_welcome: "Welcome. Speak your strategy, and I shall architect the path.",
     oracle_placeholder: "Ask the Oracle...",
+    oracle_open: "Open Oracle Chat",
+    oracle_close: "Close Oracle",
+    oracle_send: "Send message",
+    lang_light: "Switch to light mode",
+    lang_dark: "Switch to dark mode",
+    lang_en: "English",
+    lang_es: "Spanish",
     hero_title: "Crafting High-Performance Digital Presences",
     hero_desc: "Architecting holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
     trust_label_1: "Brand Strategy", trust_label_2: "Technical Excellence",
@@ -362,6 +374,13 @@ const translations = {
     oracle_name: "El Oráculo",
     oracle_welcome: "Bienvenida. Habla de tu estrategia y yo trazaré el camino.",
     oracle_placeholder: "Pregunta al Oráculo...",
+    oracle_open: "Abrir chat del Oráculo",
+    oracle_close: "Cerrar Oráculo",
+    oracle_send: "Enviar mensaje",
+    lang_light: "Cambiar a modo claro",
+    lang_dark: "Cambiar a modo oscuro",
+    lang_en: "Inglés",
+    lang_es: "Español",
     hero_title: "Presencia Digital de Alto Desempeño",
     hero_desc: "Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
     trust_label_1: "Estrategia de Marca", trust_label_2: "Excelencia Técnica",
@@ -431,11 +450,23 @@ function updateLanguage(lang) {
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.getAttribute("data-i18n");
     if (t[key]) {
-      if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
-        el.placeholder = t[key];
-      } else {
-        el.innerText = t[key];
-      }
+      el.innerText = t[key];
+    }
+  });
+
+  // 1b. Placeholders with data-i18n-placeholder
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) {
+      el.placeholder = t[key];
+    }
+  });
+
+  // 1c. ARIA Labels with data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
     }
   });
 
@@ -497,7 +528,18 @@ function updateLanguage(lang) {
     if (out.innerText.includes("Cataño:") ) out.innerText = t.t_whoami;
   });
 
-  langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
+  langSwitches.forEach(btn => {
+    btn.innerText = lang === "EN" ? "ES" : "EN";
+    btn.setAttribute("aria-label", lang === "EN" ? t.lang_es : t.lang_en);
+    btn.setAttribute("title", lang === "EN" ? t.lang_es : t.lang_en);
+  });
+
+  const isDark = document.body.classList.contains("dark-mode");
+  const themeText = isDark ? t.lang_light : t.lang_dark;
+  toggleIcons.forEach(btn => {
+    btn.setAttribute("aria-label", themeText);
+    btn.setAttribute("title", themeText);
+  });
 }
 
 langSwitches.forEach(btn => {
