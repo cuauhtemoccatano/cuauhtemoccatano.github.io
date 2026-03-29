@@ -53,11 +53,13 @@
         </nav>
         
         <div class="header-actions">
-          <button class="lang-switch" id="lang-switch" aria-label="Switch Language">ES</button>
+          <button class="lang-switch" id="lang-switch" aria-label="Switch Language" data-i18n-aria-label="lang_es" data-i18n-title="lang_es">ES</button>
           <button
             class="toggle-icon"
             aria-label="Toggle dark mode"
             title="Toggle dark mode"
+            data-i18n-aria-label="theme_dark"
+            data-i18n-title="theme_dark"
           >
             <i class="bx bx-moon"></i>
           </button>
@@ -450,7 +452,7 @@
         <div class="oracle-header">
           <i class='bx bx-brain'></i>
           <span data-i18n="oracle_name">The Oracle</span>
-          <button id="close-oracle"><i class='bx bx-x'></i></button>
+          <button id="close-oracle" data-i18n-aria-label="oracle_close" data-i18n-title="oracle_close"><i class='bx bx-x'></i></button>
         </div>
         <div id="oracle-messages" class="oracle-messages">
           <div class="message bot" data-i18n="oracle_welcome">Welcome. Speak your strategy, and I shall architect the path.</div>
@@ -460,7 +462,7 @@
           <button id="send-oracle"><i class='bx bxs-send'></i></button>
         </div>
       </div>
-      <button id="oracle-toggle" class="oracle-toggle glass">
+      <button id="oracle-toggle" class="oracle-toggle glass" data-i18n-aria-label="oracle_open" data-i18n-title="oracle_open">
         <i class='bx bx-message-square-detail'></i>
       </button>
     </div>

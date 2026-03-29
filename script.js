@@ -205,6 +205,12 @@ tiltCards.forEach((card) => {
 const terminalInput = document.getElementById("terminal-input");
 const terminalBody = document.getElementById("terminal-body");
 
+if (terminalBody && terminalInput) {
+  terminalBody.addEventListener("click", () => {
+    terminalInput.focus();
+  });
+}
+
 const appendTerminalOutput = (text, type = "output") => {
   const output = document.createElement("div");
   output.className = `terminal-${type}`;
@@ -348,7 +354,13 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    oracle_open: "Open The Oracle",
+    oracle_close: "Close The Oracle",
+    lang_en: "Switch to English",
+    lang_es: "Switch to Spanish",
+    theme_dark: "Switch to dark mode",
+    theme_light: "Switch to light mode"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +432,13 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    oracle_open: "Abrir El Oráculo",
+    oracle_close: "Cerrar El Oráculo",
+    lang_en: "Cambiar a Inglés",
+    lang_es: "Cambiar a Español",
+    theme_dark: "Cambiar a modo oscuro",
+    theme_light: "Cambiar a modo claro"
   }
 };
 
@@ -434,8 +452,26 @@ function updateLanguage(lang) {
       if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
         el.placeholder = t[key];
       } else {
+        // Preserving icons if they exist by wrapping text in a span if needed,
+        // but here we usually just replace innerText as per current implementation.
+        // If there's an icon, data-i18n should be on a span.
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1.1 ARIA labels and Titles with data-i18n-aria-label and data-i18n-title
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) {
+      el.setAttribute("title", t[key]);
     }
   });
 
@@ -497,7 +533,15 @@ function updateLanguage(lang) {
     if (out.innerText.includes("Cataño:") ) out.innerText = t.t_whoami;
   });
 
-  langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
+  langSwitches.forEach(btn => {
+    btn.innerText = lang === "EN" ? "ES" : "EN";
+    const targetLang = lang === "EN" ? "lang_es" : "lang_en";
+    btn.setAttribute("aria-label", t[targetLang]);
+    btn.setAttribute("title", t[targetLang]);
+    // Also update the data attributes for the next cycle
+    btn.setAttribute("data-i18n-aria-label", targetLang);
+    btn.setAttribute("data-i18n-title", targetLang);
+  });
 }
 
 langSwitches.forEach(btn => {
