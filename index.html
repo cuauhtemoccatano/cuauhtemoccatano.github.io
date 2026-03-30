@@ -53,7 +53,7 @@
         </nav>
         
         <div class="header-actions">
-          <button class="lang-switch" id="lang-switch" aria-label="Switch Language">ES</button>
+          <button class="lang-switch" id="lang-switch" aria-label="Switch Language" data-i18n-aria-label="lang_switch_label">ES</button>
           <button
             class="toggle-icon"
             aria-label="Toggle dark mode"
@@ -138,7 +138,7 @@
               </div>
               <div class="terminal-line">
                 <span class="prompt">guest@portfolio:~$</span>
-                <input type="text" id="terminal-input" autofocus spellcheck="false">
+                <input type="text" id="terminal-input" autofocus spellcheck="false" aria-label="Terminal Input" data-i18n-aria-label="terminal_input_label">
               </div>
             </div>
           </div>
@@ -335,7 +335,7 @@
               <p class="section-desc" data-i18n="discovery_desc">Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.</p>
               
               <div class="scan-box">
-                <input type="url" id="scan-url" placeholder="https://yourbrand.com" required>
+                <input type="url" id="scan-url" placeholder="https://yourbrand.com" required aria-label="Website URL" data-i18n-aria-label="scan_url_label">
                 <button id="start-scan" class="scan-btn">
                   <span data-i18n="scan_now">Scan Now</span>
                   <i class='bx bx-zap'></i>
@@ -450,17 +450,17 @@
         <div class="oracle-header">
           <i class='bx bx-brain'></i>
           <span data-i18n="oracle_name">The Oracle</span>
-          <button id="close-oracle"><i class='bx bx-x'></i></button>
+          <button id="close-oracle" aria-label="Close Oracle" data-i18n-aria-label="oracle_close"><i class='bx bx-x'></i></button>
         </div>
         <div id="oracle-messages" class="oracle-messages">
           <div class="message bot" data-i18n="oracle_welcome">Welcome. Speak your strategy, and I shall architect the path.</div>
         </div>
         <div class="oracle-input-area">
-          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder">
+          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder" aria-label="Oracle Input" data-i18n-aria-label="oracle_input_label">
           <button id="send-oracle"><i class='bx bxs-send'></i></button>
         </div>
       </div>
-      <button id="oracle-toggle" class="oracle-toggle glass">
+      <button id="oracle-toggle" class="oracle-toggle glass" aria-label="Open Oracle" data-i18n-aria-label="oracle_open">
         <i class='bx bx-message-square-detail'></i>
       </button>
     </div>
