@@ -348,7 +348,13 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    oracle_open: "Open Oracle Assistant",
+    oracle_close: "Close Oracle Assistant",
+    oracle_input_label: "Oracle Message Input",
+    terminal_input_label: "Terminal Command Input",
+    scan_url_label: "Website URL to analyze",
+    lang_switch_label: "Switch to Spanish"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +426,13 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    oracle_open: "Abrir Asistente Oráculo",
+    oracle_close: "Cerrar Asistente Oráculo",
+    oracle_input_label: "Entrada de mensaje del Oráculo",
+    terminal_input_label: "Entrada de comandos de terminal",
+    scan_url_label: "URL del sitio web a analizar",
+    lang_switch_label: "Cambiar a Inglés"
   }
 };
 
@@ -436,6 +448,21 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1.1 ARIA Labels and Titles
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) {
+      el.setAttribute("title", t[key]);
     }
   });
 

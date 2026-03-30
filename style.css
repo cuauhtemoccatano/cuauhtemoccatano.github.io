@@ -442,6 +442,12 @@ section {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
   backdrop-filter: var(--glass-blur);
   font-family: 'Courier New', Courier, monospace;
+  transition: border-color 0.3s var(--ease-liquid), box-shadow 0.3s var(--ease-liquid);
+}
+
+.terminal-window:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.2), 0 30px 60px rgba(0, 0, 0, 0.3);
 }
 
 .terminal-header {
@@ -480,6 +486,7 @@ section {
   height: 300px;
   overflow-y: auto;
   color: #FAFAFA;
+  background: #09090B; /* Solid dark background for terminal contrast */
   font-size: 14px;
   line-height: 1.6;
 }
@@ -1504,7 +1511,7 @@ body.dark-mode .home-img img {
   padding: 1rem;
   display: flex;
   gap: 0.5rem;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.4); /* Slightly darker for better contrast */
 }
 
 .oracle-input-area input {
