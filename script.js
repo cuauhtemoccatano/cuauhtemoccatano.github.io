@@ -7,7 +7,11 @@ const toggleIcons = document.querySelectorAll(".toggle-icon");
 const icons = document.querySelectorAll(".toggle-icon i");
 
 function applyTheme(theme) {
-  if (theme === "dark") {
+  const isDark = theme === "dark";
+  const t = translations[currentLang];
+  const nextText = isDark ? t.lang_light_mode : t.lang_dark_mode;
+
+  if (isDark) {
     document.body.classList.add("dark-mode");
     if (homeImg) homeImg.src = "Assets/headshotbw.png";
     icons.forEach((icon) => {
@@ -22,17 +26,16 @@ function applyTheme(theme) {
       icon.classList.add("bx-moon");
     });
   }
+
+  toggleIcons.forEach((btn) => {
+    btn.setAttribute("aria-label", nextText);
+    btn.setAttribute("title", nextText);
+  });
 }
 
 // System Preference Selection
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-// 1. Initial Load: LocalStorage > System Preference
-if (savedTheme) {
-  applyTheme(savedTheme);
-} else {
-  applyTheme(prefersDark.matches ? "dark" : "light");
-}
 
 // 2. Real-time transition when system settings change (if no manual choice)
 prefersDark.addEventListener("change", (e) => {
@@ -52,12 +55,6 @@ toggleIcons.forEach((toggle) => {
     
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
-
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
-    toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", nextText);
-      btn.setAttribute("title", nextText);
-    });
 
     setTimeout(() => {
       setButtonsDisabled(false);
@@ -279,6 +276,7 @@ let currentLang = "EN";
 const translations = {
   EN: {
     projects: "Engineering", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contact",
+    lang_light_mode: "Switch to light mode", lang_dark_mode: "Switch to dark mode",
     discovery_title: "Discover Your Brand's Potential",
     discovery_desc: "Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.",
     scan_now: "Scan Now",
@@ -352,6 +350,7 @@ const translations = {
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
+    lang_light_mode: "Cambiar a modo claro", lang_dark_mode: "Cambiar a modo oscuro",
     discovery_title: "Descubre el Potencial de tu Marca",
     discovery_desc: "Ingresa la URL de tu sitio para obtener un Score de Vitalidad de Marca instantáneo e identificar oportunidades de crecimiento.",
     scan_now: "Escanear Ahora",
@@ -498,6 +497,14 @@ function updateLanguage(lang) {
   });
 
   langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
+
+  // Re-apply theme labels with new language
+  const currentTheme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+  const nextText = currentTheme === "dark" ? t.lang_light_mode : t.lang_dark_mode;
+  toggleIcons.forEach((btn) => {
+    btn.setAttribute("aria-label", nextText);
+    btn.setAttribute("title", nextText);
+  });
 }
 
 langSwitches.forEach(btn => {
@@ -624,6 +631,14 @@ bookingModal.addEventListener("click", (e) => {
 const savedLang = localStorage.getItem("preferredLang");
 const browserLang = navigator.language.startsWith("es") ? "ES" : "EN";
 currentLang = savedLang || browserLang;
+
+// 1. Initial Load: LocalStorage > System Preference
+if (savedTheme) {
+  applyTheme(savedTheme);
+} else {
+  applyTheme(prefersDark.matches ? "dark" : "light");
+}
+
 updateLanguage(currentLang);
 // Brand Discovery Logic (Move 3)
 const startScanBtn = document.getElementById('start-scan');
