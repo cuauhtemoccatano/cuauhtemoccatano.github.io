@@ -1,0 +1,9 @@
+127.0.0.1 - - [31/Mar/2026 13:37:52] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [31/Mar/2026 13:37:52] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [31/Mar/2026 13:37:52] "GET /script.js HTTP/1.1" 200 -
+127.0.0.1 - - [31/Mar/2026 13:37:52] "GET /Assets/headshot-color.png HTTP/1.1" 200 -
+127.0.0.1 - - [31/Mar/2026 13:39:06] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [31/Mar/2026 13:39:06] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [31/Mar/2026 13:39:06] "GET /Assets/headshot-color.png HTTP/1.1" 200 -
+127.0.0.1 - - [31/Mar/2026 13:39:06] "GET /script.js HTTP/1.1" 200 -
+127.0.0.1 - - [31/Mar/2026 13:39:09] "GET /Assets/headshotbw.png HTTP/1.1" 200 -
