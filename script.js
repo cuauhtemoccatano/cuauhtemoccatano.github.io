@@ -53,7 +53,10 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const t = translations[currentLang];
+    const nextTextKey = nextTheme === "dark" ? "theme_light" : "theme_dark";
+    const nextText = t[nextTextKey];
+
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
@@ -289,6 +292,12 @@ const translations = {
     oracle_name: "The Oracle",
     oracle_welcome: "Welcome. Speak your strategy, and I shall architect the path.",
     oracle_placeholder: "Ask the Oracle...",
+    oracle_toggle: "Open Oracle",
+    oracle_close: "Close Oracle",
+    oracle_send: "Send Message",
+    lang_switch: "Switch to Spanish",
+    theme_light: "Switch to light mode",
+    theme_dark: "Switch to dark mode",
     hero_title: "Crafting High-Performance Digital Presences",
     hero_desc: "Architecting holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
     trust_label_1: "Brand Strategy", trust_label_2: "Technical Excellence",
@@ -362,6 +371,12 @@ const translations = {
     oracle_name: "El Oráculo",
     oracle_welcome: "Bienvenida. Habla de tu estrategia y yo trazaré el camino.",
     oracle_placeholder: "Pregunta al Oráculo...",
+    oracle_toggle: "Abrir Oráculo",
+    oracle_close: "Cerrar Oráculo",
+    oracle_send: "Enviar Mensaje",
+    lang_switch: "Cambiar a Inglés",
+    theme_light: "Cambiar a modo claro",
+    theme_dark: "Cambiar a modo oscuro",
     hero_title: "Presencia Digital de Alto Desempeño",
     hero_desc: "Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
     trust_label_1: "Estrategia de Marca", trust_label_2: "Excelencia Técnica",
@@ -426,8 +441,27 @@ const translations = {
 
 function updateLanguage(lang) {
   const t = translations[lang];
+
+  // 1. ARIA Labels and Titles
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria");
+    let translationKey = key;
+
+    // Special handling for theme toggle if not specifically handled
+    if (key === "theme_toggle") {
+      const isDark = document.body.classList.contains("dark-mode");
+      translationKey = isDark ? "theme_light" : "theme_dark";
+    }
+
+    if (t[translationKey]) {
+      el.setAttribute("aria-label", t[translationKey]);
+      if (el.hasAttribute("title")) {
+        el.setAttribute("title", t[translationKey]);
+      }
+    }
+  });
   
-  // 1. Text Content with data-i18n
+  // 2. Text Content with data-i18n
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.getAttribute("data-i18n");
     if (t[key]) {

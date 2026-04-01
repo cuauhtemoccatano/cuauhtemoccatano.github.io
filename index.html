@@ -53,11 +53,12 @@
         </nav>
         
         <div class="header-actions">
-          <button class="lang-switch" id="lang-switch" aria-label="Switch Language">ES</button>
+          <button class="lang-switch" id="lang-switch" aria-label="Switch Language" data-i18n-aria="lang_switch">ES</button>
           <button
             class="toggle-icon"
             aria-label="Toggle dark mode"
             title="Toggle dark mode"
+            data-i18n-aria="theme_toggle"
           >
             <i class="bx bx-moon"></i>
           </button>
@@ -138,7 +139,7 @@
               </div>
               <div class="terminal-line">
                 <span class="prompt">guest@portfolio:~$</span>
-                <input type="text" id="terminal-input" autofocus spellcheck="false">
+                <input type="text" id="terminal-input" spellcheck="false">
               </div>
             </div>
           </div>
@@ -450,17 +451,17 @@
         <div class="oracle-header">
           <i class='bx bx-brain'></i>
           <span data-i18n="oracle_name">The Oracle</span>
-          <button id="close-oracle"><i class='bx bx-x'></i></button>
+          <button id="close-oracle" aria-label="Close Oracle" data-i18n-aria="oracle_close"><i class='bx bx-x'></i></button>
         </div>
         <div id="oracle-messages" class="oracle-messages">
           <div class="message bot" data-i18n="oracle_welcome">Welcome. Speak your strategy, and I shall architect the path.</div>
         </div>
         <div class="oracle-input-area">
-          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder">
-          <button id="send-oracle"><i class='bx bxs-send'></i></button>
+          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n="oracle_placeholder">
+          <button id="send-oracle" aria-label="Send Message" data-i18n-aria="oracle_send"><i class='bx bxs-send'></i></button>
         </div>
       </div>
-      <button id="oracle-toggle" class="oracle-toggle glass">
+      <button id="oracle-toggle" class="oracle-toggle glass" aria-label="Open Oracle" data-i18n-aria="oracle_toggle">
         <i class='bx bx-message-square-detail'></i>
       </button>
     </div>
