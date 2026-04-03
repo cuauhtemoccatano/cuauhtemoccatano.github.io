@@ -7,6 +7,8 @@ const toggleIcons = document.querySelectorAll(".toggle-icon");
 const icons = document.querySelectorAll(".toggle-icon i");
 
 function applyTheme(theme) {
+  const themeKey = theme === "dark" ? "theme_light" : "theme_dark";
+
   if (theme === "dark") {
     document.body.classList.add("dark-mode");
     if (homeImg) homeImg.src = "Assets/headshotbw.png";
@@ -22,6 +24,10 @@ function applyTheme(theme) {
       icon.classList.add("bx-moon");
     });
   }
+
+  toggleIcons.forEach((btn) => {
+    btn.setAttribute("data-i18n-aria", themeKey);
+  });
 }
 
 // System Preference Selection
@@ -53,10 +59,13 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const themeKey = nextTheme === "dark" ? "theme_light" : "theme_dark";
+    const localizedText = translations[currentLang][themeKey];
+
     toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", nextText);
-      btn.setAttribute("title", nextText);
+      btn.setAttribute("aria-label", localizedText);
+      btn.setAttribute("title", localizedText);
+      btn.setAttribute("data-i18n-aria", themeKey);
     });
 
     setTimeout(() => {
@@ -348,7 +357,15 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    oracle_toggle: "Toggle Oracle Assistant",
+    oracle_close: "Close Oracle Assistant",
+    oracle_send: "Send Message",
+    lang_switch: "Switch Language",
+    theme_light: "Switch to Light Mode",
+    theme_dark: "Switch to Dark Mode",
+    modal_close: "Close Modal",
+    back_to_step1: "Back to previous step"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +437,15 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    oracle_toggle: "Alternar Asistente Oráculo",
+    oracle_close: "Cerrar Asistente Oráculo",
+    oracle_send: "Enviar Mensaje",
+    lang_switch: "Cambiar Idioma",
+    theme_light: "Cambiar a Modo Claro",
+    theme_dark: "Cambiar a Modo Oscuro",
+    modal_close: "Cerrar Ventana",
+    back_to_step1: "Volver al paso anterior"
   }
 };
 
@@ -439,7 +464,16 @@ function updateLanguage(lang) {
     }
   });
 
-  // 2. Section Titles Mapping
+  // 2. ARIA labels and titles with data-i18n-aria
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+      el.setAttribute("title", t[key]);
+    }
+  });
+
+  // 3. Section Titles Mapping
   document.querySelectorAll(".section-title").forEach(title => {
     const section = title.closest("section");
     if (!section && title.parentElement.classList.contains("podcasts")) return;
