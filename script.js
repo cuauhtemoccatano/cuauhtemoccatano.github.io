@@ -27,19 +27,31 @@ function applyTheme(theme) {
 // System Preference Selection
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-// 1. Initial Load: LocalStorage > System Preference
-if (savedTheme) {
-  applyTheme(savedTheme);
-} else {
-  applyTheme(prefersDark.matches ? "dark" : "light");
-}
-
 // 2. Real-time transition when system settings change (if no manual choice)
 prefersDark.addEventListener("change", (e) => {
   if (!localStorage.getItem("theme")) {
-    applyTheme(e.matches ? "dark" : "light");
+    const nextTheme = e.matches ? "dark" : "light";
+    applyTheme(nextTheme);
+    updateThemeAria(nextTheme);
   }
 });
+
+function updateThemeAria(theme) {
+  const isDark = theme === "dark";
+  const labelKey = isDark ? "theme_light" : "theme_dark";
+  const t = translations[currentLang];
+
+  toggleIcons.forEach((btn) => {
+    if (t && t[labelKey]) {
+      btn.setAttribute("aria-label", t[labelKey]);
+      btn.setAttribute("title", t[labelKey]);
+    } else {
+      const nextText = isDark ? "Switch to light mode" : "Switch to dark mode";
+      btn.setAttribute("aria-label", nextText);
+      btn.setAttribute("title", nextText);
+    }
+  });
+}
 
 toggleIcons.forEach((toggle) => {
   toggle.addEventListener("click", () => {
@@ -52,12 +64,7 @@ toggleIcons.forEach((toggle) => {
     
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
-
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
-    toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", nextText);
-      btn.setAttribute("title", nextText);
-    });
+    updateThemeAria(nextTheme);
 
     setTimeout(() => {
       setButtonsDisabled(false);
@@ -348,7 +355,15 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    oracle_toggle: "Open Oracle",
+    oracle_close: "Close Oracle",
+    oracle_send: "Send message",
+    lang_switch: "Switch to Spanish",
+    theme_light: "Switch to light mode",
+    theme_dark: "Switch to dark mode",
+    modal_close: "Close Modal",
+    modal_back: "Back to information form"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +435,15 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    oracle_toggle: "Abrir Oráculo",
+    oracle_close: "Cerrar Oráculo",
+    oracle_send: "Enviar mensaje",
+    lang_switch: "Cambiar a Inglés",
+    theme_light: "Cambiar a modo claro",
+    theme_dark: "Cambiar a modo oscuro",
+    modal_close: "Cerrar Ventana",
+    modal_back: "Volver al formulario"
   }
 };
 
@@ -435,6 +458,17 @@ function updateLanguage(lang) {
         el.placeholder = t[key];
       } else {
         el.innerText = t[key];
+      }
+    }
+  });
+
+  // 1b. Accessibility Attributes with data-i18n-aria
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+      if (el.hasAttribute("title")) {
+        el.setAttribute("title", t[key]);
       }
     }
   });
@@ -620,11 +654,16 @@ bookingModal.addEventListener("click", (e) => {
   }
 });
 
-// Initialize Language on Load
+// Initialize Language and Theme on Load
 const savedLang = localStorage.getItem("preferredLang");
 const browserLang = navigator.language.startsWith("es") ? "ES" : "EN";
 currentLang = savedLang || browserLang;
 updateLanguage(currentLang);
+
+// Initial Load: LocalStorage > System Preference
+const initialTheme = savedTheme || (prefersDark.matches ? "dark" : "light");
+applyTheme(initialTheme);
+updateThemeAria(initialTheme);
 // Brand Discovery Logic (Move 3)
 const startScanBtn = document.getElementById('start-scan');
 const scanResults = document.getElementById('scan-results');
