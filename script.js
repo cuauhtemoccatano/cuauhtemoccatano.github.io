@@ -289,6 +289,9 @@ const translations = {
     oracle_name: "The Oracle",
     oracle_welcome: "Welcome. Speak your strategy, and I shall architect the path.",
     oracle_placeholder: "Ask the Oracle...",
+    oracle_toggle: "Toggle Oracle Assistant",
+    oracle_close: "Close Oracle",
+    oracle_send: "Send message",
     hero_title: "Crafting High-Performance Digital Presences",
     hero_desc: "Architecting holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
     trust_label_1: "Brand Strategy", trust_label_2: "Technical Excellence",
@@ -362,6 +365,9 @@ const translations = {
     oracle_name: "El Oráculo",
     oracle_welcome: "Bienvenida. Habla de tu estrategia y yo trazaré el camino.",
     oracle_placeholder: "Pregunta al Oráculo...",
+    oracle_toggle: "Alternar Asistente Oráculo",
+    oracle_close: "Cerrar Oráculo",
+    oracle_send: "Enviar mensaje",
     hero_title: "Presencia Digital de Alto Desempeño",
     hero_desc: "Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
     trust_label_1: "Estrategia de Marca", trust_label_2: "Excelencia Técnica",
@@ -439,7 +445,16 @@ function updateLanguage(lang) {
     }
   });
 
-  // 2. Section Titles Mapping
+  // 2. ARIA Labels with data-i18n-aria
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+      el.setAttribute("title", t[key]);
+    }
+  });
+
+  // 3. Section Titles Mapping
   document.querySelectorAll(".section-title").forEach(title => {
     const section = title.closest("section");
     if (!section && title.parentElement.classList.contains("podcasts")) return;
