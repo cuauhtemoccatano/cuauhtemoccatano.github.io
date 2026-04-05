@@ -11,6 +11,7 @@
   --message-bot-bg: rgba(0, 0, 0, 0.05);
   --glass-bg: rgba(255, 255, 255, 0.85);
   --glass-blur: blur(24px) saturate(180%);
+  --accent-glow: 0 0 15px rgba(37, 99, 235, 0.3);
   --transition-speed: 0.4s;
   --ease-liquid: cubic-bezier(0.4, 0, 0.2, 1);
   --header-bg: rgba(255, 255, 255, 0.6);
@@ -27,6 +28,7 @@ body.dark-mode {
   --card-border: rgba(255, 255, 255, 0.1);
   --message-bot-bg: rgba(255, 255, 255, 0.12);
   --glass-bg: rgba(9, 9, 11, 0.65);
+  --accent-glow: 0 0 20px rgba(59, 130, 246, 0.4);
   --header-bg: rgba(9, 9, 11, 0.85);
   --terminal-header: rgba(0, 0, 0, 0.6);
 }
@@ -442,6 +444,12 @@ section {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
   backdrop-filter: var(--glass-blur);
   font-family: 'Courier New', Courier, monospace;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.terminal-window:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), var(--accent-glow);
 }
 
 .terminal-header {
