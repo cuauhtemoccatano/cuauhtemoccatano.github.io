@@ -53,11 +53,11 @@
         </nav>
         
         <div class="header-actions">
-          <button class="lang-switch" id="lang-switch" aria-label="Switch Language">ES</button>
+          <button class="lang-switch" id="lang-switch" data-i18n-aria="lang_switch" aria-label="Switch to Spanish" title="Switch to Spanish">ES</button>
           <button
             class="toggle-icon"
-            aria-label="Toggle dark mode"
-            title="Toggle dark mode"
+            aria-label="Switch to dark mode"
+            title="Switch to dark mode"
           >
             <i class="bx bx-moon"></i>
           </button>
@@ -264,7 +264,7 @@
           
           <div class="engineering-container">
             <!-- Theme Toggle with ARIA -->
-            <button class="toggle-icon" aria-label="Toggle dark mode" title="Toggle dark mode" type="button">
+            <button class="toggle-icon" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
                 <i class='bx bx-moon' id="nav-icon" aria-hidden="true"></i>
             </button>
             <!-- Projects -->
@@ -390,7 +390,7 @@
     <!-- Premium Booking Modal -->
     <div class="modal-overlay" id="bookingModal">
       <div class="modal-content card-glass">
-        <button class="modal-close" aria-label="Close Modal">&times;</button>
+        <button class="modal-close" data-i18n-aria="modal_close" aria-label="Close Modal" title="Close Modal">&times;</button>
         <div class="modal-header">
           <h2 data-i18n="modal_title">Book a Discovery Call</h2>
           <p data-i18n="modal_desc">45 minutes to architect your digital future.</p>
@@ -428,7 +428,7 @@
             <!-- Step 2: Custom Calendar / Scheduler -->
             <div class="booking-step" id="step2">
               <div class="scheduler-header">
-                <button class="back-btn" id="backToStep1"><i class='bx bx-left-arrow-alt'></i></button>
+                <button class="back-btn" id="backToStep1" data-i18n-aria="back_btn" aria-label="Go back" title="Go back"><i class='bx bx-left-arrow-alt'></i></button>
                 <h3 data-i18n="pick_time">Select Date & Time</h3>
               </div>
               <!-- Custom Calendar UI or Calendly Embed will go here -->
@@ -450,17 +450,17 @@
         <div class="oracle-header">
           <i class='bx bx-brain'></i>
           <span data-i18n="oracle_name">The Oracle</span>
-          <button id="close-oracle"><i class='bx bx-x'></i></button>
+          <button id="close-oracle" data-i18n-aria="oracle_close" aria-label="Close Oracle Assistant" title="Close Oracle Assistant"><i class='bx bx-x'></i></button>
         </div>
         <div id="oracle-messages" class="oracle-messages">
           <div class="message bot" data-i18n="oracle_welcome">Welcome. Speak your strategy, and I shall architect the path.</div>
         </div>
         <div class="oracle-input-area">
           <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder">
-          <button id="send-oracle"><i class='bx bxs-send'></i></button>
+          <button id="send-oracle" data-i18n-aria="oracle_send" aria-label="Send message to Oracle" title="Send message to Oracle"><i class='bx bxs-send'></i></button>
         </div>
       </div>
-      <button id="oracle-toggle" class="oracle-toggle glass">
+      <button id="oracle-toggle" class="oracle-toggle glass" data-i18n-aria="oracle_toggle" aria-label="Open Oracle Assistant" title="Open Oracle Assistant">
         <i class='bx bx-message-square-detail'></i>
       </button>
     </div>

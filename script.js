@@ -3,8 +3,8 @@
  */
 const savedTheme = localStorage.getItem("theme");
 const homeImg = document.querySelector(".home-img img");
-const toggleIcons = document.querySelectorAll(".toggle-icon");
-const icons = document.querySelectorAll(".toggle-icon i");
+let toggleIcons = document.querySelectorAll(".toggle-icon");
+let icons = document.querySelectorAll(".toggle-icon i");
 
 function applyTheme(theme) {
   if (theme === "dark") {
@@ -22,17 +22,29 @@ function applyTheme(theme) {
       icon.classList.add("bx-moon");
     });
   }
+  updateThemeAria(theme);
+}
+
+function updateThemeAria(theme) {
+  const t = translations[currentLang];
+  const nextText = theme === "dark" ? t.theme_light : t.theme_dark;
+  toggleIcons.forEach((btn) => {
+    btn.setAttribute("aria-label", nextText);
+    btn.setAttribute("title", nextText);
+  });
 }
 
 // System Preference Selection
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
 
 // 1. Initial Load: LocalStorage > System Preference
-if (savedTheme) {
-  applyTheme(savedTheme);
-} else {
-  applyTheme(prefersDark.matches ? "dark" : "light");
-}
+document.addEventListener("DOMContentLoaded", () => {
+  if (savedTheme) {
+    applyTheme(savedTheme);
+  } else {
+    applyTheme(prefersDark.matches ? "dark" : "light");
+  }
+});
 
 // 2. Real-time transition when system settings change (if no manual choice)
 prefersDark.addEventListener("change", (e) => {
@@ -52,12 +64,6 @@ toggleIcons.forEach((toggle) => {
     
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
-
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
-    toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", nextText);
-      btn.setAttribute("title", nextText);
-    });
 
     setTimeout(() => {
       setButtonsDisabled(false);
@@ -348,7 +354,15 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    theme_light: "Switch to light mode",
+    theme_dark: "Switch to dark mode",
+    lang_switch: "Switch to Spanish",
+    oracle_toggle: "Open Oracle Assistant",
+    oracle_close: "Close Oracle Assistant",
+    oracle_send: "Send message to Oracle",
+    modal_close: "Close Modal",
+    back_btn: "Go back"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +434,15 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    theme_light: "Cambiar a modo claro",
+    theme_dark: "Cambiar a modo oscuro",
+    lang_switch: "Cambiar a Inglés",
+    oracle_toggle: "Abrir Asistente del Oráculo",
+    oracle_close: "Cerrar Asistente del Oráculo",
+    oracle_send: "Enviar mensaje al Oráculo",
+    modal_close: "Cerrar Ventana",
+    back_btn: "Regresar"
   }
 };
 
@@ -436,6 +458,15 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1b. ARIA Labels and Titles with data-i18n-aria
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+      el.setAttribute("title", t[key]);
     }
   });
 
@@ -498,6 +529,13 @@ function updateLanguage(lang) {
   });
 
   langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
+
+  // Refresh references to theme toggles in case they were cloned or moved
+  toggleIcons = document.querySelectorAll(".toggle-icon");
+
+  // Synchronize theme toggle ARIA with new language
+  const currentTheme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+  updateThemeAria(currentTheme);
 }
 
 langSwitches.forEach(btn => {
@@ -622,9 +660,13 @@ bookingModal.addEventListener("click", (e) => {
 
 // Initialize Language on Load
 const savedLang = localStorage.getItem("preferredLang");
-const browserLang = navigator.language.startsWith("es") ? "ES" : "EN";
+const browserLang = (navigator.language && navigator.language.startsWith("es")) ? "ES" : "EN";
 currentLang = savedLang || browserLang;
-updateLanguage(currentLang);
+
+// Delay initialization slightly to ensure DOM is fully ready for ARIA updates
+document.addEventListener("DOMContentLoaded", () => {
+  updateLanguage(currentLang);
+});
 // Brand Discovery Logic (Move 3)
 const startScanBtn = document.getElementById('start-scan');
 const scanResults = document.getElementById('scan-results');
