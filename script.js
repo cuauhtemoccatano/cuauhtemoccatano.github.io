@@ -53,10 +53,11 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const ariaKey = nextTheme === "dark" ? "theme_light" : "theme_dark";
     toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", nextText);
-      btn.setAttribute("title", nextText);
+      btn.setAttribute("data-i18n-aria", ariaKey);
+      btn.setAttribute("aria-label", translations[currentLang][ariaKey]);
+      btn.setAttribute("title", translations[currentLang][ariaKey]);
     });
 
     setTimeout(() => {
@@ -348,7 +349,15 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    lang_switch: "Switch to Spanish",
+    theme_light: "Switch to light mode",
+    theme_dark: "Switch to dark mode",
+    oracle_toggle: "Open The Oracle",
+    oracle_close: "Close Oracle",
+    oracle_send: "Send message",
+    back_btn: "Go back",
+    modal_close: "Close Modal"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +429,15 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    lang_switch: "Cambiar a Inglés",
+    theme_light: "Cambiar a modo claro",
+    theme_dark: "Cambiar a modo oscuro",
+    oracle_toggle: "Abrir El Oráculo",
+    oracle_close: "Cerrar Oráculo",
+    oracle_send: "Enviar mensaje",
+    back_btn: "Regresar",
+    modal_close: "Cerrar Ventana"
   }
 };
 
@@ -436,6 +453,21 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1.1 Support data-i18n-placeholder specifically
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.placeholder = t[key];
+  });
+
+  // 1.2 Support data-i18n-aria for aria-label and title
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+      el.setAttribute("title", t[key]);
     }
   });
 
