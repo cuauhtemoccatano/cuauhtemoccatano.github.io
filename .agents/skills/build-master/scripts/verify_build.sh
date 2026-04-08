@@ -8,7 +8,7 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-ROOT_DIR="/Users/macos/Documents/GitHub/cuauhtemoccatano.github.io"
+ROOT_DIR=$(pwd)
 LAUNCHPAD_DIR="$ROOT_DIR/launchpad-app"
 
 echo -e "${BLUE}=== Starting Unified Build Verification ===${NC}"
@@ -18,7 +18,7 @@ echo -e "\n${BLUE}1. Analyzing Launchpad (Next.js)...${NC}"
 cd "$LAUNCHPAD_DIR" || exit
 
 echo "Running Linting..."
-if npm run lint; then
+if pnpm run lint; then
     echo -e "${GREEN}✓ Linting passed.${NC}"
 else
     echo -e "${RED}✗ Linting failed. Please fix warnings/errors before push.${NC}"
@@ -26,7 +26,7 @@ else
 fi
 
 echo "Running Production Build..."
-if npm run build; then
+if pnpm run build; then
     echo -e "${GREEN}✓ Build successful.${NC}"
 else
     echo -e "${RED}✗ Build failed. Critical regression detected in Launchpad.${NC}"
