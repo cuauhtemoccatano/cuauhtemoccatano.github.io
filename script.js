@@ -214,6 +214,13 @@ const appendTerminalOutput = (text, type = "output") => {
 };
 
 if (terminalInput) {
+  const terminalWindow = document.querySelector(".terminal-window");
+  if (terminalWindow) {
+    terminalWindow.addEventListener("click", () => {
+      terminalInput.focus();
+    });
+  }
+
   terminalInput.addEventListener("keydown", async (e) => {
     if (e.key === "Enter") {
       const fullInput = terminalInput.value.trim();

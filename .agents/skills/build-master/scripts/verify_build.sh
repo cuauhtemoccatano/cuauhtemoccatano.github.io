@@ -8,7 +8,7 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-ROOT_DIR="/Users/macos/Documents/GitHub/cuauhtemoccatano.github.io"
+ROOT_DIR="$(pwd)"
 LAUNCHPAD_DIR="$ROOT_DIR/launchpad-app"
 
 echo -e "${BLUE}=== Starting Unified Build Verification ===${NC}"
