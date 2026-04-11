@@ -348,7 +348,12 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    back: "Back",
+    close_assistant: "Close Assistant",
+    send_message: "Send Message",
+    open_oracle: "Open Oracle Assistant",
+    terminal_input: "Terminal Input"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +425,12 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    back: "Regresar",
+    close_assistant: "Cerrar Asistente",
+    send_message: "Enviar Mensaje",
+    open_oracle: "Abrir Oráculo",
+    terminal_input: "Entrada de terminal"
   }
 };
 
@@ -435,6 +445,17 @@ function updateLanguage(lang) {
         el.placeholder = t[key];
       } else {
         el.innerText = t[key];
+      }
+    }
+  });
+
+  // 1.5 ARIA Labels and Titles
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+      if (el.hasAttribute("title")) {
+        el.setAttribute("title", t[key]);
       }
     }
   });

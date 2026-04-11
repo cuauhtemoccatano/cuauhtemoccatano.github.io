@@ -15,9 +15,11 @@
   --ease-liquid: cubic-bezier(0.4, 0, 0.2, 1);
   --header-bg: rgba(255, 255, 255, 0.6);
   --terminal-header: rgba(0, 0, 0, 0.1);
+  --accent-glow: rgba(37, 99, 235, 0.2);
 }
 
 body.dark-mode {
+  --accent-glow: rgba(37, 99, 235, 0.4);
   --bg-primary: #09090B;
   --text-primary: #F8FAFC;
   --text-muted: #94A3B8;
@@ -39,6 +41,12 @@ body.dark-mode {
   text-decoration: none;
   font-family: 'Space Grotesk', sans-serif;
   cursor: none !important;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--accent-glow);
 }
 
 /* Custom Liquid Cursor */
@@ -442,6 +450,12 @@ section {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
   backdrop-filter: var(--glass-blur);
   font-family: 'Courier New', Courier, monospace;
+  transition: border-color 0.3s var(--ease-liquid), box-shadow 0.3s var(--ease-liquid);
+}
+
+.terminal-window:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px var(--accent-glow), 0 30px 60px rgba(0, 0, 0, 0.3);
 }
 
 .terminal-header {
@@ -498,7 +512,8 @@ section {
 #terminal-input {
   background: transparent;
   border: none;
-  outline: none;
+  outline: none !important;
+  box-shadow: none !important;
   color: #FAFAFA;
   font-family: inherit;
   font-size: inherit;
