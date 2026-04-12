@@ -204,6 +204,13 @@ tiltCards.forEach((card) => {
  */
 const terminalInput = document.getElementById("terminal-input");
 const terminalBody = document.getElementById("terminal-body");
+const terminalWindow = document.querySelector(".terminal-window");
+
+if (terminalWindow && terminalInput) {
+  terminalWindow.addEventListener("click", () => {
+    terminalInput.focus();
+  });
+}
 
 const appendTerminalOutput = (text, type = "output") => {
   const output = document.createElement("div");
@@ -341,6 +348,11 @@ const translations = {
     t_welcome: "Welcome to Cuauhtémoc's interactive shell.",
     t_instr: "Type 'help' for options.",
     t_whoami: "Cuauhtémoc Cataño: Developer, Founder, and Podcast Host.",
+    terminal_input: "Terminal Input",
+    oracle_toggle: "Open Oracle Assistant",
+    close_oracle: "Close Oracle",
+    send_message: "Send Message",
+    btn_back: "Back to previous step",
     modal_title: "Book a Discovery Call",
     modal_desc: "45 minutes to architect your digital future.",
     form_name: "Your Name",
@@ -413,6 +425,11 @@ const translations = {
     contact_email: "Enviar Email", download_cv: "Descargar CV",
     t_welcome: "Bienvenido a la terminal interactiva de Cuauhtémoc.", t_instr: "Escribe 'help' para ver opciones.",
     t_whoami: "Cuauhtémoc Cataño: Desarrollador, Fundador y Host de Podcast.",
+    terminal_input: "Entrada de Terminal",
+    oracle_toggle: "Abrir Asistente El Oráculo",
+    close_oracle: "Cerrar El Oráculo",
+    send_message: "Enviar Mensaje",
+    btn_back: "Volver al paso anterior",
     modal_title: "Reserva una Llamada de Descubrimiento",
     modal_desc: "45 minutos para diseñar tu futuro digital.",
     form_name: "Tu Nombre",
@@ -437,6 +454,16 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1b. ARIA Labels and Titles
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
   });
 
   // 2. Section Titles Mapping
