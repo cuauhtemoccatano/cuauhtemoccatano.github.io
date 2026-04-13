@@ -214,6 +214,14 @@ const appendTerminalOutput = (text, type = "output") => {
 };
 
 if (terminalInput) {
+  // Focus terminal input when clicking anywhere in the terminal window
+  const terminalWindow = document.querySelector(".terminal-window");
+  if (terminalWindow) {
+    terminalWindow.addEventListener("click", () => {
+      terminalInput.focus();
+    });
+  }
+
   terminalInput.addEventListener("keydown", async (e) => {
     if (e.key === "Enter") {
       const fullInput = terminalInput.value.trim();
@@ -348,7 +356,12 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    terminal_input_label: "Terminal Input",
+    close_oracle_label: "Close Oracle",
+    oracle_input_label: "Oracle Input",
+    send_oracle_label: "Send message to Oracle",
+    oracle_toggle_label: "Toggle Oracle Assistant"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +433,12 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    terminal_input_label: "Entrada de Terminal",
+    close_oracle_label: "Cerrar Oráculo",
+    oracle_input_label: "Entrada del Oráculo",
+    send_oracle_label: "Enviar mensaje al Oráculo",
+    oracle_toggle_label: "Alternar Asistente del Oráculo"
   }
 };
 
@@ -437,6 +455,17 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1.2 Attributes with data-i18n-label and data-i18n-placeholder
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.setAttribute("placeholder", t[key]);
   });
 
   // 2. Section Titles Mapping

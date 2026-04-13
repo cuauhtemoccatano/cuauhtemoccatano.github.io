@@ -138,7 +138,7 @@
               </div>
               <div class="terminal-line">
                 <span class="prompt">guest@portfolio:~$</span>
-                <input type="text" id="terminal-input" autofocus spellcheck="false">
+                <input type="text" id="terminal-input" spellcheck="false" aria-label="Terminal Input" data-i18n-label="terminal_input_label">
               </div>
             </div>
           </div>
@@ -448,20 +448,20 @@
     <div class="oracle-wrapper">
       <div id="oracle-chat" class="oracle-chat glass hidden">
         <div class="oracle-header">
-          <i class='bx bx-brain'></i>
+          <i class='bx bx-brain' aria-hidden="true"></i>
           <span data-i18n="oracle_name">The Oracle</span>
-          <button id="close-oracle"><i class='bx bx-x'></i></button>
+          <button id="close-oracle" aria-label="Close Oracle" data-i18n-label="close_oracle_label"><i class='bx bx-x' aria-hidden="true"></i></button>
         </div>
         <div id="oracle-messages" class="oracle-messages">
           <div class="message bot" data-i18n="oracle_welcome">Welcome. Speak your strategy, and I shall architect the path.</div>
         </div>
         <div class="oracle-input-area">
-          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder">
-          <button id="send-oracle"><i class='bx bxs-send'></i></button>
+          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder" aria-label="Oracle Input" data-i18n-label="oracle_input_label">
+          <button id="send-oracle" aria-label="Send message to Oracle" data-i18n-label="send_oracle_label"><i class='bx bxs-send' aria-hidden="true"></i></button>
         </div>
       </div>
-      <button id="oracle-toggle" class="oracle-toggle glass">
-        <i class='bx bx-message-square-detail'></i>
+      <button id="oracle-toggle" class="oracle-toggle glass" aria-label="Toggle Oracle Assistant" data-i18n-label="oracle_toggle_label">
+        <i class='bx bx-message-square-detail' aria-hidden="true"></i>
       </button>
     </div>
 
