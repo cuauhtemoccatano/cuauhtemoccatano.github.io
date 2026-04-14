@@ -53,7 +53,8 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const t = translations[currentLang];
+    const nextText = nextTheme === "dark" ? t.switch_to_light : t.switch_to_dark;
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
@@ -214,6 +215,11 @@ const appendTerminalOutput = (text, type = "output") => {
 };
 
 if (terminalInput) {
+  // Focus input when clicking anywhere in terminal
+  document.querySelector('.terminal-window')?.addEventListener('click', () => {
+    terminalInput.focus();
+  });
+
   terminalInput.addEventListener("keydown", async (e) => {
     if (e.key === "Enter") {
       const fullInput = terminalInput.value.trim();
@@ -289,6 +295,16 @@ const translations = {
     oracle_name: "The Oracle",
     oracle_welcome: "Welcome. Speak your strategy, and I shall architect the path.",
     oracle_placeholder: "Ask the Oracle...",
+    switch_language: "Switch Language",
+    toggle_dark_mode: "Toggle dark mode",
+    switch_to_dark: "Switch to dark mode",
+    switch_to_light: "Switch to light mode",
+    terminal_input_label: "Terminal input",
+    close_modal: "Close Modal",
+    back: "Back",
+    close_oracle: "Close Oracle",
+    send_oracle_label: "Send message",
+    open_oracle: "Open Oracle",
     hero_title: "Crafting High-Performance Digital Presences",
     hero_desc: "Architecting holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
     trust_label_1: "Brand Strategy", trust_label_2: "Technical Excellence",
@@ -362,6 +378,16 @@ const translations = {
     oracle_name: "El Oráculo",
     oracle_welcome: "Bienvenida. Habla de tu estrategia y yo trazaré el camino.",
     oracle_placeholder: "Pregunta al Oráculo...",
+    switch_language: "Cambiar idioma",
+    toggle_dark_mode: "Cambiar modo oscuro",
+    switch_to_dark: "Cambiar a modo oscuro",
+    switch_to_light: "Cambiar a modo claro",
+    terminal_input_label: "Entrada de terminal",
+    close_modal: "Cerrar modal",
+    back: "Volver",
+    close_oracle: "Cerrar Oráculo",
+    send_oracle_label: "Enviar mensaje",
+    open_oracle: "Abrir Oráculo",
     hero_title: "Presencia Digital de Alto Desempeño",
     hero_desc: "Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
     trust_label_1: "Estrategia de Marca", trust_label_2: "Excelencia Técnica",
@@ -437,6 +463,30 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1.1 Attributes with data-i18n-*
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.setAttribute("placeholder", t[key]);
+  });
+
+  // Update theme toggle label if it exists
+  const isDark = document.body.classList.contains("dark-mode");
+  const toggleLabel = isDark ? t.switch_to_light : t.switch_to_dark;
+  document.querySelectorAll(".toggle-icon").forEach(btn => {
+    btn.setAttribute("aria-label", toggleLabel);
+    btn.setAttribute("title", toggleLabel);
   });
 
   // 2. Section Titles Mapping
