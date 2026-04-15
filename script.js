@@ -53,7 +53,7 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const nextText = nextTheme === "dark" ? translations[currentLang].theme_light : translations[currentLang].theme_dark;
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
@@ -348,7 +348,15 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    terminal_input: "Terminal Input",
+    btn_back: "Go back to previous step",
+    close_oracle: "Close Oracle",
+    oracle_input: "Oracle Input",
+    send_message: "Send Message",
+    open_oracle: "Open Oracle Assistant",
+    theme_light: "Switch to light mode",
+    theme_dark: "Switch to dark mode"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +428,15 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    terminal_input: "Entrada de terminal",
+    btn_back: "Regresar al paso anterior",
+    close_oracle: "Cerrar Oráculo",
+    oracle_input: "Entrada del Oráculo",
+    send_message: "Enviar mensaje",
+    open_oracle: "Abrir asistente del Oráculo",
+    theme_light: "Cambiar a modo claro",
+    theme_dark: "Cambiar a modo oscuro"
   }
 };
 
@@ -437,6 +453,20 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1.1 Attributes with data-i18n-label, placeholder, title
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.placeholder = t[key];
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.title = t[key];
   });
 
   // 2. Section Titles Mapping
@@ -498,6 +528,14 @@ function updateLanguage(lang) {
   });
 
   langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
+
+  // Update theme toggle labels when language changes
+  const isDark = document.body.classList.contains("dark-mode");
+  const themeText = isDark ? t.theme_light : t.theme_dark;
+  document.querySelectorAll(".toggle-icon").forEach((btn) => {
+    btn.setAttribute("aria-label", themeText);
+    btn.setAttribute("title", themeText);
+  });
 }
 
 langSwitches.forEach(btn => {
@@ -622,9 +660,17 @@ bookingModal.addEventListener("click", (e) => {
 
 // Initialize Language on Load
 const savedLang = localStorage.getItem("preferredLang");
-const browserLang = navigator.language.startsWith("es") ? "ES" : "EN";
+const browserLang = (navigator.language && navigator.language.startsWith("es")) ? "ES" : "EN";
 currentLang = savedLang || browserLang;
 updateLanguage(currentLang);
+
+// Initial theme toggle labels based on current theme and language
+const initialTheme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+const initialThemeText = initialTheme === "dark" ? translations[currentLang].theme_light : translations[currentLang].theme_dark;
+toggleIcons.forEach((btn) => {
+  btn.setAttribute("aria-label", initialThemeText);
+  btn.setAttribute("title", initialThemeText);
+});
 // Brand Discovery Logic (Move 3)
 const startScanBtn = document.getElementById('start-scan');
 const scanResults = document.getElementById('scan-results');
