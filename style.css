@@ -15,6 +15,7 @@
   --ease-liquid: cubic-bezier(0.4, 0, 0.2, 1);
   --header-bg: rgba(255, 255, 255, 0.6);
   --terminal-header: rgba(0, 0, 0, 0.1);
+  --accent-glow: 0 0 15px rgba(37, 99, 235, 0.3);
 }
 
 body.dark-mode {
@@ -29,6 +30,7 @@ body.dark-mode {
   --glass-bg: rgba(9, 9, 11, 0.65);
   --header-bg: rgba(9, 9, 11, 0.85);
   --terminal-header: rgba(0, 0, 0, 0.6);
+  --accent-glow: 0 0 20px rgba(59, 130, 246, 0.5);
 }
 
 /* Reset and Global Styles */
@@ -39,6 +41,12 @@ body.dark-mode {
   text-decoration: none;
   font-family: 'Space Grotesk', sans-serif;
   cursor: none !important;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+  box-shadow: var(--accent-glow);
 }
 
 /* Custom Liquid Cursor */
