@@ -53,7 +53,8 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const t = translations[currentLang];
+    const nextText = nextTheme === "dark" ? t.switch_light : t.switch_dark;
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
@@ -204,6 +205,7 @@ tiltCards.forEach((card) => {
  */
 const terminalInput = document.getElementById("terminal-input");
 const terminalBody = document.getElementById("terminal-body");
+const terminalWindow = document.querySelector(".terminal-window");
 
 const appendTerminalOutput = (text, type = "output") => {
   const output = document.createElement("div");
@@ -213,7 +215,9 @@ const appendTerminalOutput = (text, type = "output") => {
   terminalBody.scrollTop = terminalBody.scrollHeight;
 };
 
-if (terminalInput) {
+if (terminalWindow && terminalInput) {
+  terminalWindow.addEventListener("click", () => terminalInput.focus());
+
   terminalInput.addEventListener("keydown", async (e) => {
     if (e.key === "Enter") {
       const fullInput = terminalInput.value.trim();
@@ -279,6 +283,11 @@ let currentLang = "EN";
 const translations = {
   EN: {
     projects: "Engineering", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contact",
+    terminal_input_label: "Terminal input",
+    oracle_toggle_label: "Toggle Oracle Chat",
+    toggle_dark_mode: "Toggle dark mode",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
     discovery_title: "Discover Your Brand's Potential",
     discovery_desc: "Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.",
     scan_now: "Scan Now",
@@ -352,6 +361,11 @@ const translations = {
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
+    terminal_input_label: "Entrada de terminal",
+    oracle_toggle_label: "Alternar chat del Oráculo",
+    toggle_dark_mode: "Alternar modo oscuro",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
     discovery_title: "Descubre el Potencial de tu Marca",
     discovery_desc: "Ingresa la URL de tu sitio para obtener un Score de Vitalidad de Marca instantáneo e identificar oportunidades de crecimiento.",
     scan_now: "Escanear Ahora",
@@ -427,16 +441,23 @@ const translations = {
 function updateLanguage(lang) {
   const t = translations[lang];
   
-  // 1. Text Content with data-i18n
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.getAttribute("data-i18n");
-    if (t[key]) {
+  // 1. Text Content and Accessibility with data-i18n
+  document.querySelectorAll("[data-i18n], [data-i18n-label], [data-i18n-title], [data-i18n-placeholder]").forEach(el => {
+    const textKey = el.getAttribute("data-i18n");
+    const labelKey = el.getAttribute("data-i18n-label");
+    const titleKey = el.getAttribute("data-i18n-title");
+    const placeholderKey = el.getAttribute("data-i18n-placeholder");
+
+    if (textKey && t[textKey]) {
       if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
-        el.placeholder = t[key];
+        el.placeholder = t[textKey];
       } else {
-        el.innerText = t[key];
+        el.innerText = t[textKey];
       }
     }
+    if (labelKey && t[labelKey]) el.setAttribute("aria-label", t[labelKey]);
+    if (titleKey && t[titleKey]) el.setAttribute("title", t[titleKey]);
+    if (placeholderKey && t[placeholderKey]) el.placeholder = t[placeholderKey];
   });
 
   // 2. Section Titles Mapping
