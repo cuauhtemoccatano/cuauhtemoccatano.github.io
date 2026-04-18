@@ -452,16 +452,16 @@
           <span data-i18n="oracle_name">The Oracle</span>
           <button id="close-oracle"><i class='bx bx-x'></i></button>
         </div>
-        <div id="oracle-messages" class="oracle-messages">
+        <div id="oracle-messages" class="oracle-messages" aria-live="polite">
           <div class="message bot" data-i18n="oracle_welcome">Welcome. Speak your strategy, and I shall architect the path.</div>
         </div>
         <div class="oracle-input-area">
-          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder">
-          <button id="send-oracle"><i class='bx bxs-send'></i></button>
+          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder" aria-label="Ask the Oracle" data-i18n-label="oracle_input_label">
+          <button id="send-oracle" aria-label="Send message" data-i18n-label="oracle_send"><i class='bx bxs-send' aria-hidden="true"></i></button>
         </div>
       </div>
-      <button id="oracle-toggle" class="oracle-toggle glass">
-        <i class='bx bx-message-square-detail'></i>
+      <button id="oracle-toggle" class="oracle-toggle glass" aria-label="Toggle Oracle Assistant" data-i18n-label="oracle_toggle">
+        <i class='bx bx-message-square-detail' aria-hidden="true"></i>
       </button>
     </div>
 
