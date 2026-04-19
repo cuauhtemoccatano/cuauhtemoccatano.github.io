@@ -53,10 +53,13 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const nextTextKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
+    const nextText = translations[currentLang][nextTextKey];
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
+      btn.setAttribute("data-i18n-label", nextTextKey);
+      btn.setAttribute("data-i18n-title", nextTextKey);
     });
 
     setTimeout(() => {
@@ -348,7 +351,14 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    oracle_toggle: "Open Oracle Chat",
+    send_message: "Send message",
+    terminal_input: "Terminal Input",
+    back_button: "Back to information form",
+    switch_language: "Switch Language",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,22 +430,48 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    oracle_toggle: "Abrir Chat del Oráculo",
+    send_message: "Enviar mensaje",
+    terminal_input: "Entrada de Terminal",
+    back_button: "Volver al formulario de información",
+    switch_language: "Cambiar Idioma",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro"
   }
 };
 
 function updateLanguage(lang) {
   const t = translations[lang];
   
-  // 1. Text Content with data-i18n
-  document.querySelectorAll("[data-i18n]").forEach(el => {
+  // 1. Content & Attributes with data-i18n
+  document.querySelectorAll("[data-i18n], [data-i18n-label], [data-i18n-title], [data-i18n-placeholder]").forEach(el => {
+    // Text content
     const key = el.getAttribute("data-i18n");
-    if (t[key]) {
+    if (key && t[key]) {
       if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
         el.placeholder = t[key];
       } else {
         el.innerText = t[key];
       }
+    }
+
+    // ARIA label
+    const labelKey = el.getAttribute("data-i18n-label");
+    if (labelKey && t[labelKey]) {
+      el.setAttribute("aria-label", t[labelKey]);
+    }
+
+    // Title attribute
+    const titleKey = el.getAttribute("data-i18n-title");
+    if (titleKey && t[titleKey]) {
+      el.setAttribute("title", t[titleKey]);
+    }
+
+    // Placeholder attribute (explicit)
+    const placeholderKey = el.getAttribute("data-i18n-placeholder");
+    if (placeholderKey && t[placeholderKey]) {
+      el.setAttribute("placeholder", t[placeholderKey]);
     }
   });
 

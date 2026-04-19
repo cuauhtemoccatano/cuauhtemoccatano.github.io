@@ -53,13 +53,15 @@
         </nav>
         
         <div class="header-actions">
-          <button class="lang-switch" id="lang-switch" aria-label="Switch Language">ES</button>
+          <button class="lang-switch" id="lang-switch" aria-label="Switch Language" data-i18n-label="switch_language">ES</button>
           <button
             class="toggle-icon"
             aria-label="Toggle dark mode"
             title="Toggle dark mode"
+            data-i18n-label="switch_dark"
+            data-i18n-title="switch_dark"
           >
-            <i class="bx bx-moon"></i>
+            <i class="bx bx-moon" aria-hidden="true"></i>
           </button>
         </div>
       </header>
@@ -138,7 +140,7 @@
               </div>
               <div class="terminal-line">
                 <span class="prompt">guest@portfolio:~$</span>
-                <input type="text" id="terminal-input" autofocus spellcheck="false">
+                <input type="text" id="terminal-input" spellcheck="false" aria-label="Terminal Input" data-i18n-label="terminal_input">
               </div>
             </div>
           </div>
@@ -264,7 +266,7 @@
           
           <div class="engineering-container">
             <!-- Theme Toggle with ARIA -->
-            <button class="toggle-icon" aria-label="Toggle dark mode" title="Toggle dark mode" type="button">
+            <button class="toggle-icon" aria-label="Toggle dark mode" title="Toggle dark mode" type="button" data-i18n-label="switch_dark" data-i18n-title="switch_dark">
                 <i class='bx bx-moon' id="nav-icon" aria-hidden="true"></i>
             </button>
             <!-- Projects -->
@@ -428,7 +430,7 @@
             <!-- Step 2: Custom Calendar / Scheduler -->
             <div class="booking-step" id="step2">
               <div class="scheduler-header">
-                <button class="back-btn" id="backToStep1"><i class='bx bx-left-arrow-alt'></i></button>
+                <button class="back-btn" id="backToStep1" aria-label="Back to information form" data-i18n-label="back_button"><i class='bx bx-left-arrow-alt' aria-hidden="true"></i></button>
                 <h3 data-i18n="pick_time">Select Date & Time</h3>
               </div>
               <!-- Custom Calendar UI or Calendly Embed will go here -->
@@ -457,11 +459,11 @@
         </div>
         <div class="oracle-input-area">
           <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder">
-          <button id="send-oracle"><i class='bx bxs-send'></i></button>
+          <button id="send-oracle" aria-label="Send message" data-i18n-label="send_message"><i class='bx bxs-send' aria-hidden="true"></i></button>
         </div>
       </div>
-      <button id="oracle-toggle" class="oracle-toggle glass">
-        <i class='bx bx-message-square-detail'></i>
+      <button id="oracle-toggle" class="oracle-toggle glass" aria-label="Open Oracle Chat" data-i18n-label="oracle_toggle">
+        <i class='bx bx-message-square-detail' aria-hidden="true"></i>
       </button>
     </div>
 
