@@ -348,7 +348,11 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    oracle_toggle: "Open Oracle Chat",
+    oracle_close: "Close Oracle",
+    oracle_send: "Send message",
+    back_to_info: "Back to information"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,14 +424,18 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    oracle_toggle: "Abrir chat del Oráculo",
+    oracle_close: "Cerrar Oráculo",
+    oracle_send: "Enviar mensaje",
+    back_to_info: "Volver a información"
   }
 };
 
 function updateLanguage(lang) {
   const t = translations[lang];
   
-  // 1. Text Content with data-i18n
+  // 1. Content localization
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.getAttribute("data-i18n");
     if (t[key]) {
@@ -439,7 +447,23 @@ function updateLanguage(lang) {
     }
   });
 
-  // 2. Section Titles Mapping
+  // 2. ARIA Label localization
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+    }
+  });
+
+  // 4. Placeholder localization
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) {
+      el.setAttribute("placeholder", t[key]);
+    }
+  });
+
+  // 3. Section Titles Mapping
   document.querySelectorAll(".section-title").forEach(title => {
     const section = title.closest("section");
     if (!section && title.parentElement.classList.contains("podcasts")) return;
