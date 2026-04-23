@@ -53,7 +53,8 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const t = translations[currentLang];
+    const nextText = nextTheme === "dark" ? t.switch_light : t.switch_dark;
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
@@ -348,7 +349,14 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    oracle_toggle: "Toggle Oracle",
+    send_message: "Send Message",
+    close_oracle: "Close Oracle",
+    back_to_info: "Back to information",
+    terminal_input_label: "Terminal Input",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +428,14 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    oracle_toggle: "Alternar Oráculo",
+    send_message: "Enviar Mensaje",
+    close_oracle: "Cerrar Oráculo",
+    back_to_info: "Volver a información",
+    terminal_input_label: "Entrada de Terminal",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro"
   }
 };
 
@@ -437,6 +452,20 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1.1 ARIA labels, Titles and Placeholders
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.setAttribute("placeholder", t[key]);
   });
 
   // 2. Section Titles Mapping
@@ -495,6 +524,14 @@ function updateLanguage(lang) {
   document.querySelectorAll(".instruction-msg").forEach(msg => msg.innerText = t.t_instr);
   document.querySelectorAll(".terminal-output").forEach(out => {
     if (out.innerText.includes("Cataño:") ) out.innerText = t.t_whoami;
+  });
+
+  // Update Theme Toggle ARIA & Title
+  const isDark = document.body.classList.contains("dark-mode");
+  const themeText = isDark ? t.switch_light : t.switch_dark;
+  toggleIcons.forEach((btn) => {
+    btn.setAttribute("aria-label", themeText);
+    btn.setAttribute("title", themeText);
   });
 
   langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
@@ -689,6 +726,14 @@ if (startScanBtn) {
       startScanBtn.disabled = false;
       startScanBtn.innerHTML = `<span>${translations[currentLang].scan_now}</span><i class='bx bx-zap'></i>`;
     }
+  });
+}
+
+// Focus terminal input on container click
+const terminalWindow = document.querySelector(".terminal-window");
+if (terminalWindow && terminalInput) {
+  terminalWindow.addEventListener("click", () => {
+    terminalInput.focus();
   });
 }
 
