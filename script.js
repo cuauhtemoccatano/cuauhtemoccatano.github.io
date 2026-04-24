@@ -204,6 +204,14 @@ tiltCards.forEach((card) => {
  */
 const terminalInput = document.getElementById("terminal-input");
 const terminalBody = document.getElementById("terminal-body");
+const terminalWindow = document.querySelector(".terminal-window");
+
+// Focus input on terminal window click
+if (terminalWindow && terminalInput) {
+  terminalWindow.addEventListener("click", () => {
+    terminalInput.focus();
+  });
+}
 
 const appendTerminalOutput = (text, type = "output") => {
   const output = document.createElement("div");
@@ -348,7 +356,12 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    oracle_toggle: "Toggle Oracle chat",
+    send_message: "Send message",
+    close_oracle: "Close Oracle chat",
+    back_to_info: "Go back to info capture",
+    terminal_input_label: "Terminal input"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +433,12 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    oracle_toggle: "Alternar chat del Oráculo",
+    send_message: "Enviar mensaje",
+    close_oracle: "Cerrar chat del Oráculo",
+    back_to_info: "Volver a captura de información",
+    terminal_input_label: "Entrada de terminal"
   }
 };
 
@@ -436,6 +454,14 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // Support data-i18n-label for aria-label translation
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
     }
   });
 
