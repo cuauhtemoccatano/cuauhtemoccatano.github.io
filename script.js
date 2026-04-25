@@ -53,10 +53,13 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const nextLabelKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
+    const nextText = translations[currentLang][nextLabelKey];
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
+      btn.setAttribute("data-i18n-label", nextLabelKey);
+      btn.setAttribute("data-i18n-title", nextLabelKey);
     });
 
     setTimeout(() => {
@@ -348,7 +351,15 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    close_oracle: "Close Oracle",
+    send_message: "Send message",
+    oracle_toggle: "Toggle Oracle",
+    back_to_info: "Back to step 1",
+    terminal_input_label: "Terminal input",
+    scan_url_label: "Website URL for scan"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +431,15 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_toggle: "Alternar Oráculo",
+    back_to_info: "Volver al paso 1",
+    terminal_input_label: "Entrada de terminal",
+    scan_url_label: "URL del sitio web para escanear"
   }
 };
 
@@ -495,6 +514,28 @@ function updateLanguage(lang) {
   document.querySelectorAll(".instruction-msg").forEach(msg => msg.innerText = t.t_instr);
   document.querySelectorAll(".terminal-output").forEach(out => {
     if (out.innerText.includes("Cataño:") ) out.innerText = t.t_whoami;
+  });
+
+  // 4. ARIA Labels, Titles, and Placeholders
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.setAttribute("placeholder", t[key]);
+  });
+
+  // Special case for elements that change state (theme toggle)
+  const isDark = document.body.classList.contains("dark-mode");
+  const themeKey = isDark ? "switch_light" : "switch_dark";
+  document.querySelectorAll(".toggle-icon").forEach(btn => {
+    btn.setAttribute("aria-label", t[themeKey]);
+    btn.setAttribute("title", t[themeKey]);
   });
 
   langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
