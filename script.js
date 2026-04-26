@@ -270,6 +270,14 @@ if (terminalInput) {
   });
 }
 
+// Focus input when terminal window is clicked
+const terminalWindow = document.querySelector('.terminal-window');
+if (terminalWindow && terminalInput) {
+  terminalWindow.addEventListener('click', () => {
+    terminalInput.focus();
+  });
+}
+
 
 /**
  * Multi-language Support Logic
