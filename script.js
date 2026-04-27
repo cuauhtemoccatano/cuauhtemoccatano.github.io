@@ -53,11 +53,12 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const i18nKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
     toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", nextText);
-      btn.setAttribute("title", nextText);
+      btn.setAttribute("data-i18n-label", i18nKey);
+      btn.setAttribute("data-i18n-title", i18nKey);
     });
+    updateLanguage(currentLang); // Refresh labels for current language
 
     setTimeout(() => {
       setButtonsDisabled(false);
@@ -278,6 +279,17 @@ const langSwitches = document.querySelectorAll(".lang-switch");
 let currentLang = "EN";
 const translations = {
   EN: {
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    lang_switch: "Switch Language",
+    close_modal: "Close Modal",
+    back_to_info: "Back to information",
+    close_oracle: "Close Oracle",
+    send_message: "Send message",
+    oracle_toggle: "Toggle Oracle",
+    terminal_input_label: "Terminal input",
+    scan_url_label: "Website URL for scan",
+    oracle_input_label: "Oracle query",
     projects: "Engineering", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contact",
     discovery_title: "Discover Your Brand's Potential",
     discovery_desc: "Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.",
@@ -351,6 +363,17 @@ const translations = {
     syncing: "Syncing availability..."
   },
   ES: {
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    lang_switch: "Cambiar Idioma",
+    close_modal: "Cerrar Ventana",
+    back_to_info: "Volver a información",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_toggle: "Activar Oráculo",
+    terminal_input_label: "Entrada de terminal",
+    scan_url_label: "URL del sitio para escanear",
+    oracle_input_label: "Consulta al Oráculo",
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
     discovery_title: "Descubre el Potencial de tu Marca",
     discovery_desc: "Ingresa la URL de tu sitio para obtener un Score de Vitalidad de Marca instantáneo e identificar oportunidades de crecimiento.",
@@ -427,16 +450,29 @@ const translations = {
 function updateLanguage(lang) {
   const t = translations[lang];
   
-  // 1. Text Content with data-i18n
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.getAttribute("data-i18n");
-    if (t[key]) {
-      if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
-        el.placeholder = t[key];
-      } else {
-        el.innerText = t[key];
+  // 1. Unified attribute updates
+  const attrMap = {
+    'data-i18n': 'innerText',
+    'data-i18n-placeholder': 'placeholder',
+    'data-i18n-label': 'aria-label',
+    'data-i18n-title': 'title'
+  };
+
+  Object.entries(attrMap).forEach(([attr, prop]) => {
+    document.querySelectorAll(`[${attr}]`).forEach(el => {
+      const key = el.getAttribute(attr);
+      if (t[key]) {
+        if (prop === 'innerText') {
+          if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+            el.placeholder = t[key];
+          } else {
+            el.innerText = t[key];
+          }
+        } else {
+          el.setAttribute(prop, t[key]);
+        }
       }
-    }
+    });
   });
 
   // 2. Section Titles Mapping

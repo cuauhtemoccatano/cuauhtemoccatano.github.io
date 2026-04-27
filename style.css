@@ -41,6 +41,12 @@ body.dark-mode {
   cursor: none !important;
 }
 
+*:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+  box-shadow: 0 0 15px var(--accent-color);
+}
+
 /* Custom Liquid Cursor */
 .cursor {
   position: fixed;
@@ -503,6 +509,11 @@ section {
   font-family: inherit;
   font-size: inherit;
   flex: 1;
+}
+
+#terminal-input:focus-visible {
+  box-shadow: none;
+  outline: none;
 }
 
 .terminal-output {
@@ -1168,7 +1179,7 @@ body.dark-mode .home-img img {
   background: rgba(255, 255, 255, 0.08);
   border-color: var(--accent-color);
   outline: none;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.2);
 }
 
 .input-group label {
