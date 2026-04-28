@@ -15,6 +15,7 @@
   --ease-liquid: cubic-bezier(0.4, 0, 0.2, 1);
   --header-bg: rgba(255, 255, 255, 0.6);
   --terminal-header: rgba(0, 0, 0, 0.1);
+  --accent-glow: 0 0 0 4px rgba(37, 99, 235, 0.2);
 }
 
 body.dark-mode {
@@ -39,6 +40,13 @@ body.dark-mode {
   text-decoration: none;
   font-family: 'Space Grotesk', sans-serif;
   cursor: none !important;
+}
+
+/* Accessibility: High-Contrast Focus States */
+*:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  box-shadow: var(--accent-glow);
 }
 
 /* Custom Liquid Cursor */
