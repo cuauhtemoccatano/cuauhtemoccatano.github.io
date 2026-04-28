@@ -53,10 +53,13 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const nextKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
+    const nextText = translations[currentLang][nextKey];
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
+      btn.setAttribute("data-i18n-label", nextKey);
+      btn.setAttribute("data-i18n-title", nextKey);
     });
 
     setTimeout(() => {
@@ -279,6 +282,9 @@ let currentLang = "EN";
 const translations = {
   EN: {
     projects: "Engineering", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contact",
+    switch_dark: "Switch to dark mode", switch_light: "Switch to light mode",
+    oracle_toggle: "Open Oracle Chat", terminal_input_label: "Terminal input",
+    lang_switch: "Switch Language",
     discovery_title: "Discover Your Brand's Potential",
     discovery_desc: "Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.",
     scan_now: "Scan Now",
@@ -352,6 +358,9 @@ const translations = {
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
+    switch_dark: "Cambiar a modo oscuro", switch_light: "Cambiar a modo claro",
+    oracle_toggle: "Abrir chat del Oráculo", terminal_input_label: "Entrada de terminal",
+    lang_switch: "Cambiar idioma",
     discovery_title: "Descubre el Potencial de tu Marca",
     discovery_desc: "Ingresa la URL de tu sitio para obtener un Score de Vitalidad de Marca instantáneo e identificar oportunidades de crecimiento.",
     scan_now: "Escanear Ahora",
@@ -427,7 +436,7 @@ const translations = {
 function updateLanguage(lang) {
   const t = translations[lang];
   
-  // 1. Text Content with data-i18n
+  // 1. Text Content & Attributes with data-i18n
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.getAttribute("data-i18n");
     if (t[key]) {
@@ -437,6 +446,21 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.placeholder = t[key];
+  });
+
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
   });
 
   // 2. Section Titles Mapping
