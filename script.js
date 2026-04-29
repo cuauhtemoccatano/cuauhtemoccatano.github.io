@@ -53,10 +53,12 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const nextTextKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
     toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", nextText);
-      btn.setAttribute("title", nextText);
+      btn.setAttribute("data-i18n-label", nextTextKey);
+      btn.setAttribute("data-i18n-title", nextTextKey);
+      btn.setAttribute("aria-label", translations[currentLang][nextTextKey]);
+      btn.setAttribute("title", translations[currentLang][nextTextKey]);
     });
 
     setTimeout(() => {
@@ -348,7 +350,14 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    oracle_toggle: "Toggle Oracle Chat",
+    close_oracle: "Close Oracle",
+    send_message: "Send message",
+    terminal_input: "Terminal Input",
+    switch_lang: "Switch Language"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,23 +429,39 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    oracle_toggle: "Alternar chat del Oráculo",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar mensaje",
+    terminal_input: "Entrada de terminal",
+    switch_lang: "Cambiar idioma"
   }
 };
 
 function updateLanguage(lang) {
+  currentLang = lang;
   const t = translations[lang];
   
-  // 1. Text Content with data-i18n
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.getAttribute("data-i18n");
-    if (t[key]) {
+  // 1. Content and accessibility updates
+  document.querySelectorAll("[data-i18n], [data-i18n-label], [data-i18n-title], [data-i18n-placeholder]").forEach(el => {
+    const textKey = el.getAttribute("data-i18n");
+    const labelKey = el.getAttribute("data-i18n-label");
+    const titleKey = el.getAttribute("data-i18n-title");
+    const placeholderKey = el.getAttribute("data-i18n-placeholder");
+
+    if (textKey && t[textKey]) {
       if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
-        el.placeholder = t[key];
+        el.placeholder = t[textKey];
       } else {
-        el.innerText = t[key];
+        el.innerText = t[textKey];
       }
     }
+
+    if (labelKey && t[labelKey]) el.setAttribute("aria-label", t[labelKey]);
+    if (titleKey && t[titleKey]) el.setAttribute("title", t[titleKey]);
+    if (placeholderKey && t[placeholderKey]) el.setAttribute("placeholder", t[placeholderKey]);
   });
 
   // 2. Section Titles Mapping
