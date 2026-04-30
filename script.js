@@ -53,7 +53,8 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const themeKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
+    const nextText = translations[currentLang][themeKey];
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
@@ -348,7 +349,17 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    close_oracle: "Close the Oracle",
+    send_message: "Send message to the Oracle",
+    oracle_toggle: "Talk to the Oracle",
+    back_to_info: "Back to information capture",
+    terminal_input_label: "Interactive terminal input",
+    scan_url_label: "Website URL for brand scan",
+    scan_url_placeholder: "https://yourbrand.com",
+    lang_switch_label: "Switch to Spanish"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +431,17 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    close_oracle: "Cerrar el Oráculo",
+    send_message: "Enviar mensaje al Oráculo",
+    oracle_toggle: "Hablar con el Oráculo",
+    back_to_info: "Volver a la captura de información",
+    terminal_input_label: "Entrada de terminal interactiva",
+    scan_url_label: "URL del sitio web para el escaneo de marca",
+    scan_url_placeholder: "https://tu-marca.com",
+    lang_switch_label: "Cambiar a Inglés"
   }
 };
 
@@ -437,6 +458,22 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // Localized Labels, Titles, and Placeholders
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.setAttribute("placeholder", t[key]);
   });
 
   // 2. Section Titles Mapping
@@ -495,6 +532,14 @@ function updateLanguage(lang) {
   document.querySelectorAll(".instruction-msg").forEach(msg => msg.innerText = t.t_instr);
   document.querySelectorAll(".terminal-output").forEach(out => {
     if (out.innerText.includes("Cataño:") ) out.innerText = t.t_whoami;
+  });
+
+  // Update Theme Toggle Labels specifically on Language Change
+  const isDark = document.body.classList.contains("dark-mode");
+  const themeKey = isDark ? "switch_light" : "switch_dark";
+  toggleIcons.forEach(btn => {
+    btn.setAttribute("aria-label", t[themeKey]);
+    btn.setAttribute("title", t[themeKey]);
   });
 
   langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
