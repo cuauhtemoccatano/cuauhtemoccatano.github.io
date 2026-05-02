@@ -450,9 +450,9 @@
         <div class="oracle-header">
           <i class='bx bx-brain'></i>
           <span data-i18n="oracle_name">The Oracle</span>
-          <button id="close-oracle"><i class='bx bx-x'></i></button>
+          <button id="close-oracle" aria-label="Close Oracle"><i class='bx bx-x'></i></button>
         </div>
-        <div id="oracle-messages" class="oracle-messages">
+        <div id="oracle-messages" class="oracle-messages" aria-live="polite">
           <div class="message bot" data-i18n="oracle_welcome">Welcome. Speak your strategy, and I shall architect the path.</div>
         </div>
         <div class="oracle-input-area">
@@ -460,7 +460,7 @@
           <button id="send-oracle"><i class='bx bxs-send'></i></button>
         </div>
       </div>
-      <button id="oracle-toggle" class="oracle-toggle glass">
+      <button id="oracle-toggle" class="oracle-toggle glass" aria-label="Open Oracle">
         <i class='bx bx-message-square-detail'></i>
       </button>
     </div>
