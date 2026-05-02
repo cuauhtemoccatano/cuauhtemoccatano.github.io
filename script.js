@@ -204,6 +204,14 @@ tiltCards.forEach((card) => {
  */
 const terminalInput = document.getElementById("terminal-input");
 const terminalBody = document.getElementById("terminal-body");
+const terminalWindow = document.querySelector(".terminal-window");
+
+// Focus terminal input when clicking anywhere in the terminal window
+if (terminalWindow && terminalInput) {
+  terminalWindow.addEventListener("click", () => {
+    terminalInput.focus();
+  });
+}
 
 const appendTerminalOutput = (text, type = "output") => {
   const output = document.createElement("div");
