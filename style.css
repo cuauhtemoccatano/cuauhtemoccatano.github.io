@@ -6,6 +6,7 @@
   --text-primary: #0F172A;
   --text-muted: #475569;
   --accent-color: #2563EB;
+  --accent-glow: rgba(37, 99, 235, 0.2);
   --card-bg: rgba(255, 255, 255, 0.85);
   --card-border: rgba(15, 23, 42, 0.1);
   --message-bot-bg: rgba(0, 0, 0, 0.05);
@@ -23,6 +24,7 @@ body.dark-mode {
   --text-muted: #94A3B8;
   --accent-color: #3B82F6;
   --accent-light: #60A5FA;
+  --accent-glow: rgba(59, 130, 246, 0.3);
   --card-bg: rgba(255, 255, 255, 0.08);
   --card-border: rgba(255, 255, 255, 0.1);
   --message-bot-bg: rgba(255, 255, 255, 0.12);
@@ -39,6 +41,13 @@ body.dark-mode {
   text-decoration: none;
   font-family: 'Space Grotesk', sans-serif;
   cursor: none !important;
+}
+
+/* Global Focus Styles */
+*:focus-visible {
+  outline: 2px solid var(--accent-color) !important;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--accent-glow) !important;
 }
 
 /* Custom Liquid Cursor */
@@ -442,6 +451,12 @@ section {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
   backdrop-filter: var(--glass-blur);
   font-family: 'Courier New', Courier, monospace;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.terminal-window:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px var(--accent-glow), 0 30px 60px rgba(0, 0, 0, 0.3);
 }
 
 .terminal-header {
