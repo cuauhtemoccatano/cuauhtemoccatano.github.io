@@ -204,6 +204,14 @@ tiltCards.forEach((card) => {
  */
 const terminalInput = document.getElementById("terminal-input");
 const terminalBody = document.getElementById("terminal-body");
+const terminalWindow = document.querySelector(".terminal-window");
+
+// Focus terminal when clicking anywhere in it
+if (terminalWindow && terminalInput) {
+  terminalWindow.addEventListener("click", () => {
+    terminalInput.focus();
+  });
+}
 
 const appendTerminalOutput = (text, type = "output") => {
   const output = document.createElement("div");
@@ -348,7 +356,12 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    close_oracle: "Close Oracle",
+    send_message: "Send Message",
+    oracle_toggle: "Open Oracle Assistant",
+    back_to_info: "Back to Info",
+    terminal_input_label: "Terminal Input"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,12 +433,18 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar Mensaje",
+    oracle_toggle: "Abrir Asistente Oráculo",
+    back_to_info: "Volver a Información",
+    terminal_input_label: "Entrada de Terminal"
   }
 };
 
 function updateLanguage(lang) {
   const t = translations[lang];
+  currentLang = lang;
   
   // 1. Text Content with data-i18n
   document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -436,6 +455,25 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // Support for aria-label localization
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+      if (el.hasAttribute("title")) {
+        el.setAttribute("title", t[key]);
+      }
+    }
+  });
+
+  // Support for placeholder localization
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) {
+      el.placeholder = t[key];
     }
   });
 
