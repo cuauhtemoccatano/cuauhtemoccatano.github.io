@@ -53,10 +53,14 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
     toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", nextText);
-      btn.setAttribute("title", nextText);
+      const i18nKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
+      btn.setAttribute("data-i18n-label", i18nKey);
+      btn.setAttribute("data-i18n-title", i18nKey);
+      if (translations[currentLang][i18nKey]) {
+        btn.setAttribute("aria-label", translations[currentLang][i18nKey]);
+        btn.setAttribute("title", translations[currentLang][i18nKey]);
+      }
     });
 
     setTimeout(() => {
@@ -348,7 +352,16 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    close_oracle: "Close Oracle Chat",
+    send_message: "Send Message",
+    oracle_toggle: "Toggle Oracle Chat",
+    lang_switch_label: "Switch Language",
+    oracle_input_label: "Oracle Input",
+    nav_toggle: "Navigation Menu",
+    close_modal: "Close Modal"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +433,16 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    close_oracle: "Cerrar chat del Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_toggle: "Alternar chat del Oráculo",
+    lang_switch_label: "Cambiar idioma",
+    oracle_input_label: "Entrada del Oráculo",
+    nav_toggle: "Menú de navegación",
+    close_modal: "Cerrar ventana"
   }
 };
 
@@ -437,6 +459,22 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1b. Accessibility labels and titles
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.setAttribute("placeholder", t[key]);
   });
 
   // 2. Section Titles Mapping

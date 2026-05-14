@@ -11,6 +11,7 @@
   --message-bot-bg: rgba(0, 0, 0, 0.05);
   --glass-bg: rgba(255, 255, 255, 0.85);
   --glass-blur: blur(24px) saturate(180%);
+  --accent-glow: rgba(37, 99, 235, 0.2);
   --transition-speed: 0.4s;
   --ease-liquid: cubic-bezier(0.4, 0, 0.2, 1);
   --header-bg: rgba(255, 255, 255, 0.6);
@@ -26,9 +27,22 @@ body.dark-mode {
   --card-bg: rgba(255, 255, 255, 0.08);
   --card-border: rgba(255, 255, 255, 0.1);
   --message-bot-bg: rgba(255, 255, 255, 0.12);
+  --accent-glow: rgba(59, 130, 246, 0.3);
   --glass-bg: rgba(9, 9, 11, 0.65);
   --header-bg: rgba(9, 9, 11, 0.85);
   --terminal-header: rgba(0, 0, 0, 0.6);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* Reset and Global Styles */
@@ -39,6 +53,12 @@ body.dark-mode {
   text-decoration: none;
   font-family: 'Space Grotesk', sans-serif;
   cursor: none !important;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 4px var(--accent-glow);
 }
 
 /* Custom Liquid Cursor */
