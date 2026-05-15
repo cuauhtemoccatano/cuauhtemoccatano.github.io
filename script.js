@@ -53,10 +53,14 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const themeKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
     toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", nextText);
-      btn.setAttribute("title", nextText);
+      btn.setAttribute("data-i18n-label", themeKey);
+      btn.setAttribute("data-i18n-title", themeKey);
+      if (translations[currentLang][themeKey]) {
+        btn.setAttribute("aria-label", translations[currentLang][themeKey]);
+        btn.setAttribute("title", translations[currentLang][themeKey]);
+      }
     });
 
     setTimeout(() => {
@@ -282,6 +286,7 @@ const translations = {
     discovery_title: "Discover Your Brand's Potential",
     discovery_desc: "Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.",
     scan_now: "Scan Now",
+    scan_now_label: "Scan website now",
     get_full_report: "Get Full Intelligence Report",
     analyzing: "Analyzing...",
     performance: "Performance",
@@ -289,6 +294,10 @@ const translations = {
     oracle_name: "The Oracle",
     oracle_welcome: "Welcome. Speak your strategy, and I shall architect the path.",
     oracle_placeholder: "Ask the Oracle...",
+    oracle_toggle: "Toggle Oracle Assistant",
+    close_oracle: "Close Oracle",
+    send_message: "Send message",
+    oracle_input_label: "Oracle Message Input",
     hero_title: "Crafting High-Performance Digital Presences",
     hero_desc: "Architecting holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
     trust_label_1: "Brand Strategy", trust_label_2: "Technical Excellence",
@@ -343,18 +352,23 @@ const translations = {
     t_whoami: "Cuauhtémoc Cataño: Developer, Founder, and Podcast Host.",
     modal_title: "Book a Discovery Call",
     modal_desc: "45 minutes to architect your digital future.",
+    close_modal: "Close modal",
+    back_to_info: "Back to information",
     form_name: "Your Name",
     form_email: "Email Address",
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
     discovery_title: "Descubre el Potencial de tu Marca",
     discovery_desc: "Ingresa la URL de tu sitio para obtener un Score de Vitalidad de Marca instantáneo e identificar oportunidades de crecimiento.",
     scan_now: "Escanear Ahora",
+    scan_now_label: "Escanear sitio ahora",
     get_full_report: "Obtener Reporte de Inteligencia Completo",
     analyzing: "Analizando...",
     performance: "Desempeño",
@@ -362,6 +376,10 @@ const translations = {
     oracle_name: "El Oráculo",
     oracle_welcome: "Bienvenida. Habla de tu estrategia y yo trazaré el camino.",
     oracle_placeholder: "Pregunta al Oráculo...",
+    oracle_toggle: "Alternar Asistente Oráculo",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_input_label: "Entrada de mensaje del Oráculo",
     hero_title: "Presencia Digital de Alto Desempeño",
     hero_desc: "Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
     trust_label_1: "Estrategia de Marca", trust_label_2: "Excelencia Técnica",
@@ -415,17 +433,29 @@ const translations = {
     t_whoami: "Cuauhtémoc Cataño: Desarrollador, Fundador y Host de Podcast.",
     modal_title: "Reserva una Llamada de Descubrimiento",
     modal_desc: "45 minutos para diseñar tu futuro digital.",
+    close_modal: "Cerrar modal",
+    back_to_info: "Volver a información",
     form_name: "Tu Nombre",
     form_email: "Correo Electrónico",
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro"
   }
 };
 
 function updateLanguage(lang) {
   const t = translations[lang];
+
+  // Fix theme toggle label before applying translations
+  const isDark = document.body.classList.contains("dark-mode");
+  const themeKey = isDark ? "switch_light" : "switch_dark";
+  document.querySelectorAll(".toggle-icon").forEach(btn => {
+    btn.setAttribute("data-i18n-label", themeKey);
+    btn.setAttribute("data-i18n-title", themeKey);
+  });
   
   // 1. Text Content with data-i18n
   document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -437,6 +467,17 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1.1 Attributes with data-i18n-label and data-i18n-title
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
   });
 
   // 2. Section Titles Mapping
@@ -710,6 +751,7 @@ if (oracleToggle) {
 
   closeOracle.addEventListener('click', () => {
     oracleChat.classList.add('hidden');
+    oracleToggle.focus();
   });
 
   const appendMessage = (text, type) => {
