@@ -348,7 +348,11 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    close_oracle: "Close Oracle Chat",
+    send_message: "Send message",
+    oracle_toggle: "Open Oracle AI Assistant",
+    oracle_input_label: "Type your message to the Oracle"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +424,11 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    close_oracle: "Cerrar chat del Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_toggle: "Abrir asistente de IA del Oráculo",
+    oracle_input_label: "Escribe tu mensaje para el Oráculo"
   }
 };
 
@@ -428,15 +436,18 @@ function updateLanguage(lang) {
   const t = translations[lang];
   
   // 1. Text Content with data-i18n
-  document.querySelectorAll("[data-i18n]").forEach(el => {
+  document.querySelectorAll("[data-i18n], [data-i18n-label]").forEach(el => {
     const key = el.getAttribute("data-i18n");
-    if (t[key]) {
+    const labelKey = el.getAttribute("data-i18n-label");
+
+    if (key && t[key]) {
       if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
         el.placeholder = t[key];
       } else {
         el.innerText = t[key];
       }
     }
+    if (labelKey && t[labelKey]) el.setAttribute("aria-label", t[labelKey]);
   });
 
   // 2. Section Titles Mapping
@@ -710,6 +721,7 @@ if (oracleToggle) {
 
   closeOracle.addEventListener('click', () => {
     oracleChat.classList.add('hidden');
+    oracleToggle.focus();
   });
 
   const appendMessage = (text, type) => {
