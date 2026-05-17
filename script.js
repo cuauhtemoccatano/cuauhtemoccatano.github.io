@@ -348,7 +348,11 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    oracle_toggle: "Toggle Oracle Chat",
+    close_oracle: "Close Oracle Chat",
+    send_message: "Send Message",
+    terminal_input_label: "Terminal Command Input"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +424,11 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    oracle_toggle: "Alternar Chat del Oráculo",
+    close_oracle: "Cerrar Chat del Oráculo",
+    send_message: "Enviar Mensaje",
+    terminal_input_label: "Entrada de Comandos de la Terminal"
   }
 };
 
@@ -436,6 +444,14 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1b. ARIA Labels with data-i18n-label
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
     }
   });
 
@@ -710,6 +726,7 @@ if (oracleToggle) {
 
   closeOracle.addEventListener('click', () => {
     oracleChat.classList.add('hidden');
+    oracleToggle.focus();
   });
 
   const appendMessage = (text, type) => {
