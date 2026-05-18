@@ -36,7 +36,7 @@
         <a href="/" class="logo">Cuauhtémoc Cataño</a>
         
         <input type="checkbox" id="check" aria-hidden="true">
-        <label for="check" class="icons" aria-label="Open navigation menu">
+        <label for="check" class="icons" aria-label="Open navigation menu" data-i18n-label="nav_toggle">
           <i class='bx bx-menu' id="menu-icon"></i>
           <i class='bx bx-x' id="close-icon"></i>
         </label>
@@ -53,11 +53,13 @@
         </nav>
         
         <div class="header-actions">
-          <button class="lang-switch" id="lang-switch" aria-label="Switch Language">ES</button>
+          <button class="lang-switch" id="lang-switch" aria-label="Switch Language" data-i18n-label="lang_switch_label">ES</button>
           <button
             class="toggle-icon"
             aria-label="Toggle dark mode"
             title="Toggle dark mode"
+            data-i18n-label="switch_dark"
+            data-i18n-title="switch_dark"
           >
             <i class="bx bx-moon"></i>
           </button>
@@ -138,6 +140,7 @@
               </div>
               <div class="terminal-line">
                 <span class="prompt">guest@portfolio:~$</span>
+                <label for="terminal-input" class="sr-only" data-i18n="terminal_input_label">Terminal Input</label>
                 <input type="text" id="terminal-input" autofocus spellcheck="false">
               </div>
             </div>
@@ -264,7 +267,7 @@
           
           <div class="engineering-container">
             <!-- Theme Toggle with ARIA -->
-            <button class="toggle-icon" aria-label="Toggle dark mode" title="Toggle dark mode" type="button">
+            <button class="toggle-icon" aria-label="Toggle dark mode" title="Toggle dark mode" type="button" data-i18n-label="switch_dark" data-i18n-title="switch_dark">
                 <i class='bx bx-moon' id="nav-icon" aria-hidden="true"></i>
             </button>
             <!-- Projects -->
@@ -390,7 +393,7 @@
     <!-- Premium Booking Modal -->
     <div class="modal-overlay" id="bookingModal">
       <div class="modal-content card-glass">
-        <button class="modal-close" aria-label="Close Modal">&times;</button>
+        <button class="modal-close" aria-label="Close Modal" data-i18n-label="close_modal">&times;</button>
         <div class="modal-header">
           <h2 data-i18n="modal_title">Book a Discovery Call</h2>
           <p data-i18n="modal_desc">45 minutes to architect your digital future.</p>
@@ -450,17 +453,18 @@
         <div class="oracle-header">
           <i class='bx bx-brain'></i>
           <span data-i18n="oracle_name">The Oracle</span>
-          <button id="close-oracle"><i class='bx bx-x'></i></button>
+          <button id="close-oracle" aria-label="Close Oracle" data-i18n-label="close_oracle"><i class='bx bx-x'></i></button>
         </div>
-        <div id="oracle-messages" class="oracle-messages">
+        <div id="oracle-messages" class="oracle-messages" aria-live="polite" role="log">
           <div class="message bot" data-i18n="oracle_welcome">Welcome. Speak your strategy, and I shall architect the path.</div>
         </div>
         <div class="oracle-input-area">
+          <label for="oracle-input" class="sr-only" data-i18n="oracle_input_label">Message the Oracle</label>
           <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder">
-          <button id="send-oracle"><i class='bx bxs-send'></i></button>
+          <button id="send-oracle" aria-label="Send message" data-i18n-label="send_message"><i class='bx bxs-send'></i></button>
         </div>
       </div>
-      <button id="oracle-toggle" class="oracle-toggle glass">
+      <button id="oracle-toggle" class="oracle-toggle glass" aria-label="Toggle Oracle Chat" data-i18n-label="oracle_toggle">
         <i class='bx bx-message-square-detail'></i>
       </button>
     </div>
