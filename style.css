@@ -136,6 +136,38 @@ h1, h2, h3, .logo {
   top: 0;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Global Focus Styles for Keyboard Navigation */
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+}
+
+.btn:focus-visible,
+.toggle-icon:focus-visible,
+.lang-switch:focus-visible,
+.social-media a:focus-visible,
+.project-link:focus-visible,
+.scan-btn:focus-visible,
+.oracle-toggle:focus-visible,
+.modal-close:focus-visible,
+.back-btn:focus-visible,
+#send-oracle:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+}
+
 .container {
   background: var(--bg-primary);
   color: var(--text-primary);
@@ -442,6 +474,13 @@ section {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
   backdrop-filter: var(--glass-blur);
   font-family: 'Courier New', Courier, monospace;
+  transition: transform 0.4s var(--ease-liquid), border-color 0.4s var(--ease-liquid), box-shadow 0.4s var(--ease-liquid);
+}
+
+.terminal-window:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.3), 0 30px 60px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
 }
 
 .terminal-header {

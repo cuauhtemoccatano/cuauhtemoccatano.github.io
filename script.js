@@ -53,10 +53,15 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    // Sync ARIA labels with localized text
+    const langKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
+    const nextText = translations[currentLang][langKey];
+
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
+      btn.setAttribute("data-i18n-label", langKey);
+      btn.setAttribute("data-i18n-title", langKey);
     });
 
     setTimeout(() => {
@@ -348,7 +353,17 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    close_oracle: "Close Oracle",
+    send_message: "Send message",
+    oracle_toggle: "Toggle Oracle Chat",
+    terminal_input_label: "Terminal Input",
+    nav_toggle: "Open navigation menu",
+    lang_switch_label: "Switch Language",
+    oracle_input_label: "Message the Oracle",
+    close_modal: "Close Modal"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,11 +435,22 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_toggle: "Alternar Chat del Oráculo",
+    terminal_input_label: "Entrada de Terminal",
+    nav_toggle: "Abrir menú de navegación",
+    lang_switch_label: "Cambiar Idioma",
+    oracle_input_label: "Enviar mensaje al Oráculo",
+    close_modal: "Cerrar Modal"
   }
 };
 
 function updateLanguage(lang) {
+  currentLang = lang;
   const t = translations[lang];
   
   // 1. Text Content with data-i18n
@@ -439,7 +465,21 @@ function updateLanguage(lang) {
     }
   });
 
-  // 2. Section Titles Mapping
+  // 2. Multi-Attribute Localization
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.setAttribute("placeholder", t[key]);
+  });
+
+  // 3. Section Titles Mapping
   document.querySelectorAll(".section-title").forEach(title => {
     const section = title.closest("section");
     if (!section && title.parentElement.classList.contains("podcasts")) return;
@@ -710,6 +750,7 @@ if (oracleToggle) {
 
   closeOracle.addEventListener('click', () => {
     oracleChat.classList.add('hidden');
+    oracleToggle.focus();
   });
 
   const appendMessage = (text, type) => {
