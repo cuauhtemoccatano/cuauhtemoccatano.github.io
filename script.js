@@ -341,6 +341,13 @@ const translations = {
     t_welcome: "Welcome to Cuauhtémoc's interactive shell.",
     t_instr: "Type 'help' for options.",
     t_whoami: "Cuauhtémoc Cataño: Developer, Founder, and Podcast Host.",
+    terminal_input_label: "Terminal Input",
+    oracle_toggle: "Toggle Oracle Chat",
+    close_oracle: "Close Oracle",
+    send_message: "Send Message",
+    github_label: "GitHub Profile",
+    linkedin_label: "LinkedIn Profile",
+    instagram_label: "Instagram Profile",
     modal_title: "Book a Discovery Call",
     modal_desc: "45 minutes to architect your digital future.",
     form_name: "Your Name",
@@ -413,6 +420,13 @@ const translations = {
     contact_email: "Enviar Email", download_cv: "Descargar CV",
     t_welcome: "Bienvenido a la terminal interactiva de Cuauhtémoc.", t_instr: "Escribe 'help' para ver opciones.",
     t_whoami: "Cuauhtémoc Cataño: Desarrollador, Fundador y Host de Podcast.",
+    terminal_input_label: "Entrada de Terminal",
+    oracle_toggle: "Alternar Chat del Oráculo",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar Mensaje",
+    github_label: "Perfil de GitHub",
+    linkedin_label: "Perfil de LinkedIn",
+    instagram_label: "Perfil de Instagram",
     modal_title: "Reserva una Llamada de Descubrimiento",
     modal_desc: "45 minutos para diseñar tu futuro digital.",
     form_name: "Tu Nombre",
@@ -427,16 +441,22 @@ const translations = {
 function updateLanguage(lang) {
   const t = translations[lang];
   
-  // 1. Text Content with data-i18n
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.getAttribute("data-i18n");
-    if (t[key]) {
-      if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
-        el.placeholder = t[key];
-      } else {
-        el.innerText = t[key];
-      }
+  // 1. Localization with data-i18n-*
+  document.querySelectorAll("[data-i18n], [data-i18n-placeholder], [data-i18n-label], [data-i18n-title]").forEach(el => {
+    const keys = {
+      text: el.getAttribute("data-i18n"),
+      placeholder: el.getAttribute("data-i18n-placeholder"),
+      label: el.getAttribute("data-i18n-label"),
+      title: el.getAttribute("data-i18n-title")
+    };
+
+    if (keys.text && t[keys.text]) {
+      if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") el.placeholder = t[keys.text];
+      else el.innerText = t[keys.text];
     }
+    if (keys.placeholder && t[keys.placeholder]) el.placeholder = t[keys.placeholder];
+    if (keys.label && t[keys.label]) el.setAttribute("aria-label", t[keys.label]);
+    if (keys.title && t[keys.title]) el.setAttribute("title", t[keys.title]);
   });
 
   // 2. Section Titles Mapping
