@@ -1548,3 +1548,19 @@ body.dark-mode .home-img img {
 }
 
 
+
+/* Focus States & Accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+}
+
+.terminal-window:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
+}
+
+.oracle-input-area:focus-within {
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid var(--accent-color);
+}
