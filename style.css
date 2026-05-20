@@ -41,6 +41,11 @@ body.dark-mode {
   cursor: none !important;
 }
 
+*:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+}
+
 /* Custom Liquid Cursor */
 .cursor {
   position: fixed;
@@ -442,6 +447,12 @@ section {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
   backdrop-filter: var(--glass-blur);
   font-family: 'Courier New', Courier, monospace;
+  transition: border-color 0.3s var(--ease-liquid), box-shadow 0.3s var(--ease-liquid);
+}
+
+.terminal-window:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 30px 60px rgba(37, 99, 235, 0.2);
 }
 
 .terminal-header {
@@ -1505,6 +1516,11 @@ body.dark-mode .home-img img {
   display: flex;
   gap: 0.5rem;
   background: rgba(0, 0, 0, 0.2);
+  transition: background 0.3s var(--ease-liquid);
+}
+
+.oracle-input-area:focus-within {
+  background: rgba(37, 99, 235, 0.1);
 }
 
 .oracle-input-area input {
