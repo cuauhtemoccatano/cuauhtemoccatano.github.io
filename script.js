@@ -348,7 +348,13 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    close_modal: "Close Modal",
+    back_to_info: "Back to Info",
+    close_oracle: "Close Oracle",
+    oracle_input_label: "Ask the Oracle",
+    send_message: "Send Message",
+    oracle_toggle: "Open Oracle"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +426,13 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    close_modal: "Cerrar Ventana",
+    back_to_info: "Regresar a Información",
+    close_oracle: "Cerrar Oráculo",
+    oracle_input_label: "Pregunta al Oráculo",
+    send_message: "Enviar Mensaje",
+    oracle_toggle: "Abrir Oráculo"
   }
 };
 
@@ -437,6 +449,20 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1.1 Attributes with data-i18n-*
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.setAttribute("placeholder", t[key]);
   });
 
   // 2. Section Titles Mapping
