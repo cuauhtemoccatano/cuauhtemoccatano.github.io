@@ -41,6 +41,11 @@ body.dark-mode {
   cursor: none !important;
 }
 
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+}
+
 /* Custom Liquid Cursor */
 .cursor {
   position: fixed;
