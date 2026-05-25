@@ -1548,3 +1548,9 @@ body.dark-mode .home-img img {
 }
 
 
+
+/* Global High-Contrast Focus States for Keyboard Navigation */
+*:focus-visible {
+  outline: 2px solid var(--accent-color) !important;
+  outline-offset: 4px !important;
+}
