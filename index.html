@@ -36,7 +36,7 @@
         <a href="/" class="logo">Cuauhtémoc Cataño</a>
         
         <input type="checkbox" id="check" aria-hidden="true">
-        <label for="check" class="icons" aria-label="Open navigation menu">
+        <label for="check" class="icons" aria-label="Open navigation menu" data-i18n-label="nav_toggle">
           <i class='bx bx-menu' id="menu-icon"></i>
           <i class='bx bx-x' id="close-icon"></i>
         </label>
@@ -53,11 +53,13 @@
         </nav>
         
         <div class="header-actions">
-          <button class="lang-switch" id="lang-switch" aria-label="Switch Language">ES</button>
+          <button class="lang-switch" id="lang-switch" aria-label="Switch Language" data-i18n-label="lang_switch_label">ES</button>
           <button
             class="toggle-icon"
             aria-label="Toggle dark mode"
             title="Toggle dark mode"
+            data-i18n-label="switch_dark"
+            data-i18n-title="switch_dark"
           >
             <i class="bx bx-moon"></i>
           </button>
@@ -71,9 +73,9 @@
             <p>You know your business needs to be online, but you don't have to know how. I architect holistic digital experiences that combine robust engineering with strategic marketing and elite branding.</p>
             
             <div class="social-media">
-              <a href="https://github.com/cuauhtemoccatano" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile"><i class='bx bxl-github' aria-hidden="true"></i></a>
-              <a href="https://www.linkedin.com/in/cuauhtemoccc" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"><i class='bx bxl-linkedin' aria-hidden="true"></i></a>
-              <a href="https://www.instagram.com/cuauhtemoccc" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile"><i class='bx bxl-instagram' aria-hidden="true"></i></a>
+              <a href="https://github.com/cuauhtemoccatano" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" data-i18n-label="github_label"><i class='bx bxl-github' aria-hidden="true"></i></a>
+              <a href="https://www.linkedin.com/in/cuauhtemoccc" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" data-i18n-label="linkedin_label"><i class='bx bxl-linkedin' aria-hidden="true"></i></a>
+              <a href="https://www.instagram.com/cuauhtemoccc" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile" data-i18n-label="instagram_label"><i class='bx bxl-instagram' aria-hidden="true"></i></a>
             </div>
             
             <a href="Assets/CV Cuauhtémoc Cataño.pdf" class="btn" download>Download CV</a>
@@ -125,7 +127,7 @@
               </div>
               <div class="terminal-title">bash — cuauhtemoc — 80x24</div>
             </div>
-            <div class="terminal-body" id="terminal-body">
+            <div class="terminal-body" id="terminal-body" aria-live="polite" role="log">
               <div class="terminal-output welcome-msg">Welcome to Cuauhtémoc's interactive shell.</div>
               <div class="terminal-output instruction-msg">Type 'help' to see a list of available commands.</div>
               <br>
@@ -138,7 +140,7 @@
               </div>
               <div class="terminal-line">
                 <span class="prompt">guest@portfolio:~$</span>
-                <input type="text" id="terminal-input" autofocus spellcheck="false">
+                <input type="text" id="terminal-input" autofocus spellcheck="false" data-i18n-label="terminal_input_label" aria-label="Terminal Input">
               </div>
             </div>
           </div>
@@ -264,7 +266,7 @@
           
           <div class="engineering-container">
             <!-- Theme Toggle with ARIA -->
-            <button class="toggle-icon" aria-label="Toggle dark mode" title="Toggle dark mode" type="button">
+            <button class="toggle-icon" aria-label="Toggle dark mode" title="Toggle dark mode" type="button" data-i18n-label="switch_dark" data-i18n-title="switch_dark">
                 <i class='bx bx-moon' id="nav-icon" aria-hidden="true"></i>
             </button>
             <!-- Projects -->
@@ -335,8 +337,8 @@
               <p class="section-desc" data-i18n="discovery_desc">Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.</p>
               
               <div class="scan-box">
-                <input type="url" id="scan-url" placeholder="https://yourbrand.com" required>
-                <button id="start-scan" class="scan-btn">
+                <input type="url" id="scan-url" placeholder="https://yourbrand.com" required data-i18n-label="scan_url_label" aria-label="Website URL for analysis">
+                <button id="start-scan" class="scan-btn" data-i18n-label="scan_now_label">
                   <span data-i18n="scan_now">Scan Now</span>
                   <i class='bx bx-zap'></i>
                 </button>
@@ -390,7 +392,7 @@
     <!-- Premium Booking Modal -->
     <div class="modal-overlay" id="bookingModal">
       <div class="modal-content card-glass">
-        <button class="modal-close" aria-label="Close Modal">&times;</button>
+        <button class="modal-close" aria-label="Close Modal" data-i18n-label="close_modal">&times;</button>
         <div class="modal-header">
           <h2 data-i18n="modal_title">Book a Discovery Call</h2>
           <p data-i18n="modal_desc">45 minutes to architect your digital future.</p>
@@ -402,11 +404,11 @@
             <div class="booking-step active" id="step1">
               <form id="leadCaptureForm" class="premium-form">
                 <div class="input-group">
-                  <input type="text" id="leafName" required placeholder=" ">
+                  <input type="text" id="leafName" required placeholder=" " data-i18n-label="form_name" aria-label="Your Name">
                   <label for="leafName" data-i18n="form_name">Your Name</label>
                 </div>
                 <div class="input-group">
-                  <input type="email" id="leafEmail" required placeholder=" ">
+                  <input type="email" id="leafEmail" required placeholder=" " data-i18n-label="form_email" aria-label="Email Address">
                   <label for="leafEmail" data-i18n="form_email">Email Address</label>
                 </div>
                 <div class="input-group">
@@ -428,7 +430,7 @@
             <!-- Step 2: Custom Calendar / Scheduler -->
             <div class="booking-step" id="step2">
               <div class="scheduler-header">
-                <button class="back-btn" id="backToStep1"><i class='bx bx-left-arrow-alt'></i></button>
+                <button class="back-btn" id="backToStep1" data-i18n-label="back_to_info"><i class='bx bx-left-arrow-alt'></i></button>
                 <h3 data-i18n="pick_time">Select Date & Time</h3>
               </div>
               <!-- Custom Calendar UI or Calendly Embed will go here -->
@@ -450,17 +452,17 @@
         <div class="oracle-header">
           <i class='bx bx-brain'></i>
           <span data-i18n="oracle_name">The Oracle</span>
-          <button id="close-oracle"><i class='bx bx-x'></i></button>
+          <button id="close-oracle" data-i18n-label="close_oracle"><i class='bx bx-x'></i></button>
         </div>
-        <div id="oracle-messages" class="oracle-messages">
+        <div id="oracle-messages" class="oracle-messages" aria-live="polite" role="log">
           <div class="message bot" data-i18n="oracle_welcome">Welcome. Speak your strategy, and I shall architect the path.</div>
         </div>
         <div class="oracle-input-area">
-          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder">
-          <button id="send-oracle"><i class='bx bxs-send'></i></button>
+          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder" data-i18n-label="oracle_input_label" aria-label="Ask the Oracle">
+          <button id="send-oracle" data-i18n-label="send_message"><i class='bx bxs-send'></i></button>
         </div>
       </div>
-      <button id="oracle-toggle" class="oracle-toggle glass">
+      <button id="oracle-toggle" class="oracle-toggle glass" data-i18n-label="oracle_toggle">
         <i class='bx bx-message-square-detail'></i>
       </button>
     </div>
