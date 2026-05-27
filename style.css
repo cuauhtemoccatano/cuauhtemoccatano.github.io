@@ -41,6 +41,13 @@ body.dark-mode {
   cursor: none !important;
 }
 
+/* Global Focus Indicator - Critical for cursor:none accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
 /* Custom Liquid Cursor */
 .cursor {
   position: fixed;
