@@ -53,11 +53,12 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
     toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", nextText);
-      btn.setAttribute("title", nextText);
+      const key = nextTheme === "dark" ? "switch_light" : "switch_dark";
+      btn.setAttribute("data-i18n-label", key);
+      btn.setAttribute("data-i18n-title", key);
     });
+    updateLanguage(currentLang);
 
     setTimeout(() => {
       setButtonsDisabled(false);
@@ -348,7 +349,15 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    oracle_toggle: "Toggle Oracle",
+    close_oracle: "Close Oracle",
+    send_message: "Send message",
+    back_to_info: "Back to information",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    close_modal: "Close Modal",
+    lang_switch_label: "Switch Language"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,23 +429,39 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    oracle_toggle: "Alternar Oráculo",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar mensaje",
+    back_to_info: "Volver a información",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    close_modal: "Cerrar ventana",
+    lang_switch_label: "Cambiar idioma"
   }
 };
 
 function updateLanguage(lang) {
+  currentLang = lang;
   const t = translations[lang];
   
   // 1. Text Content with data-i18n
-  document.querySelectorAll("[data-i18n]").forEach(el => {
+  document.querySelectorAll("[data-i18n], [data-i18n-placeholder], [data-i18n-label], [data-i18n-title]").forEach(el => {
     const key = el.getAttribute("data-i18n");
-    if (t[key]) {
+    const placeholderKey = el.getAttribute("data-i18n-placeholder");
+    const labelKey = el.getAttribute("data-i18n-label");
+    const titleKey = el.getAttribute("data-i18n-title");
+
+    if (key && t[key]) {
       if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
         el.placeholder = t[key];
       } else {
         el.innerText = t[key];
       }
     }
+    if (placeholderKey && t[placeholderKey]) el.placeholder = t[placeholderKey];
+    if (labelKey && t[labelKey]) el.setAttribute("aria-label", t[labelKey]);
+    if (titleKey && t[titleKey]) el.setAttribute("title", t[titleKey]);
   });
 
   // 2. Section Titles Mapping
@@ -710,6 +735,7 @@ if (oracleToggle) {
 
   closeOracle.addEventListener('click', () => {
     oracleChat.classList.add('hidden');
+    oracleToggle.focus();
   });
 
   const appendMessage = (text, type) => {
