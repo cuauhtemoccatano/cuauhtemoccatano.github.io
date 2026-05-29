@@ -136,6 +136,12 @@ h1, h2, h3, .logo {
   top: 0;
 }
 
+/* Global Focus Indicator for keyboard users */
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+}
+
 .container {
   background: var(--bg-primary);
   color: var(--text-primary);
