@@ -41,6 +41,12 @@ body.dark-mode {
   cursor: none !important;
 }
 
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+  transition: outline-offset 0.2s var(--ease-liquid);
+}
+
 /* Custom Liquid Cursor */
 .cursor {
   position: fixed;
@@ -442,6 +448,12 @@ section {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
   backdrop-filter: var(--glass-blur);
   font-family: 'Courier New', Courier, monospace;
+  transition: border-color 0.3s var(--ease-liquid), box-shadow 0.3s var(--ease-liquid);
+}
+
+.terminal-window:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
 }
 
 .terminal-header {
@@ -498,7 +510,6 @@ section {
 #terminal-input {
   background: transparent;
   border: none;
-  outline: none;
   color: #FAFAFA;
   font-family: inherit;
   font-size: inherit;
@@ -1142,6 +1153,11 @@ body.dark-mode .home-img img {
 .input-group {
   position: relative;
   width: 100%;
+  transition: transform 0.3s var(--ease-liquid);
+}
+
+.input-group:focus-within {
+  transform: translateX(4px);
 }
 
 .input-group input, .input-group select {
@@ -1167,7 +1183,6 @@ body.dark-mode .home-img img {
 .input-group input:focus, .input-group select:focus {
   background: rgba(255, 255, 255, 0.08);
   border-color: var(--accent-color);
-  outline: none;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
 }
 
@@ -1260,6 +1275,12 @@ body.dark-mode .home-img img {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   border: 1px solid var(--border-color);
+  transition: border-color 0.3s var(--ease-liquid), box-shadow 0.3s var(--ease-liquid);
+}
+
+.scan-box:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.2);
 }
 
 .scan-box input {
@@ -1268,7 +1289,6 @@ body.dark-mode .home-img img {
   border: none;
   padding: 1rem;
   color: var(--text-primary);
-  outline: none;
   font-family: inherit;
 }
 
@@ -1426,9 +1446,14 @@ body.dark-mode .home-img img {
   display: flex;
   flex-direction: column;
   transform-origin: bottom right;
-  transition: all 0.4s var(--ease-liquid);
+  transition: all 0.4s var(--ease-liquid), border-color 0.3s var(--ease-liquid), box-shadow 0.3s var(--ease-liquid);
   border: 1px solid var(--card-border);
   box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+}
+
+.oracle-chat:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 40px 80px rgba(37, 99, 235, 0.25);
 }
 
 .oracle-chat.hidden {
@@ -1514,7 +1539,6 @@ body.dark-mode .home-img img {
   border-radius: 8px;
   padding: 0.8rem;
   color: var(--text-primary);
-  outline: none;
 }
 
 #send-oracle {
