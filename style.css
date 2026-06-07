@@ -41,6 +41,12 @@ body.dark-mode {
   cursor: none !important;
 }
 
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+  transition: outline-offset 0.2s var(--ease-liquid);
+}
+
 /* Custom Liquid Cursor */
 .cursor {
   position: fixed;
@@ -118,6 +124,19 @@ body.dark-mode {
 h1, h2, h3, .logo {
   font-family: 'Archivo', sans-serif;
   letter-spacing: -0.02em;
+}
+
+/* Accessibility: Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* Accessibility: Skip Link */
@@ -442,6 +461,12 @@ section {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
   backdrop-filter: var(--glass-blur);
   font-family: 'Courier New', Courier, monospace;
+  transition: border-color 0.3s var(--ease-liquid), box-shadow 0.3s var(--ease-liquid);
+}
+
+.terminal-window:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 30px 80px rgba(37, 99, 235, 0.2);
 }
 
 .terminal-header {
@@ -503,6 +528,10 @@ section {
   font-family: inherit;
   font-size: inherit;
   flex: 1;
+}
+
+#terminal-input:focus-visible {
+  outline: none; /* Terminal maintains its own focus style or uses focus-within on container */
 }
 
 .terminal-output {
@@ -1164,10 +1193,14 @@ body.dark-mode .home-img img {
   background-size: 18px;
 }
 
+.input-group:focus-within {
+  transform: translateX(5px);
+  transition: transform 0.3s var(--ease-liquid);
+}
+
 .input-group input:focus, .input-group select:focus {
   background: rgba(255, 255, 255, 0.08);
   border-color: var(--accent-color);
-  outline: none;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
 }
 
@@ -1260,6 +1293,12 @@ body.dark-mode .home-img img {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   border: 1px solid var(--border-color);
+  transition: border-color 0.3s var(--ease-liquid), background 0.3s var(--ease-liquid);
+}
+
+.scan-box:focus-within {
+  border-color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .scan-box input {
@@ -1268,7 +1307,6 @@ body.dark-mode .home-img img {
   border: none;
   padding: 1rem;
   color: var(--text-primary);
-  outline: none;
   font-family: inherit;
 }
 
@@ -1426,9 +1464,13 @@ body.dark-mode .home-img img {
   display: flex;
   flex-direction: column;
   transform-origin: bottom right;
-  transition: all 0.4s var(--ease-liquid);
+  transition: all 0.4s var(--ease-liquid), border-color 0.3s var(--ease-liquid);
   border: 1px solid var(--card-border);
   box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+}
+
+.oracle-chat:focus-within {
+  border-color: var(--accent-color);
 }
 
 .oracle-chat.hidden {
@@ -1514,7 +1556,6 @@ body.dark-mode .home-img img {
   border-radius: 8px;
   padding: 0.8rem;
   color: var(--text-primary);
-  outline: none;
 }
 
 #send-oracle {
