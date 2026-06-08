@@ -53,8 +53,11 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const nextKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
+    const nextText = translations[currentLang][nextKey];
     toggleIcons.forEach((btn) => {
+      btn.setAttribute("data-i18n-label", nextKey);
+      btn.setAttribute("data-i18n-title", nextKey);
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
     });
@@ -286,6 +289,18 @@ const translations = {
     analyzing: "Analyzing...",
     performance: "Performance",
     identity: "Identity",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    lang_switch_label: "Switch Language",
+    oracle_toggle: "Open AI Assistant",
+    close_oracle: "Close AI Assistant",
+    send_message: "Send message to the Oracle",
+    close_modal: "Close Modal",
+    back_to_info: "Back to information step",
+    github_label: "GitHub Profile",
+    linkedin_label: "LinkedIn Profile",
+    instagram_label: "Instagram Profile",
+    oracle_input_label: "Oracle chat input",
     oracle_name: "The Oracle",
     oracle_welcome: "Welcome. Speak your strategy, and I shall architect the path.",
     oracle_placeholder: "Ask the Oracle...",
@@ -359,6 +374,18 @@ const translations = {
     analyzing: "Analizando...",
     performance: "Desempeño",
     identity: "Identidad",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    lang_switch_label: "Cambiar idioma",
+    oracle_toggle: "Abrir asistente de IA",
+    close_oracle: "Cerrar asistente de IA",
+    send_message: "Enviar mensaje al Oráculo",
+    close_modal: "Cerrar ventana",
+    back_to_info: "Volver al paso de información",
+    github_label: "Perfil de GitHub",
+    linkedin_label: "Perfil de LinkedIn",
+    instagram_label: "Perfil de Instagram",
+    oracle_input_label: "Entrada de chat del Oráculo",
     oracle_name: "El Oráculo",
     oracle_welcome: "Bienvenida. Habla de tu estrategia y yo trazaré el camino.",
     oracle_placeholder: "Pregunta al Oráculo...",
@@ -437,6 +464,17 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1.1 ARIA Labels and Titles
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
   });
 
   // 2. Section Titles Mapping

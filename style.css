@@ -41,6 +41,12 @@ body.dark-mode {
   cursor: none !important;
 }
 
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+  transition: outline-offset 0.2s var(--ease-liquid);
+}
+
 /* Custom Liquid Cursor */
 .cursor {
   position: fixed;
@@ -503,6 +509,10 @@ section {
   font-family: inherit;
   font-size: inherit;
   flex: 1;
+}
+
+#terminal-input:focus-visible {
+  outline-offset: -2px;
 }
 
 .terminal-output {
@@ -1171,6 +1181,11 @@ body.dark-mode .home-img img {
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
 }
 
+.input-group input:focus-visible, .input-group select:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: -2px;
+}
+
 .input-group label {
   position: absolute;
   top: 18px;
@@ -1270,6 +1285,11 @@ body.dark-mode .home-img img {
   color: var(--text-primary);
   outline: none;
   font-family: inherit;
+}
+
+.scan-box input:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: -2px;
 }
 
 .scan-btn {
@@ -1515,6 +1535,11 @@ body.dark-mode .home-img img {
   padding: 0.8rem;
   color: var(--text-primary);
   outline: none;
+}
+
+.oracle-input-area input:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: -2px;
 }
 
 #send-oracle {
