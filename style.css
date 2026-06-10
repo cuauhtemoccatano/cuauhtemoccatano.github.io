@@ -41,6 +41,13 @@ body.dark-mode {
   cursor: none !important;
 }
 
+/* Enhanced Focus Visibility for Keyboard Navigation */
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+  transition: outline-offset 0.2s var(--ease-liquid);
+}
+
 /* Custom Liquid Cursor */
 .cursor {
   position: fixed;
@@ -442,6 +449,12 @@ section {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
   backdrop-filter: var(--glass-blur);
   font-family: 'Courier New', Courier, monospace;
+  transition: border-color 0.3s var(--ease-liquid), box-shadow 0.3s var(--ease-liquid);
+}
+
+.terminal-window:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 40px 80px rgba(37, 99, 235, 0.15);
 }
 
 .terminal-header {
@@ -1429,6 +1442,11 @@ body.dark-mode .home-img img {
   transition: all 0.4s var(--ease-liquid);
   border: 1px solid var(--card-border);
   box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+}
+
+.oracle-chat:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 40px 80px rgba(37, 99, 235, 0.2);
 }
 
 .oracle-chat.hidden {
