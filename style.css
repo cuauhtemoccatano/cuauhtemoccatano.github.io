@@ -41,6 +41,12 @@ body.dark-mode {
   cursor: none !important;
 }
 
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+  transition: outline-offset 0.2s var(--ease-liquid);
+}
+
 /* Custom Liquid Cursor */
 .cursor {
   position: fixed;
@@ -498,7 +504,6 @@ section {
 #terminal-input {
   background: transparent;
   border: none;
-  outline: none;
   color: #FAFAFA;
   font-family: inherit;
   font-size: inherit;
@@ -1167,7 +1172,6 @@ body.dark-mode .home-img img {
 .input-group input:focus, .input-group select:focus {
   background: rgba(255, 255, 255, 0.08);
   border-color: var(--accent-color);
-  outline: none;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
 }
 
@@ -1268,7 +1272,6 @@ body.dark-mode .home-img img {
   border: none;
   padding: 1rem;
   color: var(--text-primary);
-  outline: none;
   font-family: inherit;
 }
 
@@ -1514,7 +1517,6 @@ body.dark-mode .home-img img {
   border-radius: 8px;
   padding: 0.8rem;
   color: var(--text-primary);
-  outline: none;
 }
 
 #send-oracle {
