@@ -53,10 +53,13 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const key = nextTheme === "dark" ? "switch_light" : "switch_dark";
+    const nextText = translations[currentLang][key];
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
+      btn.setAttribute("data-i18n-label", key);
+      btn.setAttribute("data-i18n-title", key);
     });
 
     setTimeout(() => {
@@ -348,7 +351,13 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    close_oracle: "Close Oracle",
+    send_message: "Send message",
+    oracle_toggle: "Toggle Oracle",
+    back_to_info: "Back to information",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +429,13 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_toggle: "Alternar Oráculo",
+    back_to_info: "Volver a información",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro"
   }
 };
 
@@ -437,6 +452,17 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1.1 ARIA Labels and Titles
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
   });
 
   // 2. Section Titles Mapping
