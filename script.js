@@ -53,7 +53,10 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const isES = currentLang === "ES";
+    const nextText = nextTheme === "dark"
+      ? (isES ? "Cambiar a modo claro" : "Switch to light mode")
+      : (isES ? "Cambiar a modo oscuro" : "Switch to dark mode");
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
@@ -348,7 +351,16 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    oracle_toggle: "Toggle Oracle Chat",
+    close_oracle: "Close Oracle Chat",
+    send_message: "Send Message",
+    close_modal: "Close Modal",
+    back_to_info: "Back to Information",
+    lang_switch_label: "Switch Language",
+    theme_toggle_label: "Toggle dark mode",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +432,16 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    oracle_toggle: "Abrir Chat del Oráculo",
+    close_oracle: "Cerrar Chat del Oráculo",
+    send_message: "Enviar Mensaje",
+    close_modal: "Cerrar Modal",
+    back_to_info: "Volver a Información",
+    lang_switch_label: "Cambiar Idioma",
+    theme_toggle_label: "Cambiar modo oscuro",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro"
   }
 };
 
@@ -437,6 +458,22 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1b. ARIA labels and titles
+  document.querySelectorAll("[data-i18n-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.placeholder = t[key];
   });
 
   // 2. Section Titles Mapping
@@ -495,6 +532,14 @@ function updateLanguage(lang) {
   document.querySelectorAll(".instruction-msg").forEach(msg => msg.innerText = t.t_instr);
   document.querySelectorAll(".terminal-output").forEach(out => {
     if (out.innerText.includes("Cataño:") ) out.innerText = t.t_whoami;
+  });
+
+  // Update theme toggle attributes based on current mode
+  const isDark = document.body.classList.contains("dark-mode");
+  const themeText = isDark ? t.switch_light : t.switch_dark;
+  toggleIcons.forEach(btn => {
+    btn.setAttribute("aria-label", themeText);
+    btn.setAttribute("title", themeText);
   });
 
   langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
