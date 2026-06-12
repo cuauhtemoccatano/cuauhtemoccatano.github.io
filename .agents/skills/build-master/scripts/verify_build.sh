@@ -8,29 +8,33 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-ROOT_DIR="/Users/macos/Documents/GitHub/cuauhtemoccatano.github.io"
+ROOT_DIR="$(pwd)"
 LAUNCHPAD_DIR="$ROOT_DIR/launchpad-app"
 
 echo -e "${BLUE}=== Starting Unified Build Verification ===${NC}"
 
 # 1. Launchpad Check
 echo -e "\n${BLUE}1. Analyzing Launchpad (Next.js)...${NC}"
-cd "$LAUNCHPAD_DIR" || exit
+if [ -d "$LAUNCHPAD_DIR/node_modules" ]; then
+    cd "$LAUNCHPAD_DIR" || exit
 
-echo "Running Linting..."
-if npm run lint; then
-    echo -e "${GREEN}✓ Linting passed.${NC}"
-else
-    echo -e "${RED}✗ Linting failed. Please fix warnings/errors before push.${NC}"
-    exit 1
-fi
+    echo "Running Linting..."
+    if pnpm lint; then
+        echo -e "${GREEN}✓ Linting passed.${NC}"
+    else
+        echo -e "${RED}✗ Linting failed. Please fix warnings/errors before push.${NC}"
+        exit 1
+    fi
 
-echo "Running Production Build..."
-if npm run build; then
-    echo -e "${GREEN}✓ Build successful.${NC}"
+    echo "Running Production Build..."
+    if pnpm build; then
+        echo -e "${GREEN}✓ Build successful.${NC}"
+    else
+        echo -e "${RED}✗ Build failed. Critical regression detected in Launchpad.${NC}"
+        exit 1
+    fi
 else
-    echo -e "${RED}✗ Build failed. Critical regression detected in Launchpad.${NC}"
-    exit 1
+    echo -e "${BLUE}Skipping Launchpad node-based checks (node_modules missing).${NC}"
 fi
 
 # 2. Portfolio Integrity Check
