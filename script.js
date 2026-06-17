@@ -53,10 +53,12 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const t = translations[currentLang];
+    const nextLabel = nextTheme === "dark" ? t.switch_light : t.switch_dark;
+
     toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", nextText);
-      btn.setAttribute("title", nextText);
+      btn.setAttribute("aria-label", nextLabel);
+      btn.setAttribute("title", nextLabel);
     });
 
     setTimeout(() => {
@@ -343,6 +345,8 @@ const translations = {
     t_whoami: "Cuauhtémoc Cataño: Developer, Founder, and Podcast Host.",
     modal_title: "Book a Discovery Call",
     modal_desc: "45 minutes to architect your digital future.",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
     form_name: "Your Name",
     form_email: "Email Address",
     suite_general: "General Consultation",
@@ -415,6 +419,8 @@ const translations = {
     t_whoami: "Cuauhtémoc Cataño: Desarrollador, Fundador y Host de Podcast.",
     modal_title: "Reserva una Llamada de Descubrimiento",
     modal_desc: "45 minutos para diseñar tu futuro digital.",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
     form_name: "Tu Nombre",
     form_email: "Correo Electrónico",
     suite_general: "Consultoría General",
@@ -491,6 +497,15 @@ function updateLanguage(lang) {
   });
 
   document.querySelectorAll(".contact-content p").forEach(p => p.innerText = t.contact_desc);
+
+  // Theme toggle localization
+  const isDark = document.body.classList.contains("dark-mode");
+  const nextLabel = isDark ? t.switch_light : t.switch_dark;
+  toggleIcons.forEach((btn) => {
+    btn.setAttribute("aria-label", nextLabel);
+    btn.setAttribute("title", nextLabel);
+  });
+
   document.querySelectorAll(".welcome-msg").forEach(msg => msg.innerText = t.t_welcome);
   document.querySelectorAll(".instruction-msg").forEach(msg => msg.innerText = t.t_instr);
   document.querySelectorAll(".terminal-output").forEach(out => {
