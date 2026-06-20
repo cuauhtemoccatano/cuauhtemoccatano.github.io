@@ -348,7 +348,10 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    terminal_input_label: "Terminal Command",
+    scan_url_label: "Website URL for scanning",
+    oracle_input_label: "Message for the Oracle"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +423,10 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    terminal_input_label: "Comando de terminal",
+    scan_url_label: "URL del sitio web para escanear",
+    oracle_input_label: "Mensaje para el Oráculo"
   }
 };
 
