@@ -43,6 +43,11 @@ prefersDark.addEventListener("change", (e) => {
 
 toggleIcons.forEach((toggle) => {
   toggle.addEventListener("click", () => {
+    if (!translations[currentLang]) {
+      console.error("Translations not loaded for:", currentLang);
+      return;
+    }
+
     if (toggle.classList.contains("disabled")) return;
 
     setButtonsDisabled(true);
@@ -53,10 +58,12 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const nextKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
+    const nextText = translations[currentLang][nextKey];
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
+      btn.setAttribute("data-i18n-aria-label", nextKey);
     });
 
     setTimeout(() => {
@@ -348,7 +355,18 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    close_oracle: "Close Oracle",
+    send_message: "Send Message",
+    oracle_toggle: "Toggle Oracle Chat",
+    back_to_info: "Back to information",
+    terminal_input_label: "Terminal Input",
+    lang_switch_label: "Switch Language",
+    scan_now_label: "Scan Now",
+    scan_url_label: "Website URL",
+    oracle_input_label: "Ask the Oracle"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +438,18 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar Mensaje",
+    oracle_toggle: "Alternar Chat del Oráculo",
+    back_to_info: "Volver a la información",
+    terminal_input_label: "Entrada de Terminal",
+    lang_switch_label: "Cambiar Idioma",
+    scan_now_label: "Escanear Ahora",
+    scan_url_label: "URL del Sitio Web",
+    oracle_input_label: "Preguntar al Oráculo"
   }
 };
 
@@ -436,6 +465,15 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1.1 ARIA Labels and Titles
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+      if (el.hasAttribute("title")) el.setAttribute("title", t[key]);
     }
   });
 
