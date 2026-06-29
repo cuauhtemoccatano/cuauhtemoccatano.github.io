@@ -348,7 +348,11 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    close_oracle: "Close Oracle",
+    send_message: "Send Message",
+    oracle_toggle: "Open Oracle Chat",
+    close_modal: "Close Modal"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +424,11 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar Mensaje",
+    oracle_toggle: "Abrir Chat del Oráculo",
+    close_modal: "Cerrar Modal"
   }
 };
 
@@ -454,6 +462,14 @@ function updateLanguage(lang) {
       contact: t.contact_title
     };
     if (titleMap[id]) title.innerText = titleMap[id];
+  });
+
+  // 2.5 ARIA Labels with data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+    }
   });
 
   // 3. Dynamic Elements & Lists
