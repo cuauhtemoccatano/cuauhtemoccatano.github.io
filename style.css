@@ -1547,4 +1547,32 @@ body.dark-mode .home-img img {
   }
 }
 
+/* Accessibility: Keyboard Focus Indicators */
+:focus-visible {
+  outline: 2px solid var(--accent-color) !important;
+  outline-offset: 4px;
+  transition: outline-offset 0.2s var(--ease-liquid);
+}
+
+#terminal-input:focus-visible,
+.input-group input:focus-visible,
+.input-group select:focus-visible,
+.scan-box input:focus-visible,
+.oracle-input-area input:focus-visible {
+  outline: 2px solid var(--accent-color) !important;
+  outline-offset: 2px;
+}
+
+/* Screen Reader Only Utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
