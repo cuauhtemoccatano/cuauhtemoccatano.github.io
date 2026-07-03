@@ -53,10 +53,14 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const nextKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
     toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", nextText);
-      btn.setAttribute("title", nextText);
+      btn.setAttribute("data-i18n-aria-label", nextKey);
+      btn.setAttribute("data-i18n-title", nextKey);
+      if (translations[currentLang][nextKey]) {
+        btn.setAttribute("aria-label", translations[currentLang][nextKey]);
+        btn.setAttribute("title", translations[currentLang][nextKey]);
+      }
     });
 
     setTimeout(() => {
@@ -287,6 +291,12 @@ const translations = {
     performance: "Performance",
     identity: "Identity",
     oracle_name: "The Oracle",
+    oracle_toggle: "Open Oracle Chat",
+    scan_now_label: "Start Brand Scan",
+    scan_url_label: "Website URL for scanning",
+    lang_switch_label: "Switch Language",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
     oracle_welcome: "Welcome. Speak your strategy, and I shall architect the path.",
     oracle_placeholder: "Ask the Oracle...",
     hero_title: "Crafting High-Performance Digital Presences",
@@ -360,6 +370,12 @@ const translations = {
     performance: "Desempeño",
     identity: "Identidad",
     oracle_name: "El Oráculo",
+    oracle_toggle: "Abrir Chat del Oráculo",
+    scan_now_label: "Iniciar Escaneo de Marca",
+    scan_url_label: "URL del sitio web para escanear",
+    lang_switch_label: "Cambiar Idioma",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
     oracle_welcome: "Bienvenida. Habla de tu estrategia y yo trazaré el camino.",
     oracle_placeholder: "Pregunta al Oráculo...",
     hero_title: "Presencia Digital de Alto Desempeño",
@@ -436,6 +452,21 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1.1 ARIA Labels and Titles
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) {
+      el.setAttribute("title", t[key]);
     }
   });
 
