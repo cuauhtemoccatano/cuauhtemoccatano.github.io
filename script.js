@@ -53,8 +53,12 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const nextTextKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
+    const nextText = translations[currentLang][nextTextKey];
+
     toggleIcons.forEach((btn) => {
+      btn.setAttribute("data-i18n-aria-label", nextTextKey);
+      btn.setAttribute("data-i18n-title", nextTextKey);
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
     });
@@ -348,7 +352,22 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    oracle_toggle: "Talk to the AI Oracle",
+    close_oracle: "Close Oracle chat",
+    send_message: "Send message",
+    close_modal: "Close modal",
+    back_to_info: "Back to information",
+    terminal_input_label: "Interactive terminal input",
+    scan_url_label: "Website URL to scan",
+    scan_now_label: "Start brand scan",
+    nav_toggle: "Toggle navigation menu",
+    lang_switch_label: "Switch language to Spanish",
+    github_label: "GitHub Profile",
+    linkedin_label: "LinkedIn Profile",
+    instagram_label: "Instagram Profile"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +439,22 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    oracle_toggle: "Habla con el Oráculo IA",
+    close_oracle: "Cerrar chat del Oráculo",
+    send_message: "Enviar mensaje",
+    close_modal: "Cerrar ventana",
+    back_to_info: "Volver a información",
+    terminal_input_label: "Entrada de terminal interactiva",
+    scan_url_label: "URL del sitio web para escanear",
+    scan_now_label: "Iniciar escaneo de marca",
+    nav_toggle: "Alternar menú de navegación",
+    lang_switch_label: "Cambiar idioma a Inglés",
+    github_label: "Perfil de GitHub",
+    linkedin_label: "Perfil de LinkedIn",
+    instagram_label: "Perfil de Instagram"
   }
 };
 
@@ -437,6 +471,17 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1.1 ARIA labels and titles
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
   });
 
   // 2. Section Titles Mapping
