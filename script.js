@@ -53,7 +53,8 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const t = translations[currentLang];
+    const nextText = nextTheme === "dark" ? t.switch_light : t.switch_dark;
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
@@ -289,6 +290,18 @@ const translations = {
     oracle_name: "The Oracle",
     oracle_welcome: "Welcome. Speak your strategy, and I shall architect the path.",
     oracle_placeholder: "Ask the Oracle...",
+    terminal_input_label: "Terminal Command Input",
+    scan_url_label: "Website URL for scanning",
+    scan_url_placeholder: "https://yourbrand.com",
+    scan_now_label: "Scan Now",
+    back_to_info: "Back to Info",
+    oracle_input_label: "Message the Oracle",
+    close_oracle: "Close Oracle",
+    send_message: "Send Message",
+    oracle_toggle: "The Oracle Chat",
+    close_modal: "Close Modal",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
     hero_title: "Crafting High-Performance Digital Presences",
     hero_desc: "Architecting holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
     trust_label_1: "Brand Strategy", trust_label_2: "Technical Excellence",
@@ -362,6 +375,18 @@ const translations = {
     oracle_name: "El Oráculo",
     oracle_welcome: "Bienvenida. Habla de tu estrategia y yo trazaré el camino.",
     oracle_placeholder: "Pregunta al Oráculo...",
+    terminal_input_label: "Entrada de comandos de terminal",
+    scan_url_label: "URL del sitio web para escanear",
+    scan_url_placeholder: "https://tumarca.com",
+    scan_now_label: "Escanear ahora",
+    back_to_info: "Volver a información",
+    oracle_input_label: "Mensaje al Oráculo",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_toggle: "Chat del Oráculo",
+    close_modal: "Cerrar Modal",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
     hero_title: "Presencia Digital de Alto Desempeño",
     hero_desc: "Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
     trust_label_1: "Estrategia de Marca", trust_label_2: "Excelencia Técnica",
@@ -436,6 +461,23 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1.1 Support data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+      if (el.hasAttribute("title")) el.setAttribute("title", t[key]);
+    }
+  });
+
+  // 1.2 Support data-i18n-placeholder for inputs that have data-i18n for labels
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) {
+      el.placeholder = t[key];
     }
   });
 
