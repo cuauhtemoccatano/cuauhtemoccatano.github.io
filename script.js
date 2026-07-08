@@ -348,7 +348,15 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    scan_url_label: "Enter website URL for scan",
+    scan_now_label: "Start brand scan",
+    back_to_info: "Back to information step",
+    close_oracle: "Close Oracle chat",
+    oracle_input_label: "Ask the Oracle",
+    send_message: "Send message to Oracle",
+    oracle_toggle: "Toggle Oracle AI assistant",
+    terminal_input_label: "Terminal input"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +428,15 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    scan_url_label: "Ingresa la URL del sitio para escanear",
+    scan_now_label: "Comenzar escaneo de marca",
+    back_to_info: "Volver al paso de información",
+    close_oracle: "Cerrar chat del Oráculo",
+    oracle_input_label: "Pregunta al Oráculo",
+    send_message: "Enviar mensaje al Oráculo",
+    oracle_toggle: "Alternar asistente de IA del Oráculo",
+    terminal_input_label: "Entrada de terminal"
   }
 };
 
@@ -436,6 +452,14 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1.1 ARIA Labels with data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
     }
   });
 
