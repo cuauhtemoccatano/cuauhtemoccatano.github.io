@@ -281,6 +281,7 @@ const translations = {
     projects: "Engineering", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contact",
     discovery_title: "Discover Your Brand's Potential",
     discovery_desc: "Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.",
+    scan_url_label: "Website URL to scan",
     scan_now: "Scan Now",
     get_full_report: "Get Full Intelligence Report",
     analyzing: "Analyzing...",
@@ -288,7 +289,11 @@ const translations = {
     identity: "Identity",
     oracle_name: "The Oracle",
     oracle_welcome: "Welcome. Speak your strategy, and I shall architect the path.",
+    oracle_input_label: "Message to the Oracle",
     oracle_placeholder: "Ask the Oracle...",
+    close_oracle: "Close Oracle Chat",
+    send_message: "Send Message",
+    oracle_toggle: "Open Oracle Chat",
     hero_title: "Crafting High-Performance Digital Presences",
     hero_desc: "Architecting holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
     trust_label_1: "Brand Strategy", trust_label_2: "Technical Excellence",
@@ -340,6 +345,7 @@ const translations = {
     contact_email: "Send an Email", download_cv: "Download CV",
     t_welcome: "Welcome to Cuauhtémoc's interactive shell.",
     t_instr: "Type 'help' for options.",
+    terminal_input_label: "Terminal Command Input",
     t_whoami: "Cuauhtémoc Cataño: Developer, Founder, and Podcast Host.",
     modal_title: "Book a Discovery Call",
     modal_desc: "45 minutes to architect your digital future.",
@@ -354,6 +360,7 @@ const translations = {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
     discovery_title: "Descubre el Potencial de tu Marca",
     discovery_desc: "Ingresa la URL de tu sitio para obtener un Score de Vitalidad de Marca instantáneo e identificar oportunidades de crecimiento.",
+    scan_url_label: "URL del sitio web a escanear",
     scan_now: "Escanear Ahora",
     get_full_report: "Obtener Reporte de Inteligencia Completo",
     analyzing: "Analizando...",
@@ -361,7 +368,11 @@ const translations = {
     identity: "Identidad",
     oracle_name: "El Oráculo",
     oracle_welcome: "Bienvenida. Habla de tu estrategia y yo trazaré el camino.",
+    oracle_input_label: "Mensaje para el Oráculo",
     oracle_placeholder: "Pregunta al Oráculo...",
+    close_oracle: "Cerrar chat del Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_toggle: "Abrir chat del Oráculo",
     hero_title: "Presencia Digital de Alto Desempeño",
     hero_desc: "Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
     trust_label_1: "Estrategia de Marca", trust_label_2: "Excelencia Técnica",
@@ -412,6 +423,7 @@ const translations = {
     contact_desc: "Diseñemos algo extraordinario juntos.",
     contact_email: "Enviar Email", download_cv: "Descargar CV",
     t_welcome: "Bienvenido a la terminal interactiva de Cuauhtémoc.", t_instr: "Escribe 'help' para ver opciones.",
+    terminal_input_label: "Entrada de comandos de la terminal",
     t_whoami: "Cuauhtémoc Cataño: Desarrollador, Fundador y Host de Podcast.",
     modal_title: "Reserva una Llamada de Descubrimiento",
     modal_desc: "45 minutos para diseñar tu futuro digital.",
@@ -437,6 +449,17 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1.1 ARIA Labels and Titles
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
   });
 
   // 2. Section Titles Mapping
