@@ -136,6 +136,19 @@ h1, h2, h3, .logo {
   top: 0;
 }
 
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .container {
   background: var(--bg-primary);
   color: var(--text-primary);
@@ -498,7 +511,7 @@ section {
 #terminal-input {
   background: transparent;
   border: none;
-  outline: none;
+  outline: 2px solid transparent;
   color: #FAFAFA;
   font-family: inherit;
   font-size: inherit;
@@ -1167,7 +1180,7 @@ body.dark-mode .home-img img {
 .input-group input:focus, .input-group select:focus {
   background: rgba(255, 255, 255, 0.08);
   border-color: var(--accent-color);
-  outline: none;
+  outline: 2px solid transparent;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
 }
 
@@ -1268,7 +1281,7 @@ body.dark-mode .home-img img {
   border: none;
   padding: 1rem;
   color: var(--text-primary);
-  outline: none;
+  outline: 2px solid transparent;
   font-family: inherit;
 }
 
@@ -1514,7 +1527,7 @@ body.dark-mode .home-img img {
   border-radius: 8px;
   padding: 0.8rem;
   color: var(--text-primary);
-  outline: none;
+  outline: 2px solid transparent;
 }
 
 #send-oracle {
@@ -1547,4 +1560,10 @@ body.dark-mode .home-img img {
   }
 }
 
+/* High-contrast focus indicators for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--accent-color) !important;
+  outline-offset: 4px;
+  transition: outline-offset 0.2s var(--ease-liquid);
+}
 
