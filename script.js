@@ -53,10 +53,12 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const nextText = nextTheme === "dark" ? translations[currentLang].switch_light : translations[currentLang].switch_dark;
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
+      btn.setAttribute("data-i18n-aria-label", nextTheme === "dark" ? "switch_light" : "switch_dark");
+      btn.setAttribute("data-i18n-title", nextTheme === "dark" ? "switch_light" : "switch_dark");
     });
 
     setTimeout(() => {
@@ -348,7 +350,15 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    oracle_toggle: "Open AI Voice Assistant",
+    close_oracle: "Close Oracle",
+    send_message: "Send Message",
+    scan_url_label: "Website URL to scan",
+    lang_switch_label: "Switch Language",
+    terminal_input_label: "Terminal input"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +430,15 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    oracle_toggle: "Abrir asistente de voz IA",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar mensaje",
+    scan_url_label: "URL del sitio para escanear",
+    lang_switch_label: "Cambiar Idioma",
+    terminal_input_label: "Entrada de terminal"
   }
 };
 
@@ -439,7 +457,25 @@ function updateLanguage(lang) {
     }
   });
 
-  // 2. Section Titles Mapping
+  // 2. ARIA Labels
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  // 3. Titles
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
+  });
+
+  // 4. Placeholders (Explicit)
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.placeholder = t[key];
+  });
+
+  // 5. Section Titles Mapping
   document.querySelectorAll(".section-title").forEach(title => {
     const section = title.closest("section");
     if (!section && title.parentElement.classList.contains("podcasts")) return;
