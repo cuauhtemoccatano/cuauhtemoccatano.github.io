@@ -53,8 +53,11 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const nextKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
+    const nextText = translations[currentLang][nextKey];
     toggleIcons.forEach((btn) => {
+      btn.setAttribute("data-i18n-aria-label", nextKey);
+      btn.setAttribute("data-i18n-title", nextKey);
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
     });
@@ -348,7 +351,20 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    oracle_toggle: "Toggle Oracle Chat",
+    close_oracle: "Close Oracle Chat",
+    close_modal: "Close Modal",
+    send_message: "Send Message",
+    github_label: "GitHub Profile",
+    linkedin_label: "LinkedIn Profile",
+    instagram_label: "Instagram Profile",
+    nav_toggle: "Open navigation menu",
+    lang_switch_label: "Switch Language",
+    scan_url_label: "Website URL to scan",
+    scan_now_label: "Start Brand Scan"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +436,20 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    oracle_toggle: "Alternar Chat del Oráculo",
+    close_oracle: "Cerrar Chat del Oráculo",
+    close_modal: "Cerrar Ventana",
+    send_message: "Enviar Mensaje",
+    github_label: "Perfil de GitHub",
+    linkedin_label: "Perfil de LinkedIn",
+    instagram_label: "Perfil de Instagram",
+    nav_toggle: "Abrir menú de navegación",
+    lang_switch_label: "Cambiar Idioma",
+    scan_url_label: "URL del sitio para escanear",
+    scan_now_label: "Iniciar escaneo de marca"
   }
 };
 
@@ -436,6 +465,22 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1.1 ARIA Labels with data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+    }
+  });
+
+  // 1.2 Title attributes with data-i18n-title
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) {
+      el.setAttribute("title", t[key]);
     }
   });
 
