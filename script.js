@@ -53,7 +53,9 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const nextText = nextTheme === "dark"
+      ? (translations[currentLang].switch_light || "Switch to light mode")
+      : (translations[currentLang].switch_dark || "Switch to dark mode");
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
@@ -348,7 +350,10 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    scan_url_label: "Website URL to scan"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +425,10 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    scan_url_label: "URL del sitio web a escanear"
   }
 };
 
@@ -436,6 +444,14 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1.1 ARIA Labels with data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
     }
   });
 
@@ -495,6 +511,13 @@ function updateLanguage(lang) {
   document.querySelectorAll(".instruction-msg").forEach(msg => msg.innerText = t.t_instr);
   document.querySelectorAll(".terminal-output").forEach(out => {
     if (out.innerText.includes("Cataño:") ) out.innerText = t.t_whoami;
+  });
+
+  const isDark = document.body.classList.contains("dark-mode");
+  const themeText = isDark ? t.switch_light : t.switch_dark;
+  document.querySelectorAll(".toggle-icon").forEach(btn => {
+    btn.setAttribute("aria-label", themeText);
+    btn.setAttribute("title", themeText);
   });
 
   langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
