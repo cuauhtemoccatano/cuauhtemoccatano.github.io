@@ -138,6 +138,7 @@
               </div>
               <div class="terminal-line">
                 <span class="prompt">guest@portfolio:~$</span>
+                <label for="terminal-input" class="sr-only" data-i18n="terminal_input_label">Terminal Command Input</label>
                 <input type="text" id="terminal-input" autofocus spellcheck="false">
               </div>
             </div>
@@ -335,7 +336,8 @@
               <p class="section-desc" data-i18n="discovery_desc">Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.</p>
               
               <div class="scan-box">
-                <input type="url" id="scan-url" placeholder="https://yourbrand.com" required>
+                <label for="scan-url" class="sr-only" data-i18n="scan_url_label">Website URL to scan</label>
+                <input type="url" id="scan-url" placeholder="https://yourbrand.com" required data-i18n-aria-label="scan_url_label" aria-label="Website URL to scan">
                 <button id="start-scan" class="scan-btn">
                   <span data-i18n="scan_now">Scan Now</span>
                   <i class='bx bx-zap'></i>
@@ -456,7 +458,8 @@
           <div class="message bot" data-i18n="oracle_welcome">Welcome. Speak your strategy, and I shall architect the path.</div>
         </div>
         <div class="oracle-input-area">
-          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n-placeholder="oracle_placeholder">
+          <label for="oracle-input" class="sr-only" data-i18n="oracle_input_label">Ask the Oracle</label>
+          <input type="text" id="oracle-input" placeholder="Ask the Oracle..." data-i18n="oracle_placeholder">
           <button id="send-oracle"><i class='bx bxs-send'></i></button>
         </div>
       </div>
