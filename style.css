@@ -1167,7 +1167,7 @@ body.dark-mode .home-img img {
 .input-group input:focus, .input-group select:focus {
   background: rgba(255, 255, 255, 0.08);
   border-color: var(--accent-color);
-  outline: none;
+  outline: 2px solid transparent;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
 }
 
@@ -1268,7 +1268,7 @@ body.dark-mode .home-img img {
   border: none;
   padding: 1rem;
   color: var(--text-primary);
-  outline: none;
+  outline: 2px solid transparent;
   font-family: inherit;
 }
 
@@ -1514,7 +1514,7 @@ body.dark-mode .home-img img {
   border-radius: 8px;
   padding: 0.8rem;
   color: var(--text-primary);
-  outline: none;
+  outline: 2px solid transparent;
 }
 
 #send-oracle {
@@ -1547,4 +1547,20 @@ body.dark-mode .home-img img {
   }
 }
 
+/* Global Keyboard Focus Indicators */
+.btn:focus-visible,
+.toggle-icon:focus-visible,
+.lang-switch:focus-visible,
+.social-media a:focus-visible,
+.project-link:focus-visible,
+.input-group input:focus-visible,
+.input-group select:focus-visible,
+.scan-box input:focus-visible,
+.oracle-input-area input:focus-visible,
+.modal-close:focus-visible,
+.back-btn:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+  transition: outline-offset 0.2s var(--ease-liquid);
+}
 
