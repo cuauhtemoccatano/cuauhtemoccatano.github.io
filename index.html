@@ -56,6 +56,8 @@
           <button class="lang-switch" id="lang-switch" aria-label="Switch Language">ES</button>
           <button
             class="toggle-icon"
+            data-i18n-aria-label="switch_dark"
+            data-i18n-title="switch_dark"
             aria-label="Toggle dark mode"
             title="Toggle dark mode"
           >
@@ -264,7 +266,14 @@
           
           <div class="engineering-container">
             <!-- Theme Toggle with ARIA -->
-            <button class="toggle-icon" aria-label="Toggle dark mode" title="Toggle dark mode" type="button">
+            <button
+              class="toggle-icon"
+              data-i18n-aria-label="switch_dark"
+              data-i18n-title="switch_dark"
+              aria-label="Toggle dark mode"
+              title="Toggle dark mode"
+              type="button"
+            >
                 <i class='bx bx-moon' id="nav-icon" aria-hidden="true"></i>
             </button>
             <!-- Projects -->
@@ -335,7 +344,8 @@
               <p class="section-desc" data-i18n="discovery_desc">Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.</p>
               
               <div class="scan-box">
-                <input type="url" id="scan-url" placeholder="https://yourbrand.com" required>
+                <label for="scan-url" class="sr-only" data-i18n="scan_url_label">Website URL to scan</label>
+                <input type="url" id="scan-url" placeholder="https://yourbrand.com" data-i18n-aria-label="scan_url_label" required>
                 <button id="start-scan" class="scan-btn">
                   <span data-i18n="scan_now">Scan Now</span>
                   <i class='bx bx-zap'></i>

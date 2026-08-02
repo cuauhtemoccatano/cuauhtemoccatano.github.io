@@ -7,6 +7,12 @@ const toggleIcons = document.querySelectorAll(".toggle-icon");
 const icons = document.querySelectorAll(".toggle-icon i");
 
 function applyTheme(theme) {
+  const key = theme === "dark" ? "switch_light" : "switch_dark";
+  toggleIcons.forEach((btn) => {
+    btn.setAttribute("data-i18n-aria-label", key);
+    btn.setAttribute("data-i18n-title", key);
+  });
+
   if (theme === "dark") {
     document.body.classList.add("dark-mode");
     if (homeImg) homeImg.src = "Assets/headshotbw.png";
@@ -53,11 +59,8 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
-    toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", nextText);
-      btn.setAttribute("title", nextText);
-    });
+    // Sync localized text immediately for the newly updated attributes
+    updateLanguage(currentLang);
 
     setTimeout(() => {
       setButtonsDisabled(false);
@@ -278,6 +281,9 @@ const langSwitches = document.querySelectorAll(".lang-switch");
 let currentLang = "EN";
 const translations = {
   EN: {
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    scan_url_label: "Website URL to scan",
     projects: "Engineering", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contact",
     discovery_title: "Discover Your Brand's Potential",
     discovery_desc: "Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.",
@@ -351,6 +357,9 @@ const translations = {
     syncing: "Syncing availability..."
   },
   ES: {
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    scan_url_label: "URL del sitio web a escanear",
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
     discovery_title: "Descubre el Potencial de tu Marca",
     discovery_desc: "Ingresa la URL de tu sitio para obtener un Score de Vitalidad de Marca instantáneo e identificar oportunidades de crecimiento.",
@@ -437,6 +446,20 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // Custom attributes translation
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.placeholder = t[key];
+  });
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
   });
 
   // 2. Section Titles Mapping
