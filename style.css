@@ -1547,4 +1547,23 @@ body.dark-mode .home-img img {
   }
 }
 
+/* Accessibility: High-contrast keyboard focus indicators for standard elements when mouse cursor is hidden */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.lang-switch:focus-visible,
+.toggle-icon:focus-visible,
+.btn:focus-visible,
+.project-link:focus-visible {
+  outline: 2px solid var(--accent-color) !important;
+  outline-offset: 4px !important;
+  transition: outline-offset 0.2s var(--ease-liquid);
+}
+
+/* Keep the retro console prompt look for the terminal input */
+#terminal-input:focus-visible {
+  outline: none !important;
+}
 
