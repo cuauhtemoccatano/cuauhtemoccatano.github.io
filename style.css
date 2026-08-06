@@ -1547,4 +1547,15 @@ body.dark-mode .home-img img {
   }
 }
 
+/* High-contrast focus-visible styles for keyboard navigation */
+a:focus-visible,
+button:focus-visible,
+input:not(#terminal-input):focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.toggle-icon:focus-visible {
+  outline: 2px solid var(--accent-color) !important;
+  outline-offset: 4px;
+  transition: outline-offset 0.2s var(--ease-liquid);
+}
 
