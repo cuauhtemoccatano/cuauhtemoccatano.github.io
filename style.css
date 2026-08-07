@@ -1547,4 +1547,18 @@ body.dark-mode .home-img img {
   }
 }
 
+/* Keyboard Focus Indicators - High Contrast accessibility for hidden cursor environment */
+:focus-visible:not(#terminal-input) {
+  outline: 2px solid var(--accent-color) !important;
+  outline-offset: 4px !important;
+  transition: outline-offset 0.2s var(--ease-liquid) !important;
+}
+
+/* Ensure outline transition is supported for smoother micro-UX */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  transition: outline-offset 0.2s var(--ease-liquid) !important;
+}
 
