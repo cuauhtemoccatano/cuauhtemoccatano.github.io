@@ -1,4 +1,193 @@
 /**
+ * Multi-language Support Logic & Translation Dictionary
+ */
+const translations = {
+  EN: {
+    home: "Home", about: "About", services: "Services", skills: "Skills", projects: "Engineering", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contact",
+    discovery_title: "Discover Your Brand's Potential",
+    discovery_desc: "Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.",
+    scan_now: "Scan Now",
+    get_full_report: "Get Full Intelligence Report",
+    analyzing: "Analyzing...",
+    performance: "Performance",
+    identity: "Identity",
+    oracle_name: "The Oracle",
+    oracle_welcome: "Welcome. Speak your strategy, and I shall architect the path.",
+    oracle_placeholder: "Ask the Oracle...",
+    hero_title: "Crafting High-Performance Digital Presences",
+    hero_desc: "Architecting holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
+    trust_label_1: "Brand Strategy", trust_label_2: "Technical Excellence",
+    trust_val_1: "Holistic Digital Presence", trust_val_2: "Robust & Scalable Solutions",
+    about_title: "The Visionary Behind the Code",
+    about_p1: "I'm more than a developer; I'm a strategic partner. With a background in marketing and branding, I create digital voices that resonate.",
+    about_p2: "I provide 'a la carte' digital solutions tailored to your unique business journey.",
+    services_title: "Digital Services A La Carte",
+    suite_ads_title: "Omnichannel Advertising",
+    s_ads_meta: "Meta Ads (FB & IG)",
+    s_ads_google: "Google & YouTube Ads",
+    s_ads_pro: "LinkedIn, Amazon & Pinterest",
+    s_ads_niche: "TikTok, Waze & Snapchat Ads",
+    suite_media_title: "Content & Media Studio",
+    s_media_podcast: "Full Podcast Production & Editing",
+    s_media_video: "High-End Video Production",
+    s_media_shorts: "Short-form Video & AI Captions",
+    s_media_ar: "Custom AR Filters for Socials",
+    suite_brand_title: "Identity & Brand Strategy",
+    s_brand_manual: "Brand Identity & Manual Creation",
+    s_brand_logo: "Logo Design & Visual Assets",
+    s_brand_ebook: "E-book Design & Publication",
+    s_brand_story: "Brand Storytelling & Copy",
+    suite_biz_title: "Operations & Growth",
+    s_biz_pa: "Virtual PA & Agenda Management",
+    s_biz_sm: "Full Social Media Management",
+    s_biz_email: "Email Marketing & Automation",
+    s_biz_leads: "Sales Prototyping & Lead Gen",
+    suite_tech_title: "Digital Engineering",
+    s_tech_web: "Custom Shopify & Web Design",
+    s_tech_seo: "SEO & Web Performance Audit",
+    s_tech_apps: "App Development (Custom Apps)",
+    s_tech_bots: "AI Chatbots & Flux Integrations",
+    book_service: "Book Consultation",
+    skills_title: "The Strategic Toolkit",
+    s_java: "Enterprise-grade architecture. Building the robust backbone for complex systems.",
+    s_python: "Data-driven automation and smart backend solutions that streamline operations.",
+    eng_title: "Digital Engineering A La Carte",
+    p1_desc: "Advanced backend logic, patterns, and robust distributed implementations.",
+    p2_desc: "Scalable applications solving complex algorithmic and automation tasks.",
+    p3_desc: "Hardware/software integration for smart, connected real-world systems.",
+    p_link: "View Repo", p_link_3: "View Projects",
+    impact_title: "Direct Impact (Stats)", special_title: "Tech Specialization",
+    podcasts_title: "Podcasts & Content",
+    pod1_desc: "The journey from a solopreneur to a business owner with strategic vision.",
+    pod2_desc: "Practical wisdom on yogic principles in the modern world.",
+    contact_title: "Ready to build the future?",
+    contact_desc: "Let's architect something remarkable together.",
+    contact_email: "Send an Email", download_cv: "Download CV",
+    t_welcome: "Welcome to Cuauhtémoc's interactive shell.",
+    t_instr: "Type 'help' for options.",
+    t_whoami: "Cuauhtémoc Cataño: Developer, Founder, and Podcast Host.",
+    modal_title: "Book a Discovery Call",
+    modal_desc: "45 minutes to architect your digital future.",
+    form_name: "Your Name",
+    form_email: "Email Address",
+    suite_general: "General Consultation",
+    btn_next: "Pick a Time",
+    pick_time: "Select Date & Time",
+    syncing: "Syncing availability...",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    close_oracle: "Close Oracle",
+    send_message: "Send Message",
+    oracle_toggle: "Toggle Oracle",
+    back_to_info: "Back to Info",
+    terminal_input_label: "Terminal input",
+    nav_toggle: "Open navigation menu",
+    lang_switch_label: "Switch Language",
+    scan_now_label: "Scan now",
+    scan_url_label: "Scan URL",
+    oracle_input_label: "Ask the Oracle",
+    oracle_placeholder: "Ask the Oracle...",
+    close_modal: "Close modal",
+    github_label: "GitHub Profile",
+    linkedin_label: "LinkedIn Profile",
+    instagram_label: "Instagram Profile"
+  },
+  ES: {
+    home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
+    discovery_title: "Descubre el Potencial de tu Marca",
+    discovery_desc: "Ingresa la URL de tu sitio para obtener un Score de Vitalidad de Marca instantáneo e identificar oportunidades de crecimiento.",
+    scan_now: "Escanear Ahora",
+    get_full_report: "Obtener Reporte de Inteligencia Completo",
+    analyzing: "Analizando...",
+    performance: "Desempeño",
+    identity: "Identidad",
+    oracle_name: "El Oráculo",
+    oracle_welcome: "Bienvenida. Habla de tu estrategia y yo trazaré el camino.",
+    oracle_placeholder: "Pregunta al Oráculo...",
+    hero_title: "Presencia Digital de Alto Desempeño",
+    hero_desc: "Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
+    trust_label_1: "Estrategia de Marca", trust_label_2: "Excelencia Técnica",
+    trust_val_1: "Presencia Digital Holística", trust_val_2: "Soluciones Robustas y Escalables",
+    about_title: "El Visionario Detrás del Código",
+    about_p1: "Soy más que un desarrollador; soy un socio estratégico. Con experiencia en marketing y branding, creo voces digitales que resuenan.",
+    about_p2: "Ofrezco soluciones digitales 'a la carta' adaptadas a tu camino empresarial único.",
+    services_title: "Servicios Digitales A La Carta",
+    suite_ads_title: "Publicidad Omnicanal",
+    s_ads_meta: "Meta Ads (FB e IG)",
+    s_ads_google: "Google y YouTube Ads",
+    s_ads_pro: "LinkedIn, Amazon y Pinterest",
+    s_ads_niche: "TikTok, Waze y Snapchat Ads",
+    suite_media_title: "Estudio de Contenido y Medios",
+    s_media_podcast: "Producción y Edición de Podcast",
+    s_media_video: "Producción de Video de Alta Gama",
+    s_media_shorts: "Videos Cortos y Subtítulos con IA",
+    s_media_ar: "Filtros AR para Redes Sociales",
+    suite_brand_title: "Identidad y Estrategia de Marca",
+    s_brand_manual: "Manuales de Identidad de Marca",
+    s_brand_logo: "Diseño de Logo y Activos Visuales",
+    s_brand_ebook: "Diseño y Publicación de E-books",
+    s_brand_story: "Storytelling y Copy de Marca",
+    suite_biz_title: "Operaciones y Crecimiento",
+    s_biz_pa: "Asistente Virtual y Gestión de Agenda",
+    s_biz_sm: "Gestión Integral de Redes Sociales",
+    s_biz_email: "Email Marketing y Automatización",
+    s_biz_leads: "Prototipado de Ventas y Lead Gen",
+    suite_tech_title: "Ingeniería Digital",
+    s_tech_web: "Diseño Web y Shopify Personalizado",
+    s_tech_seo: "Auditoría de SEO y Rendimiento Web",
+    s_tech_apps: "Desarrollo de Apps a la Medida",
+    s_tech_bots: "Chatbots de IA e Integraciones",
+    book_service: "Reservar Consultoría",
+    skills_title: "El Arsenal Estratégico",
+    s_java: "Arquitectura empresarial. El núcleo robusto y confiable para sistemas complejos.",
+    s_python: "Automatización inteligente y soluciones de backend que optimizan operaciones.",
+    eng_title: "Ingeniería Digital A La Carta",
+    p1_desc: "Lógica de backend avanzada, patrones e implementaciones robustas.",
+    p2_desc: "Aplicaciones escalables que resuelven tareas complejas de automatización.",
+    p3_desc: "Integración de hardware/software para sistemas inteligentes.",
+    p_link: "Ver Repo", p_link_3: "Ver Proyectos",
+    impact_title: "Impacto Directo", special_title: "Especialización Técnica",
+    podcasts_title: "Podcasts y Contenido",
+    pod1_desc: "El viaje de emprendedor a dueño de negocio con visión estratégica.",
+    pod2_desc: "Sabiduría práctica sobre principios yóguicos en el mundo moderno.",
+    contact_title: "¿Listo para construir el futuro?",
+    contact_desc: "Diseñemos algo extraordinario juntos.",
+    contact_email: "Enviar Email", download_cv: "Descargar CV",
+    t_welcome: "Bienvenido a la terminal interactiva de Cuauhtémoc.", t_instr: "Escribe 'help' para ver opciones.",
+    t_whoami: "Cuauhtémoc Cataño: Desarrollador, Fundador y Host de Podcast.",
+    modal_title: "Reserva una Llamada de Descubrimiento",
+    modal_desc: "45 minutos para diseñar tu futuro digital.",
+    form_name: "Tu Nombre",
+    form_email: "Correo Electrónico",
+    suite_general: "Consultoría General",
+    btn_next: "Elegir Horario",
+    pick_time: "Selecciona Fecha y Hora",
+    syncing: "Sincronizando disponibilidad...",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar Mensaje",
+    oracle_toggle: "Alternar Oráculo",
+    back_to_info: "Volver a Información",
+    terminal_input_label: "Entrada de terminal",
+    nav_toggle: "Abrir menú de navegación",
+    lang_switch_label: "Cambiar idioma",
+    scan_now_label: "Escanear ahora",
+    scan_url_label: "Escanear URL",
+    oracle_input_label: "Preguntar al Oráculo",
+    oracle_placeholder: "Pregunta al Oráculo...",
+    close_modal: "Cerrar ventana",
+    github_label: "Perfil de GitHub",
+    linkedin_label: "Perfil de LinkedIn",
+    instagram_label: "Perfil de Instagram"
+  }
+};
+
+const savedLang = localStorage.getItem("preferredLang");
+const browserLang = navigator.language.startsWith("es") ? "ES" : "EN";
+let currentLang = savedLang || browserLang;
+
+/**
  * Theme Management Logic
  */
 const savedTheme = localStorage.getItem("theme");
@@ -7,6 +196,9 @@ const toggleIcons = document.querySelectorAll(".toggle-icon");
 const icons = document.querySelectorAll(".toggle-icon i");
 
 function applyTheme(theme) {
+  const nextTextKey = theme === "dark" ? "switch_light" : "switch_dark";
+  const nextText = translations[currentLang] ? translations[currentLang][nextTextKey] : (theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+
   if (theme === "dark") {
     document.body.classList.add("dark-mode");
     if (homeImg) homeImg.src = "Assets/headshotbw.png";
@@ -22,6 +214,13 @@ function applyTheme(theme) {
       icon.classList.add("bx-moon");
     });
   }
+
+  toggleIcons.forEach((btn) => {
+    btn.setAttribute("data-i18n-aria-label", nextTextKey);
+    btn.setAttribute("data-i18n-title", nextTextKey);
+    btn.setAttribute("aria-label", nextText);
+    btn.setAttribute("title", nextText);
+  });
 }
 
 // System Preference Selection
@@ -52,12 +251,6 @@ toggleIcons.forEach((toggle) => {
     
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
-
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
-    toggleIcons.forEach((btn) => {
-      btn.setAttribute("aria-label", nextText);
-      btn.setAttribute("title", nextText);
-    });
 
     setTimeout(() => {
       setButtonsDisabled(false);
@@ -199,9 +392,6 @@ tiltCards.forEach((card) => {
 /**
  * Interactive Terminal Logic
  */
-/**
- * Advanced Command Center Logic (Phase 3)
- */
 const terminalInput = document.getElementById("terminal-input");
 const terminalBody = document.getElementById("terminal-body");
 
@@ -254,7 +444,6 @@ if (terminalInput) {
         });
         const data = await response.json();
 
-        
         if (lastOutput.classList.contains('terminal-output') && lastOutput.innerText === "Processing...") {
           lastOutput.innerText = data.output || data.error;
         } else {
@@ -270,160 +459,9 @@ if (terminalInput) {
   });
 }
 
-
 /**
- * Multi-language Support Logic
+ * Language update logic
  */
-const langSwitches = document.querySelectorAll(".lang-switch");
-let currentLang = "EN";
-const translations = {
-  EN: {
-    projects: "Engineering", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contact",
-    discovery_title: "Discover Your Brand's Potential",
-    discovery_desc: "Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.",
-    scan_now: "Scan Now",
-    get_full_report: "Get Full Intelligence Report",
-    analyzing: "Analyzing...",
-    performance: "Performance",
-    identity: "Identity",
-    oracle_name: "The Oracle",
-    oracle_welcome: "Welcome. Speak your strategy, and I shall architect the path.",
-    oracle_placeholder: "Ask the Oracle...",
-    hero_title: "Crafting High-Performance Digital Presences",
-    hero_desc: "Architecting holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
-    trust_label_1: "Brand Strategy", trust_label_2: "Technical Excellence",
-    trust_val_1: "Holistic Digital Presence", trust_val_2: "Robust & Scalable Solutions",
-    about_title: "The Visionary Behind the Code",
-    about_p1: "I'm more than a developer; I'm a strategic partner. With a background in marketing and branding, I create digital voices that resonate.",
-    about_p2: "I provide 'a la carte' digital solutions tailored to your unique business journey.",
-    services_title: "Digital Services A La Carte",
-    suite_ads_title: "Omnichannel Advertising",
-    s_ads_meta: "Meta Ads (FB & IG)",
-    s_ads_google: "Google & YouTube Ads",
-    s_ads_pro: "LinkedIn, Amazon & Pinterest",
-    s_ads_niche: "TikTok, Waze & Snapchat Ads",
-    suite_media_title: "Content & Media Studio",
-    s_media_podcast: "Full Podcast Production & Editing",
-    s_media_video: "High-End Video Production",
-    s_media_shorts: "Short-form Video & AI Captions",
-    s_media_ar: "Custom AR Filters for Socials",
-    suite_brand_title: "Identity & Brand Strategy",
-    s_brand_manual: "Brand Identity & Manual Creation",
-    s_brand_logo: "Logo Design & Visual Assets",
-    s_brand_ebook: "E-book Design & Publication",
-    s_brand_story: "Brand Storytelling & Copy",
-    suite_biz_title: "Operations & Growth",
-    s_biz_pa: "Virtual PA & Agenda Management",
-    s_biz_sm: "Full Social Media Management",
-    s_biz_email: "Email Marketing & Automation",
-    s_biz_leads: "Sales Prototyping & Lead Gen",
-    suite_tech_title: "Digital Engineering",
-    s_tech_web: "Custom Shopify & Web Design",
-    s_tech_seo: "SEO & Web Performance Audit",
-    s_tech_apps: "App Development (Custom Apps)",
-    s_tech_bots: "AI Chatbots & Flux Integrations",
-    book_service: "Book Consultation",
-    skills_title: "The Strategic Toolkit",
-    s_java: "Enterprise-grade architecture. Building the robust backbone for complex systems.",
-    s_python: "Data-driven automation and smart backend solutions that streamline operations.",
-    eng_title: "Digital Engineering A La Carte",
-    p1_desc: "Advanced backend logic, patterns, and robust distributed implementations.",
-    p2_desc: "Scalable applications solving complex algorithmic and automation tasks.",
-    p3_desc: "Hardware/software integration for smart, connected real-world systems.",
-    p_link: "View Repo", p_link_3: "View Projects",
-    impact_title: "Direct Impact (Stats)", special_title: "Tech Specialization",
-    podcasts_title: "Podcasts & Content",
-    pod1_desc: "The journey from a solopreneur to a business owner with strategic vision.",
-    pod2_desc: "Practical wisdom on yogic principles in the modern world.",
-    contact_title: "Ready to build the future?",
-    contact_desc: "Let's architect something remarkable together.",
-    contact_email: "Send an Email", download_cv: "Download CV",
-    t_welcome: "Welcome to Cuauhtémoc's interactive shell.",
-    t_instr: "Type 'help' for options.",
-    t_whoami: "Cuauhtémoc Cataño: Developer, Founder, and Podcast Host.",
-    modal_title: "Book a Discovery Call",
-    modal_desc: "45 minutes to architect your digital future.",
-    form_name: "Your Name",
-    form_email: "Email Address",
-    suite_general: "General Consultation",
-    btn_next: "Pick a Time",
-    pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
-  },
-  ES: {
-    home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
-    discovery_title: "Descubre el Potencial de tu Marca",
-    discovery_desc: "Ingresa la URL de tu sitio para obtener un Score de Vitalidad de Marca instantáneo e identificar oportunidades de crecimiento.",
-    scan_now: "Escanear Ahora",
-    get_full_report: "Obtener Reporte de Inteligencia Completo",
-    analyzing: "Analizando...",
-    performance: "Desempeño",
-    identity: "Identidad",
-    oracle_name: "El Oráculo",
-    oracle_welcome: "Bienvenida. Habla de tu estrategia y yo trazaré el camino.",
-    oracle_placeholder: "Pregunta al Oráculo...",
-    hero_title: "Presencia Digital de Alto Desempeño",
-    hero_desc: "Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
-    trust_label_1: "Estrategia de Marca", trust_label_2: "Excelencia Técnica",
-    trust_val_1: "Presencia Digital Holística", trust_val_2: "Soluciones Robustas y Escalables",
-    about_title: "El Visionario Detrás del Código",
-    about_p1: "Soy más que un desarrollador; soy un socio estratégico. Con experiencia en marketing y branding, creo voces digitales que resuenan.",
-    about_p2: "Ofrezco soluciones digitales 'a la carta' adaptadas a tu camino empresarial único.",
-    services_title: "Servicios Digitales A La Carta",
-    suite_ads_title: "Publicidad Omnicanal",
-    s_ads_meta: "Meta Ads (FB e IG)",
-    s_ads_google: "Google y YouTube Ads",
-    s_ads_pro: "LinkedIn, Amazon y Pinterest",
-    s_ads_niche: "TikTok, Waze y Snapchat Ads",
-    suite_media_title: "Estudio de Contenido y Medios",
-    s_media_podcast: "Producción y Edición de Podcast",
-    s_media_video: "Producción de Video de Alta Gama",
-    s_media_shorts: "Videos Cortos y Subtítulos con IA",
-    s_media_ar: "Filtros AR para Redes Sociales",
-    suite_brand_title: "Identidad y Estrategia de Marca",
-    s_brand_manual: "Manuales de Identidad de Marca",
-    s_brand_logo: "Diseño de Logo y Activos Visuales",
-    s_brand_ebook: "Diseño y Publicación de E-books",
-    s_brand_story: "Storytelling y Copy de Marca",
-    suite_biz_title: "Operaciones y Crecimiento",
-    s_biz_pa: "Asistente Virtual y Gestión de Agenda",
-    s_biz_sm: "Gestión Integral de Redes Sociales",
-    s_biz_email: "Email Marketing y Automatización",
-    s_biz_leads: "Prototipado de Ventas y Lead Gen",
-    suite_tech_title: "Ingeniería Digital",
-    s_tech_web: "Diseño Web y Shopify Personalizado",
-    s_tech_seo: "Auditoría de SEO y Rendimiento Web",
-    s_tech_apps: "Desarrollo de Apps a la Medida",
-    s_tech_bots: "Chatbots de IA e Integraciones",
-    book_service: "Reservar Consultoría",
-    skills_title: "El Arsenal Estratégico",
-    s_java: "Arquitectura empresarial. El núcleo robusto y confiable para sistemas complejos.",
-    s_python: "Automatización inteligente y soluciones de backend que optimizan operaciones.",
-    eng_title: "Ingeniería Digital A La Carta",
-    p1_desc: "Lógica de backend avanzada, patrones e implementaciones robustas.",
-    p2_desc: "Aplicaciones escalables que resuelven tareas complejas de automatización.",
-    p3_desc: "Integración de hardware/software para sistemas inteligentes.",
-    p_link: "Ver Repo", p_link_3: "Ver Proyectos",
-    impact_title: "Impacto Directo", special_title: "Especialización Técnica",
-    podcasts_title: "Podcasts y Contenido",
-    pod1_desc: "El viaje de emprendedor a dueño de negocio con visión estratégica.",
-    pod2_desc: "Sabiduría práctica sobre principios yóguicos en el mundo moderno.",
-    contact_title: "¿Listo para construir el futuro?",
-    contact_desc: "Diseñemos algo extraordinario juntos.",
-    contact_email: "Enviar Email", download_cv: "Descargar CV",
-    t_welcome: "Bienvenido a la terminal interactiva de Cuauhtémoc.", t_instr: "Escribe 'help' para ver opciones.",
-    t_whoami: "Cuauhtémoc Cataño: Desarrollador, Fundador y Host de Podcast.",
-    modal_title: "Reserva una Llamada de Descubrimiento",
-    modal_desc: "45 minutos para diseñar tu futuro digital.",
-    form_name: "Tu Nombre",
-    form_email: "Correo Electrónico",
-    suite_general: "Consultoría General",
-    btn_next: "Elegir Horario",
-    pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
-  }
-};
-
 function updateLanguage(lang) {
   const t = translations[lang];
   
@@ -439,7 +477,23 @@ function updateLanguage(lang) {
     }
   });
 
-  // 2. Section Titles Mapping
+  // 2. Extra translations for attributes
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.placeholder = t[key];
+  });
+
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
+  });
+
+  // 3. Section Titles Mapping
   document.querySelectorAll(".section-title").forEach(title => {
     const section = title.closest("section");
     if (!section && title.parentElement.classList.contains("podcasts")) return;
@@ -456,7 +510,7 @@ function updateLanguage(lang) {
     if (titleMap[id]) title.innerText = titleMap[id];
   });
 
-  // 3. Dynamic Elements & Lists
+  // 4. Dynamic Elements & Lists
   document.querySelectorAll(".home-content h1").forEach(h1 => h1.innerText = t.hero_title);
   document.querySelectorAll(".home-content p").forEach(p => p.innerText = t.hero_desc);
   
@@ -500,6 +554,7 @@ function updateLanguage(lang) {
   langSwitches.forEach(btn => btn.innerText = lang === "EN" ? "ES" : "EN");
 }
 
+const langSwitches = document.querySelectorAll(".lang-switch");
 langSwitches.forEach(btn => {
   btn.addEventListener("click", () => {
     currentLang = currentLang === "EN" ? "ES" : "EN";
@@ -621,10 +676,8 @@ bookingModal.addEventListener("click", (e) => {
 });
 
 // Initialize Language on Load
-const savedLang = localStorage.getItem("preferredLang");
-const browserLang = navigator.language.startsWith("es") ? "ES" : "EN";
-currentLang = savedLang || browserLang;
 updateLanguage(currentLang);
+
 // Brand Discovery Logic (Move 3)
 const startScanBtn = document.getElementById('start-scan');
 const scanResults = document.getElementById('scan-results');
@@ -758,4 +811,3 @@ if (oracleToggle) {
     if (e.key === 'Enter') processOracleMessage();
   });
 }
-
