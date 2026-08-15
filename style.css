@@ -1547,4 +1547,18 @@ body.dark-mode .home-img img {
   }
 }
 
+/* Accessibility Focus Indicators for Keyboard Navigation */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent-color) !important;
+  outline-offset: 4px !important;
+  transition: outline-offset 0.2s var(--ease-liquid);
+}
+
+#terminal-input:focus-visible {
+  outline: none !important;
+}
 
