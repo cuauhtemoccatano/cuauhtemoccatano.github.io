@@ -348,7 +348,11 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    scan_url_label: "Enter website URL for brand scan",
+    oracle_toggle: "Open Oracle AI assistant",
+    close_oracle: "Close Oracle assistant",
+    back_to_info: "Back to step 1"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +424,11 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    scan_url_label: "Ingresa la URL del sitio web para el análisis de marca",
+    oracle_toggle: "Abrir asistente de IA El Oráculo",
+    close_oracle: "Cerrar asistente El Oráculo",
+    back_to_info: "Volver al paso 1"
   }
 };
 
@@ -436,6 +444,14 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1b. ARIA Labels with data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
     }
   });
 
