@@ -348,7 +348,14 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    lang_switch_label: "Switch Language",
+    terminal_input_label: "Terminal Command Input",
+    scan_url_label: "Brand Website URL",
+    oracle_toggle: "Toggle Oracle AI Assistant",
+    close_oracle: "Close Oracle Chat",
+    send_message: "Send message",
+    oracle_input_label: "Ask the Oracle"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +427,14 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    lang_switch_label: "Cambiar Idioma",
+    terminal_input_label: "Entrada de comandos de terminal",
+    scan_url_label: "URL del sitio web de la marca",
+    oracle_toggle: "Alternar Asistente de IA El Oráculo",
+    close_oracle: "Cerrar Chat del Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_input_label: "Pregunta al Oráculo"
   }
 };
 
@@ -437,6 +451,24 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1b. Placeholders with data-i18n-placeholder
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.placeholder = t[key];
+  });
+
+  // 1c. ARIA Labels with data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  // 1d. Titles with data-i18n-title
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
   });
 
   // 2. Section Titles Mapping
