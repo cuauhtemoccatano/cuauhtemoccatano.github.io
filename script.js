@@ -278,6 +278,22 @@ const langSwitches = document.querySelectorAll(".lang-switch");
 let currentLang = "EN";
 const translations = {
   EN: {
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    close_oracle: "Close Oracle Chat",
+    send_message: "Send message",
+    oracle_toggle: "Toggle Oracle Chat",
+    back_to_info: "Back to contact info",
+    terminal_input_label: "Terminal input",
+    nav_toggle: "Open navigation menu",
+    lang_switch_label: "Switch language",
+    scan_now_label: "Start brand vitality scan",
+    scan_url_label: "Website URL to scan",
+    oracle_input_label: "Oracle chat input",
+    close_modal: "Close modal",
+    github_label: "GitHub Profile",
+    linkedin_label: "LinkedIn Profile",
+    instagram_label: "Instagram Profile",
     projects: "Engineering", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contact",
     discovery_title: "Discover Your Brand's Potential",
     discovery_desc: "Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.",
@@ -351,6 +367,22 @@ const translations = {
     syncing: "Syncing availability..."
   },
   ES: {
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    close_oracle: "Cerrar chat del Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_toggle: "Abrir o cerrar chat del Oráculo",
+    back_to_info: "Volver a información de contacto",
+    terminal_input_label: "Entrada de terminal",
+    nav_toggle: "Abrir menú de navegación",
+    lang_switch_label: "Cambiar idioma",
+    scan_now_label: "Iniciar escaneo de vitalidad de marca",
+    scan_url_label: "URL del sitio web a escanear",
+    oracle_input_label: "Entrada de chat del Oráculo",
+    close_modal: "Cerrar ventana modal",
+    github_label: "Perfil de GitHub",
+    linkedin_label: "Perfil de LinkedIn",
+    instagram_label: "Perfil de Instagram",
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
     discovery_title: "Descubre el Potencial de tu Marca",
     discovery_desc: "Ingresa la URL de tu sitio para obtener un Score de Vitalidad de Marca instantáneo e identificar oportunidades de crecimiento.",
@@ -437,6 +469,24 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // Placeholder attributes
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.placeholder = t[key];
+  });
+
+  // ARIA labels
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  // Title attributes
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
   });
 
   // 2. Section Titles Mapping
