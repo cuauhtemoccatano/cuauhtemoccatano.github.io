@@ -348,7 +348,14 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    scan_url_label: "Brand website URL",
+    scan_now_label: "Scan Now",
+    back_to_info: "Back to information form",
+    close_oracle: "Close Oracle assistant",
+    oracle_input_label: "Ask the Oracle",
+    send_message: "Send message",
+    oracle_toggle: "Toggle Oracle AI Assistant"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +427,14 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    scan_url_label: "URL del sitio web de la marca",
+    scan_now_label: "Escanear Ahora",
+    back_to_info: "Volver al formulario de información",
+    close_oracle: "Cerrar asistente Oráculo",
+    oracle_input_label: "Preguntar al Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_toggle: "Alternar Asistente de IA Oráculo"
   }
 };
 
@@ -437,6 +451,17 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1b. Placeholders and ARIA Labels via specialized data attributes
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.placeholder = t[key];
+  });
+
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
   });
 
   // 2. Section Titles Mapping
