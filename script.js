@@ -282,6 +282,8 @@ const translations = {
     discovery_title: "Discover Your Brand's Potential",
     discovery_desc: "Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.",
     scan_now: "Scan Now",
+    scan_now_label: "Scan Now",
+    scan_url_label: "Brand website URL",
     get_full_report: "Get Full Intelligence Report",
     analyzing: "Analyzing...",
     performance: "Performance",
@@ -289,6 +291,12 @@ const translations = {
     oracle_name: "The Oracle",
     oracle_welcome: "Welcome. Speak your strategy, and I shall architect the path.",
     oracle_placeholder: "Ask the Oracle...",
+    oracle_input_label: "Ask the Oracle",
+    oracle_toggle: "Open AI Assistant",
+    close_oracle: "Close Oracle",
+    send_message: "Send message",
+    back_to_info: "Back to step 1",
+    terminal_input_label: "Terminal prompt input",
     hero_title: "Crafting High-Performance Digital Presences",
     hero_desc: "Architecting holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
     trust_label_1: "Brand Strategy", trust_label_2: "Technical Excellence",
@@ -355,6 +363,8 @@ const translations = {
     discovery_title: "Descubre el Potencial de tu Marca",
     discovery_desc: "Ingresa la URL de tu sitio para obtener un Score de Vitalidad de Marca instantáneo e identificar oportunidades de crecimiento.",
     scan_now: "Escanear Ahora",
+    scan_now_label: "Escanear Ahora",
+    scan_url_label: "URL del sitio de la marca",
     get_full_report: "Obtener Reporte de Inteligencia Completo",
     analyzing: "Analizando...",
     performance: "Desempeño",
@@ -362,6 +372,12 @@ const translations = {
     oracle_name: "El Oráculo",
     oracle_welcome: "Bienvenida. Habla de tu estrategia y yo trazaré el camino.",
     oracle_placeholder: "Pregunta al Oráculo...",
+    oracle_input_label: "Pregunta al Oráculo",
+    oracle_toggle: "Abrir Asistente de IA",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar mensaje",
+    back_to_info: "Volver al paso 1",
+    terminal_input_label: "Entrada de la terminal",
     hero_title: "Presencia Digital de Alto Desempeño",
     hero_desc: "Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
     trust_label_1: "Estrategia de Marca", trust_label_2: "Excelencia Técnica",
@@ -436,6 +452,14 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1b. Accessibility ARIA Labels with data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
     }
   });
 
