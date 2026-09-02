@@ -348,7 +348,14 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    close_oracle: "Close Oracle chat",
+    send_message: "Send message",
+    oracle_toggle: "Open Oracle chat",
+    back_to_info: "Back to contact form",
+    terminal_input_label: "Terminal command prompt",
+    scan_url_label: "Website URL to scan",
+    oracle_input_label: "Ask the Oracle"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +427,14 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    close_oracle: "Cerrar chat del Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_toggle: "Abrir chat del Oráculo",
+    back_to_info: "Volver al formulario de contacto",
+    terminal_input_label: "Línea de comandos de la terminal",
+    scan_url_label: "URL del sitio web a escanear",
+    oracle_input_label: "Pregunta al Oráculo"
   }
 };
 
@@ -437,6 +451,22 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1b. Accessibility ARIA Labels, Placeholders & Titles
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.placeholder = t[key];
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
   });
 
   // 2. Section Titles Mapping
