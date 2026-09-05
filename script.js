@@ -348,7 +348,17 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    close_oracle: "Close Oracle",
+    oracle_toggle: "Open Oracle Chat",
+    send_message: "Send Message",
+    back_to_info: "Back to Info",
+    scan_url_label: "Brand Website URL",
+    oracle_input_label: "Ask the Oracle",
+    close_modal: "Close Modal",
+    lang_switch_label: "Switch Language",
+    switch_dark: "Switch to dark mode",
+    switch_light: "Switch to light mode"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +430,17 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    close_oracle: "Cerrar Oráculo",
+    oracle_toggle: "Abrir Chat de Oráculo",
+    send_message: "Enviar Mensaje",
+    back_to_info: "Volver a Información",
+    scan_url_label: "URL del Sitio Web de la Marca",
+    oracle_input_label: "Pregunta al Oráculo",
+    close_modal: "Cerrar Ventana",
+    lang_switch_label: "Cambiar Idioma",
+    switch_dark: "Cambiar a modo oscuro",
+    switch_light: "Cambiar a modo claro"
   }
 };
 
@@ -436,6 +456,21 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1b. ARIA Labels and Titles
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) {
+      el.setAttribute("title", t[key]);
     }
   });
 
