@@ -53,7 +53,8 @@ toggleIcons.forEach((toggle) => {
     applyTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
 
-    const nextText = nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    const nextTextKey = nextTheme === "dark" ? "switch_light" : "switch_dark";
+    const nextText = translations[currentLang][nextTextKey] || (nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode");
     toggleIcons.forEach((btn) => {
       btn.setAttribute("aria-label", nextText);
       btn.setAttribute("title", nextText);
@@ -348,7 +349,17 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    lang_switch_label: "Switch language",
+    terminal_input_label: "Terminal command input",
+    scan_url_label: "Brand website URL",
+    close_modal: "Close modal",
+    close_oracle: "Close Oracle Chat",
+    oracle_input_label: "Oracle AI message input",
+    send_message: "Send message",
+    oracle_toggle: "Toggle Oracle Chat",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +431,17 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    lang_switch_label: "Cambiar idioma",
+    terminal_input_label: "Entrada de comandos de terminal",
+    scan_url_label: "URL del sitio web de la marca",
+    close_modal: "Cerrar ventana modal",
+    close_oracle: "Cerrar chat del Oráculo",
+    oracle_input_label: "Entrada de mensaje para la IA del Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_toggle: "Alternar chat del Oráculo",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro"
   }
 };
 
@@ -438,6 +459,24 @@ function updateLanguage(lang) {
       }
     }
   });
+
+  // 1b. ARIA Labels with data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+    }
+  });
+
+  // 1c. Theme toggle labels sync
+  const isDark = document.body.classList.contains("dark-mode");
+  const themeKey = isDark ? "switch_light" : "switch_dark";
+  if (t[themeKey]) {
+    toggleIcons.forEach(btn => {
+      btn.setAttribute("aria-label", t[themeKey]);
+      btn.setAttribute("title", t[themeKey]);
+    });
+  }
 
   // 2. Section Titles Mapping
   document.querySelectorAll(".section-title").forEach(title => {
