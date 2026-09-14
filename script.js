@@ -278,6 +278,8 @@ const langSwitches = document.querySelectorAll(".lang-switch");
 let currentLang = "EN";
 const translations = {
   EN: {
+    nav_toggle: "Open navigation menu",
+    lang_switch_label: "Switch language",
     projects: "Engineering", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contact",
     discovery_title: "Discover Your Brand's Potential",
     discovery_desc: "Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.",
@@ -351,6 +353,8 @@ const translations = {
     syncing: "Syncing availability..."
   },
   ES: {
+    nav_toggle: "Abrir menú de navegación",
+    lang_switch_label: "Cambiar idioma",
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
     discovery_title: "Descubre el Potencial de tu Marca",
     discovery_desc: "Ingresa la URL de tu sitio para obtener un Score de Vitalidad de Marca instantáneo e identificar oportunidades de crecimiento.",
@@ -436,6 +440,14 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1b. ARIA Labels with data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
     }
   });
 
