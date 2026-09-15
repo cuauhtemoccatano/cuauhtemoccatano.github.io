@@ -282,6 +282,8 @@ const translations = {
     discovery_title: "Discover Your Brand's Potential",
     discovery_desc: "Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.",
     scan_now: "Scan Now",
+    scan_url_label: "Website URL",
+    close_modal: "Close Modal",
     get_full_report: "Get Full Intelligence Report",
     analyzing: "Analyzing...",
     performance: "Performance",
@@ -355,6 +357,8 @@ const translations = {
     discovery_title: "Descubre el Potencial de tu Marca",
     discovery_desc: "Ingresa la URL de tu sitio para obtener un Score de Vitalidad de Marca instantáneo e identificar oportunidades de crecimiento.",
     scan_now: "Escanear Ahora",
+    scan_url_label: "URL del sitio web",
+    close_modal: "Cerrar modal",
     get_full_report: "Obtener Reporte de Inteligencia Completo",
     analyzing: "Analizando...",
     performance: "Desempeño",
@@ -437,6 +441,11 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
   });
 
   // 2. Section Titles Mapping
@@ -566,6 +575,9 @@ document.querySelectorAll(".service-btn").forEach(btn => {
     // Open modal
     bookingModal.classList.add("active");
     document.body.style.overflow = "hidden";
+    setTimeout(() => {
+      document.getElementById("leafName")?.focus();
+    }, 50);
   });
 });
 
@@ -620,6 +632,13 @@ bookingModal.addEventListener("click", (e) => {
   }
 });
 
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && bookingModal && bookingModal.classList.contains("active")) {
+    bookingModal.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+});
+
 // Initialize Language on Load
 const savedLang = localStorage.getItem("preferredLang");
 const browserLang = navigator.language.startsWith("es") ? "ES" : "EN";
@@ -631,6 +650,15 @@ const scanResults = document.getElementById('scan-results');
 const scanUrlInput = document.getElementById('scan-url');
 
 if (startScanBtn) {
+  if (scanUrlInput) {
+    scanUrlInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        startScanBtn.click();
+      }
+    });
+  }
+
   startScanBtn.addEventListener('click', async () => {
     const url = scanUrlInput.value;
     if (!url) return;
