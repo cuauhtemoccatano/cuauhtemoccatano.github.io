@@ -289,6 +289,9 @@ const translations = {
     oracle_name: "The Oracle",
     oracle_welcome: "Welcome. Speak your strategy, and I shall architect the path.",
     oracle_placeholder: "Ask the Oracle...",
+    close_oracle: "Close Oracle Chat",
+    send_message: "Send Message",
+    oracle_toggle: "Toggle Oracle Assistant",
     hero_title: "Crafting High-Performance Digital Presences",
     hero_desc: "Architecting holistic digital experiences that combine robust engineering with strategic marketing and elite branding.",
     trust_label_1: "Brand Strategy", trust_label_2: "Technical Excellence",
@@ -362,6 +365,9 @@ const translations = {
     oracle_name: "El Oráculo",
     oracle_welcome: "Bienvenida. Habla de tu estrategia y yo trazaré el camino.",
     oracle_placeholder: "Pregunta al Oráculo...",
+    close_oracle: "Cerrar Chat del Oráculo",
+    send_message: "Enviar Mensaje",
+    oracle_toggle: "Abrir/Cerrar Asistente Oráculo",
     hero_title: "Presencia Digital de Alto Desempeño",
     hero_desc: "Construyo experiencias digitales holísticas que unen ingeniería robusta con marketing estratégico y branding de élite.",
     trust_label_1: "Estrategia de Marca", trust_label_2: "Excelencia Técnica",
@@ -436,6 +442,20 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1b. Attributes: ARIA Label & Title with data-i18n-aria-label / data-i18n-title
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+    }
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) {
+      el.setAttribute("title", t[key]);
     }
   });
 
@@ -756,6 +776,14 @@ if (oracleToggle) {
   sendOracle.addEventListener('click', processOracleMessage);
   oracleInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') processOracleMessage();
+  });
+
+  // Keyboard accessibility: Close Oracle on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !oracleChat.classList.contains('hidden')) {
+      oracleChat.classList.add('hidden');
+      oracleToggle.focus();
+    }
   });
 }
 
