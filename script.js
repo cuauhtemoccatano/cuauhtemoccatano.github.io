@@ -348,7 +348,8 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    scan_url_label: "Website URL to scan"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +421,8 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    scan_url_label: "URL del sitio web a escanear"
   }
 };
 
@@ -436,6 +438,13 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
     }
   });
 
@@ -631,6 +640,15 @@ const scanResults = document.getElementById('scan-results');
 const scanUrlInput = document.getElementById('scan-url');
 
 if (startScanBtn) {
+  if (scanUrlInput) {
+    scanUrlInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        startScanBtn.click();
+      }
+    });
+  }
+
   startScanBtn.addEventListener('click', async () => {
     const url = scanUrlInput.value;
     if (!url) return;
@@ -759,3 +777,15 @@ if (oracleToggle) {
   });
 }
 
+// Global Keyboard Accessibility (Escape key dismissal)
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (bookingModal && bookingModal.classList.contains("active")) {
+      bookingModal.classList.remove("active");
+      document.body.style.overflow = "";
+    } else if (oracleChat && !oracleChat.classList.contains("hidden")) {
+      oracleChat.classList.add("hidden");
+      if (oracleToggle) oracleToggle.focus();
+    }
+  }
+});
