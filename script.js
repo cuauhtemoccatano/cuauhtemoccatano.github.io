@@ -348,7 +348,15 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    close_oracle: "Close Oracle chat",
+    send_message: "Send message",
+    oracle_toggle: "Toggle Oracle AI Chat",
+    back_to_info: "Back to step 1",
+    terminal_input_label: "Terminal command input",
+    scan_url_label: "Website URL for brand vitality scan",
+    oracle_input_label: "Message to the Oracle",
+    close_modal: "Close Modal"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,14 +428,22 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    close_oracle: "Cerrar chat del Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_toggle: "Abrir o cerrar chat del Oráculo",
+    back_to_info: "Volver al paso 1",
+    terminal_input_label: "Entrada de comandos de terminal",
+    scan_url_label: "URL del sitio web para escaneo de vitalidad de marca",
+    oracle_input_label: "Mensaje para el Oráculo",
+    close_modal: "Cerrar ventana"
   }
 };
 
 function updateLanguage(lang) {
   const t = translations[lang];
   
-  // 1. Text Content with data-i18n
+  // 1a. Text Content with data-i18n
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.getAttribute("data-i18n");
     if (t[key]) {
@@ -436,6 +452,22 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1b. Input Placeholders with data-i18n-placeholder
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) {
+      el.placeholder = t[key];
+    }
+  });
+
+  // 1c. ARIA Labels with data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
     }
   });
 
