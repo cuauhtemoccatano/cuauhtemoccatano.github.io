@@ -348,7 +348,12 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    close_oracle: "Close Oracle Assistant",
+    oracle_toggle: "Toggle Oracle Assistant",
+    send_message: "Send Message",
+    back_to_info: "Back to step 1",
+    close_modal: "Close Modal"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +425,12 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    close_oracle: "Cerrar Asistente Oráculo",
+    oracle_toggle: "Alternar Asistente Oráculo",
+    send_message: "Enviar Mensaje",
+    back_to_info: "Volver al paso 1",
+    close_modal: "Cerrar Ventana"
   }
 };
 
@@ -437,6 +447,16 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
   });
 
   // 2. Section Titles Mapping
@@ -620,6 +640,24 @@ bookingModal.addEventListener("click", (e) => {
   }
 });
 
+// Keyboard Escape listener for overlay dialogs
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    const modalEl = document.getElementById("bookingModal");
+    const chatEl = document.getElementById("oracle-chat");
+    const toggleEl = document.getElementById("oracle-toggle");
+
+    if (modalEl && modalEl.classList.contains("active")) {
+      modalEl.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+    if (chatEl && !chatEl.classList.contains("hidden")) {
+      chatEl.classList.add("hidden");
+      toggleEl?.focus();
+    }
+  }
+});
+
 // Initialize Language on Load
 const savedLang = localStorage.getItem("preferredLang");
 const browserLang = navigator.language.startsWith("es") ? "ES" : "EN";
@@ -710,6 +748,7 @@ if (oracleToggle) {
 
   closeOracle.addEventListener('click', () => {
     oracleChat.classList.add('hidden');
+    oracleToggle.focus();
   });
 
   const appendMessage = (text, type) => {
