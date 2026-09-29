@@ -630,6 +630,15 @@ const startScanBtn = document.getElementById('start-scan');
 const scanResults = document.getElementById('scan-results');
 const scanUrlInput = document.getElementById('scan-url');
 
+if (scanUrlInput && startScanBtn) {
+  scanUrlInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      startScanBtn.click();
+    }
+  });
+}
+
 if (startScanBtn) {
   startScanBtn.addEventListener('click', async () => {
     const url = scanUrlInput.value;
@@ -759,3 +768,16 @@ if (oracleToggle) {
   });
 }
 
+// Global Escape Key listener to dismiss modals & drawers
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (bookingModal && bookingModal.classList.contains('active')) {
+      bookingModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    if (oracleChat && !oracleChat.classList.contains('hidden')) {
+      oracleChat.classList.add('hidden');
+      if (oracleToggle) oracleToggle.focus();
+    }
+  }
+});
