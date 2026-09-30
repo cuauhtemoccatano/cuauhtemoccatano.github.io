@@ -348,7 +348,15 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    switch_light: "Switch to light mode",
+    switch_dark: "Switch to dark mode",
+    close_oracle: "Close Oracle",
+    send_message: "Send Message",
+    oracle_toggle: "Toggle Oracle Chat",
+    back_to_info: "Back to Contact Form",
+    lang_switch_label: "Switch Language",
+    close_modal: "Close Modal"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +428,15 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    switch_light: "Cambiar a modo claro",
+    switch_dark: "Cambiar a modo oscuro",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar Mensaje",
+    oracle_toggle: "Abrir Chat de Oráculo",
+    back_to_info: "Volver al Formulario de Contacto",
+    lang_switch_label: "Cambiar Idioma",
+    close_modal: "Cerrar Ventana"
   }
 };
 
@@ -436,6 +452,21 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1b. Attributes: aria-label & title
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) {
+      el.setAttribute("title", t[key]);
     }
   });
 
