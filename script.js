@@ -759,3 +759,15 @@ if (oracleToggle) {
   });
 }
 
+// Global Keyboard Navigation Support (Escape key listener)
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (bookingModal && bookingModal.classList.contains("active")) {
+      bookingModal.classList.remove("active");
+      document.body.style.overflow = "";
+    } else if (oracleChat && !oracleChat.classList.contains("hidden")) {
+      oracleChat.classList.add("hidden");
+      if (oracleToggle) oracleToggle.focus();
+    }
+  }
+});
