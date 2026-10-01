@@ -335,7 +335,7 @@
               <p class="section-desc" data-i18n="discovery_desc">Enter your website URL to get an instant Brand Vitality Score and identify elite growth opportunities.</p>
               
               <div class="scan-box">
-                <input type="url" id="scan-url" placeholder="https://yourbrand.com" required>
+                <input type="url" id="scan-url" placeholder="https://yourbrand.com" required aria-label="Brand Website URL" data-i18n-aria-label="scan_url_label">
                 <button id="start-scan" class="scan-btn">
                   <span data-i18n="scan_now">Scan Now</span>
                   <i class='bx bx-zap'></i>
@@ -450,7 +450,7 @@
         <div class="oracle-header">
           <i class='bx bx-brain'></i>
           <span data-i18n="oracle_name">The Oracle</span>
-          <button id="close-oracle"><i class='bx bx-x'></i></button>
+          <button id="close-oracle" aria-label="Close Oracle" data-i18n-aria-label="close_oracle"><i class='bx bx-x' aria-hidden="true"></i></button>
         </div>
         <div id="oracle-messages" class="oracle-messages">
           <div class="message bot" data-i18n="oracle_welcome">Welcome. Speak your strategy, and I shall architect the path.</div>
@@ -460,8 +460,8 @@
           <button id="send-oracle"><i class='bx bxs-send'></i></button>
         </div>
       </div>
-      <button id="oracle-toggle" class="oracle-toggle glass">
-        <i class='bx bx-message-square-detail'></i>
+      <button id="oracle-toggle" class="oracle-toggle glass" aria-label="Open Oracle Chat" data-i18n-aria-label="oracle_toggle">
+        <i class='bx bx-message-square-detail' aria-hidden="true"></i>
       </button>
     </div>
 
