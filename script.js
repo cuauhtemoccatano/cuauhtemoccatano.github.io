@@ -348,7 +348,12 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    close_oracle: "Close Oracle", send_message: "Send message", oracle_toggle: "Toggle Oracle Chat",
+    back_to_info: "Back to step 1", terminal_input_label: "Terminal command prompt", nav_toggle: "Open navigation menu",
+    lang_switch_label: "Switch Language", scan_now_label: "Scan Now", scan_url_label: "Website URL to scan",
+    oracle_input_label: "Oracle Chat Input", close_modal: "Close Modal", github_label: "GitHub Profile",
+    linkedin_label: "LinkedIn Profile", instagram_label: "Instagram Profile", switch_light: "Switch to light mode", switch_dark: "Switch to dark mode"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +425,12 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    close_oracle: "Cerrar Oráculo", send_message: "Enviar mensaje", oracle_toggle: "Alternar chat del Oráculo",
+    back_to_info: "Volver al paso 1", terminal_input_label: "Línea de comandos de la terminal", nav_toggle: "Abrir menú de navegación",
+    lang_switch_label: "Cambiar idioma", scan_now_label: "Escanear ahora", scan_url_label: "URL del sitio web a escanear",
+    oracle_input_label: "Entrada del chat del Oráculo", close_modal: "Cerrar ventana", github_label: "Perfil de GitHub",
+    linkedin_label: "Perfil de LinkedIn", instagram_label: "Perfil de Instagram", switch_light: "Cambiar a modo claro", switch_dark: "Cambiar a modo oscuro"
   }
 };
 
@@ -437,6 +447,24 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1b. Placeholders with data-i18n-placeholder
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.placeholder = t[key];
+  });
+
+  // 1c. ARIA Labels with data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  // 1d. Titles with data-i18n-title
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
   });
 
   // 2. Section Titles Mapping
@@ -617,6 +645,22 @@ bookingModal.addEventListener("click", (e) => {
   if (e.target === bookingModal) {
     bookingModal.classList.remove("active");
     document.body.style.overflow = "";
+  }
+});
+
+// Escape Key Dismissal for Booking Modal & Oracle Chat
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (bookingModal && bookingModal.classList.contains("active")) {
+      bookingModal.classList.remove("active");
+      document.body.style.overflow = "";
+      const triggerBtn = document.querySelector(".service-btn");
+      if (triggerBtn) triggerBtn.focus();
+    }
+    if (oracleChat && !oracleChat.classList.contains("hidden")) {
+      oracleChat.classList.add("hidden");
+      if (oracleToggle) oracleToggle.focus();
+    }
   }
 });
 
