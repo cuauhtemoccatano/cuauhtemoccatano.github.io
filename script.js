@@ -348,7 +348,11 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    close_modal: "Close Modal",
+    close_oracle: "Close Oracle",
+    send_message: "Send Message",
+    oracle_toggle: "Open Oracle Assistant"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +424,11 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    close_modal: "Cerrar Ventana",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar Mensaje",
+    oracle_toggle: "Abrir Asistente Oráculo"
   }
 };
 
@@ -437,6 +445,16 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.placeholder = t[key];
   });
 
   // 2. Section Titles Mapping
@@ -564,10 +582,30 @@ document.querySelectorAll(".service-btn").forEach(btn => {
     step2.classList.remove("active");
     
     // Open modal
-    bookingModal.classList.add("active");
-    document.body.style.overflow = "hidden";
+    openBookingModal();
   });
 });
+
+let lastFocusedElement = null;
+
+function openBookingModal() {
+  lastFocusedElement = document.activeElement;
+  bookingModal.classList.add("active");
+  document.body.style.overflow = "hidden";
+  const firstInput = step1 ? step1.querySelector("input, select") : null;
+  if (firstInput) {
+    firstInput.focus();
+  }
+}
+
+function closeBookingModal() {
+  if (!bookingModal || !bookingModal.classList.contains("active")) return;
+  bookingModal.classList.remove("active");
+  document.body.style.overflow = "";
+  if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+    lastFocusedElement.focus();
+  }
+}
 
 // Handle Lead Form Next
 leadForm.addEventListener("submit", (e) => {
@@ -608,15 +646,11 @@ backBtn.addEventListener("click", () => {
   step1.classList.add("active");
 });
 
-modalClose.addEventListener("click", () => {
-  bookingModal.classList.remove("active");
-  document.body.style.overflow = "";
-});
+modalClose.addEventListener("click", closeBookingModal);
 
 bookingModal.addEventListener("click", (e) => {
   if (e.target === bookingModal) {
-    bookingModal.classList.remove("active");
-    document.body.style.overflow = "";
+    closeBookingModal();
   }
 });
 
@@ -700,17 +734,31 @@ const oracleMessages = document.getElementById('oracle-messages');
 const oracleInput = document.getElementById('oracle-input');
 const sendOracle = document.getElementById('send-oracle');
 
+let oracleTriggerElement = null;
+
+function closeOracleChat() {
+  if (!oracleChat || oracleChat.classList.contains('hidden')) return;
+  oracleChat.classList.add('hidden');
+  if (oracleTriggerElement && typeof oracleTriggerElement.focus === 'function') {
+    oracleTriggerElement.focus();
+  } else if (oracleToggle) {
+    oracleToggle.focus();
+  }
+}
+
 if (oracleToggle) {
   oracleToggle.addEventListener('click', () => {
-    oracleChat.classList.toggle('hidden');
-    if (!oracleChat.classList.contains('hidden')) {
+    const isHidden = oracleChat.classList.contains('hidden');
+    if (isHidden) {
+      oracleTriggerElement = document.activeElement;
+      oracleChat.classList.remove('hidden');
       oracleInput.focus();
+    } else {
+      closeOracleChat();
     }
   });
 
-  closeOracle.addEventListener('click', () => {
-    oracleChat.classList.add('hidden');
-  });
+  closeOracle.addEventListener('click', closeOracleChat);
 
   const appendMessage = (text, type) => {
     const msgDiv = document.createElement('div');
@@ -759,3 +807,12 @@ if (oracleToggle) {
   });
 }
 
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (bookingModal && bookingModal.classList.contains("active")) {
+      closeBookingModal();
+    } else if (oracleChat && !oracleChat.classList.contains("hidden")) {
+      closeOracleChat();
+    }
+  }
+});
