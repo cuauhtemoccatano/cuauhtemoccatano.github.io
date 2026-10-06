@@ -533,8 +533,23 @@ const suiteMap = {
   "Ingeniería Digital": "Engineering"
 };
 
+let modalTriggerBtn = null;
+
+function closeBookingModal() {
+  if (bookingModal && bookingModal.classList.contains("active")) {
+    bookingModal.classList.remove("active");
+    document.body.style.overflow = "";
+    if (modalTriggerBtn) {
+      modalTriggerBtn.focus();
+      modalTriggerBtn = null;
+    }
+  }
+}
+
 document.querySelectorAll(".service-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
+  btn.addEventListener("click", (e) => {
+    modalTriggerBtn = e.currentTarget;
+
     // Identify service
     const h3Element = btn.parentElement.querySelector("h3");
     const suiteTitle = h3Element?.innerText.trim();
@@ -566,6 +581,14 @@ document.querySelectorAll(".service-btn").forEach(btn => {
     // Open modal
     bookingModal.classList.add("active");
     document.body.style.overflow = "hidden";
+
+    // Set focus to primary input
+    setTimeout(() => {
+      const firstInput = document.getElementById("leafName");
+      if (firstInput) {
+        firstInput.focus();
+      }
+    }, 50);
   });
 });
 
@@ -608,15 +631,11 @@ backBtn.addEventListener("click", () => {
   step1.classList.add("active");
 });
 
-modalClose.addEventListener("click", () => {
-  bookingModal.classList.remove("active");
-  document.body.style.overflow = "";
-});
+modalClose.addEventListener("click", closeBookingModal);
 
 bookingModal.addEventListener("click", (e) => {
   if (e.target === bookingModal) {
-    bookingModal.classList.remove("active");
-    document.body.style.overflow = "";
+    closeBookingModal();
   }
 });
 
@@ -700,17 +719,33 @@ const oracleMessages = document.getElementById('oracle-messages');
 const oracleInput = document.getElementById('oracle-input');
 const sendOracle = document.getElementById('send-oracle');
 
+let oracleTriggerBtn = null;
+
+function closeOracleChat() {
+  if (oracleChat && !oracleChat.classList.contains('hidden')) {
+    oracleChat.classList.add('hidden');
+    if (oracleTriggerBtn) {
+      oracleTriggerBtn.focus();
+      oracleTriggerBtn = null;
+    } else if (oracleToggle) {
+      oracleToggle.focus();
+    }
+  }
+}
+
 if (oracleToggle) {
-  oracleToggle.addEventListener('click', () => {
-    oracleChat.classList.toggle('hidden');
-    if (!oracleChat.classList.contains('hidden')) {
-      oracleInput.focus();
+  oracleToggle.addEventListener('click', (e) => {
+    oracleTriggerBtn = e.currentTarget;
+    const isOpening = oracleChat.classList.contains('hidden');
+    if (isOpening) {
+      oracleChat.classList.remove('hidden');
+      if (oracleInput) oracleInput.focus();
+    } else {
+      closeOracleChat();
     }
   });
 
-  closeOracle.addEventListener('click', () => {
-    oracleChat.classList.add('hidden');
-  });
+  closeOracle.addEventListener('click', closeOracleChat);
 
   const appendMessage = (text, type) => {
     const msgDiv = document.createElement('div');
@@ -759,3 +794,13 @@ if (oracleToggle) {
   });
 }
 
+// Global Keyboard Accessibility (Escape Key Handler)
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (bookingModal && bookingModal.classList.contains('active')) {
+      closeBookingModal();
+    } else if (oracleChat && !oracleChat.classList.contains('hidden')) {
+      closeOracleChat();
+    }
+  }
+});
