@@ -348,7 +348,12 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    close_oracle: "Close Oracle Assistant",
+    send_message: "Send message to Oracle",
+    oracle_toggle: "Open Oracle Assistant",
+    back_to_info: "Back to step 1",
+    close_modal: "Close Modal"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +425,12 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    close_oracle: "Cerrar Asistente Oráculo",
+    send_message: "Enviar mensaje al Oráculo",
+    oracle_toggle: "Abrir Asistente Oráculo",
+    back_to_info: "Volver al paso 1",
+    close_modal: "Cerrar Modal"
   }
 };
 
@@ -437,6 +447,17 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1b. Accessibility & Attribute Localization
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.placeholder = t[key];
   });
 
   // 2. Section Titles Mapping
@@ -759,3 +780,16 @@ if (oracleToggle) {
   });
 }
 
+// Global Escape key listener to close overlays
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (bookingModal && bookingModal.classList.contains("active")) {
+      bookingModal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+    if (oracleChat && !oracleChat.classList.contains("hidden")) {
+      oracleChat.classList.add("hidden");
+      if (oracleToggle) oracleToggle.focus();
+    }
+  }
+});
