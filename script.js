@@ -348,7 +348,16 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    lang_switch_label: "Switch language to Spanish",
+    oracle_toggle: "Open Oracle chat",
+    close_oracle: "Close Oracle chat",
+    send_message: "Send message to Oracle",
+    scan_url_label: "Brand website URL",
+    back_to_info: "Back to contact info",
+    terminal_input_label: "Terminal input",
+    oracle_input_label: "Ask the Oracle",
+    close_modal: "Close modal"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +429,16 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    lang_switch_label: "Cambiar idioma a Inglés",
+    oracle_toggle: "Abrir chat del Oráculo",
+    close_oracle: "Cerrar chat del Oráculo",
+    send_message: "Enviar mensaje al Oráculo",
+    scan_url_label: "URL del sitio web de la marca",
+    back_to_info: "Volver a información de contacto",
+    terminal_input_label: "Entrada de terminal",
+    oracle_input_label: "Pregunta al Oráculo",
+    close_modal: "Cerrar ventana modal"
   }
 };
 
@@ -436,6 +454,28 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1b. Attributes: ARIA Labels, Titles, Placeholders
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) {
+      el.setAttribute("title", t[key]);
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) {
+      el.setAttribute("placeholder", t[key]);
     }
   });
 
