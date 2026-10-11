@@ -533,8 +533,21 @@ const suiteMap = {
   "Ingeniería Digital": "Engineering"
 };
 
+let lastFocusedElement = null;
+
+function closeBookingModal() {
+  if (!bookingModal || !bookingModal.classList.contains("active")) return;
+  bookingModal.classList.remove("active");
+  document.body.style.overflow = "";
+  if (lastFocusedElement) {
+    lastFocusedElement.focus();
+  }
+}
+
 document.querySelectorAll(".service-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
+  btn.addEventListener("click", (e) => {
+    lastFocusedElement = e.currentTarget;
+
     // Identify service
     const h3Element = btn.parentElement.querySelector("h3");
     const suiteTitle = h3Element?.innerText.trim();
@@ -566,6 +579,12 @@ document.querySelectorAll(".service-btn").forEach(btn => {
     // Open modal
     bookingModal.classList.add("active");
     document.body.style.overflow = "hidden";
+
+    // Focus close button inside modal
+    const closeBtn = bookingModal.querySelector(".modal-close");
+    if (closeBtn) {
+      closeBtn.focus();
+    }
   });
 });
 
@@ -609,14 +628,12 @@ backBtn.addEventListener("click", () => {
 });
 
 modalClose.addEventListener("click", () => {
-  bookingModal.classList.remove("active");
-  document.body.style.overflow = "";
+  closeBookingModal();
 });
 
 bookingModal.addEventListener("click", (e) => {
   if (e.target === bookingModal) {
-    bookingModal.classList.remove("active");
-    document.body.style.overflow = "";
+    closeBookingModal();
   }
 });
 
@@ -759,3 +776,16 @@ if (oracleToggle) {
   });
 }
 
+// Global Keyboard Navigation Handlers (Escape Key)
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (bookingModal && bookingModal.classList.contains('active')) {
+      closeBookingModal();
+    } else if (oracleChat && !oracleChat.classList.contains('hidden')) {
+      oracleChat.classList.add('hidden');
+      if (oracleToggle) {
+        oracleToggle.focus();
+      }
+    }
+  }
+});
