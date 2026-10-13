@@ -1051,12 +1051,13 @@ body.dark-mode .home-img img {
   justify-content: center;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.4s var(--ease-liquid);
+  transition: opacity 0.4s var(--ease-liquid), visibility 0.4s var(--ease-liquid);
 }
 
 .modal-overlay.active {
   opacity: 1;
   visibility: visible;
+  transition: opacity 0.4s var(--ease-liquid), visibility 0s 0s;
 }
 
 .modal-content {

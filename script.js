@@ -533,6 +533,28 @@ const suiteMap = {
   "Ingeniería Digital": "Engineering"
 };
 
+let lastFocusedElement = null;
+
+function openBookingModal() {
+  lastFocusedElement = document.activeElement;
+  step1.classList.add("active");
+  step2.classList.remove("active");
+  bookingModal.classList.add("active");
+  document.body.style.overflow = "hidden";
+  setTimeout(() => {
+    const firstInput = document.getElementById("leafName");
+    if (firstInput) firstInput.focus();
+  }, 400);
+}
+
+function closeBookingModal() {
+  bookingModal.classList.remove("active");
+  document.body.style.overflow = "";
+  if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+    lastFocusedElement.focus();
+  }
+}
+
 document.querySelectorAll(".service-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     // Identify service
@@ -548,8 +570,6 @@ document.querySelectorAll(".service-btn").forEach(btn => {
       "suite_tech_title": "Engineering"
     };
 
-    console.log("Suite Detected:", { suiteTitle, i18nKey });
-
     if (i18nKey && keyMap[i18nKey]) {
       serviceSelect.value = keyMap[i18nKey];
     } else if (suiteTitle && suiteMap[suiteTitle]) {
@@ -557,16 +577,42 @@ document.querySelectorAll(".service-btn").forEach(btn => {
     } else {
       serviceSelect.value = "General";
     }
-    console.log("Pre-selected Value:", serviceSelect.value);
 
-    // Reset flow
-    step1.classList.add("active");
-    step2.classList.remove("active");
-    
-    // Open modal
-    bookingModal.classList.add("active");
-    document.body.style.overflow = "hidden";
+    openBookingModal();
   });
+});
+
+// Focus Trapping and Escape Key Handler for Accessibility
+bookingModal.addEventListener("keydown", (e) => {
+  if (e.key === "Tab") {
+    const focusables = Array.from(
+      bookingModal.querySelectorAll("button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])")
+    ).filter(el => !el.hasAttribute("disabled") && el.offsetParent !== null);
+
+    if (focusables.length === 0) return;
+
+    const firstEl = focusables[0];
+    const lastEl = focusables[focusables.length - 1];
+
+    if (e.shiftKey && document.activeElement === firstEl) {
+      e.preventDefault();
+      lastEl.focus();
+    } else if (!e.shiftKey && document.activeElement === lastEl) {
+      e.preventDefault();
+      firstEl.focus();
+    }
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (bookingModal && bookingModal.classList.contains("active")) {
+      closeBookingModal();
+    } else if (oracleChat && !oracleChat.classList.contains("hidden")) {
+      oracleChat.classList.add("hidden");
+      if (oracleToggle) oracleToggle.focus();
+    }
+  }
 });
 
 // Handle Lead Form Next
@@ -609,14 +655,12 @@ backBtn.addEventListener("click", () => {
 });
 
 modalClose.addEventListener("click", () => {
-  bookingModal.classList.remove("active");
-  document.body.style.overflow = "";
+  closeBookingModal();
 });
 
 bookingModal.addEventListener("click", (e) => {
   if (e.target === bookingModal) {
-    bookingModal.classList.remove("active");
-    document.body.style.overflow = "";
+    closeBookingModal();
   }
 });
 
