@@ -276,6 +276,7 @@ if (terminalInput) {
  */
 const langSwitches = document.querySelectorAll(".lang-switch");
 let currentLang = "EN";
+let lastFocusedElement = null;
 const translations = {
   EN: {
     projects: "Engineering", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contact",
@@ -534,7 +535,8 @@ const suiteMap = {
 };
 
 document.querySelectorAll(".service-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
+  btn.addEventListener("click", (e) => {
+    lastFocusedElement = e.currentTarget;
     // Identify service
     const h3Element = btn.parentElement.querySelector("h3");
     const suiteTitle = h3Element?.innerText.trim();
@@ -608,15 +610,21 @@ backBtn.addEventListener("click", () => {
   step1.classList.add("active");
 });
 
-modalClose.addEventListener("click", () => {
-  bookingModal.classList.remove("active");
-  document.body.style.overflow = "";
-});
+function closeBookingModal() {
+  if (bookingModal) {
+    bookingModal.classList.remove("active");
+    document.body.style.overflow = "";
+    if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+      lastFocusedElement.focus();
+    }
+  }
+}
+
+modalClose.addEventListener("click", closeBookingModal);
 
 bookingModal.addEventListener("click", (e) => {
   if (e.target === bookingModal) {
-    bookingModal.classList.remove("active");
-    document.body.style.overflow = "";
+    closeBookingModal();
   }
 });
 
@@ -710,6 +718,7 @@ if (oracleToggle) {
 
   closeOracle.addEventListener('click', () => {
     oracleChat.classList.add('hidden');
+    oracleToggle.focus();
   });
 
   const appendMessage = (text, type) => {
@@ -759,3 +768,14 @@ if (oracleToggle) {
   });
 }
 
+// Global Keyboard Navigation (Escape Key Handler)
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (bookingModal && bookingModal.classList.contains("active")) {
+      closeBookingModal();
+    } else if (oracleChat && !oracleChat.classList.contains("hidden")) {
+      oracleChat.classList.add("hidden");
+      if (oracleToggle) oracleToggle.focus();
+    }
+  }
+});
