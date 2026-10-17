@@ -533,8 +533,30 @@ const suiteMap = {
   "Ingeniería Digital": "Engineering"
 };
 
+let lastBookingTrigger = null;
+
+function openBookingModal(triggerEl) {
+  lastBookingTrigger = triggerEl || document.activeElement;
+  step1.classList.add("active");
+  step2.classList.remove("active");
+  bookingModal.classList.add("active");
+  document.body.style.overflow = "hidden";
+  setTimeout(() => {
+    const firstInput = document.getElementById("leafName");
+    if (firstInput) firstInput.focus();
+  }, 50);
+}
+
+function closeBookingModal() {
+  bookingModal.classList.remove("active");
+  document.body.style.overflow = "";
+  if (lastBookingTrigger && typeof lastBookingTrigger.focus === "function") {
+    lastBookingTrigger.focus();
+  }
+}
+
 document.querySelectorAll(".service-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
+  btn.addEventListener("click", (e) => {
     // Identify service
     const h3Element = btn.parentElement.querySelector("h3");
     const suiteTitle = h3Element?.innerText.trim();
@@ -559,13 +581,7 @@ document.querySelectorAll(".service-btn").forEach(btn => {
     }
     console.log("Pre-selected Value:", serviceSelect.value);
 
-    // Reset flow
-    step1.classList.add("active");
-    step2.classList.remove("active");
-    
-    // Open modal
-    bookingModal.classList.add("active");
-    document.body.style.overflow = "hidden";
+    openBookingModal(e.currentTarget);
   });
 });
 
@@ -609,14 +625,12 @@ backBtn.addEventListener("click", () => {
 });
 
 modalClose.addEventListener("click", () => {
-  bookingModal.classList.remove("active");
-  document.body.style.overflow = "";
+  closeBookingModal();
 });
 
 bookingModal.addEventListener("click", (e) => {
   if (e.target === bookingModal) {
-    bookingModal.classList.remove("active");
-    document.body.style.overflow = "";
+    closeBookingModal();
   }
 });
 
@@ -700,16 +714,31 @@ const oracleMessages = document.getElementById('oracle-messages');
 const oracleInput = document.getElementById('oracle-input');
 const sendOracle = document.getElementById('send-oracle');
 
+let lastOracleTrigger = null;
+
+function closeOracleChat() {
+  if (oracleChat) {
+    oracleChat.classList.add('hidden');
+    if (lastOracleTrigger && typeof lastOracleTrigger.focus === 'function') {
+      lastOracleTrigger.focus();
+    }
+  }
+}
+
 if (oracleToggle) {
-  oracleToggle.addEventListener('click', () => {
-    oracleChat.classList.toggle('hidden');
-    if (!oracleChat.classList.contains('hidden')) {
+  oracleToggle.addEventListener('click', (e) => {
+    const isHidden = oracleChat.classList.contains('hidden');
+    if (isHidden) {
+      lastOracleTrigger = e.currentTarget;
+      oracleChat.classList.remove('hidden');
       oracleInput.focus();
+    } else {
+      closeOracleChat();
     }
   });
 
   closeOracle.addEventListener('click', () => {
-    oracleChat.classList.add('hidden');
+    closeOracleChat();
   });
 
   const appendMessage = (text, type) => {
@@ -759,3 +788,13 @@ if (oracleToggle) {
   });
 }
 
+// Global Escape Key Listener for Accessible Modal & Overlay Dismissal
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (bookingModal && bookingModal.classList.contains('active')) {
+      closeBookingModal();
+    } else if (oracleChat && !oracleChat.classList.contains('hidden')) {
+      closeOracleChat();
+    }
+  }
+});
