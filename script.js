@@ -457,9 +457,6 @@ function updateLanguage(lang) {
   });
 
   // 3. Dynamic Elements & Lists
-  document.querySelectorAll(".home-content h1").forEach(h1 => h1.innerText = t.hero_title);
-  document.querySelectorAll(".home-content p").forEach(p => p.innerText = t.hero_desc);
-  
   document.querySelectorAll(".btn").forEach(btn => {
     if (btn.innerText.includes("CV") || btn.innerText.includes("Descargar") || btn.innerText.includes("Download")) {
       btn.innerText = t.download_cv;
