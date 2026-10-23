@@ -388,11 +388,11 @@
     </div>
     
     <!-- Premium Booking Modal -->
-    <div class="modal-overlay" id="bookingModal">
+    <div class="modal-overlay" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle">
       <div class="modal-content card-glass">
         <button class="modal-close" aria-label="Close Modal">&times;</button>
         <div class="modal-header">
-          <h2 data-i18n="modal_title">Book a Discovery Call</h2>
+          <h2 id="bookingModalTitle" data-i18n="modal_title">Book a Discovery Call</h2>
           <p data-i18n="modal_desc">45 minutes to architect your digital future.</p>
         </div>
         <div id="scheduler-container">
