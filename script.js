@@ -519,6 +519,18 @@ const step1 = document.getElementById("step1");
 const step2 = document.getElementById("step2");
 const backBtn = document.getElementById("backToStep1");
 const serviceSelect = document.getElementById("leafService");
+let lastActiveElement = null;
+
+function closeModal() {
+  if (bookingModal && bookingModal.classList.contains("active")) {
+    bookingModal.classList.remove("active");
+    document.body.style.overflow = "";
+    if (lastActiveElement) {
+      lastActiveElement.focus();
+      lastActiveElement = null;
+    }
+  }
+}
 
 const suiteMap = {
   "Omnichannel Advertising": "Ads",
@@ -559,6 +571,9 @@ document.querySelectorAll(".service-btn").forEach(btn => {
     }
     console.log("Pre-selected Value:", serviceSelect.value);
 
+    // Track trigger element for focus restoration
+    lastActiveElement = btn;
+
     // Reset flow
     step1.classList.add("active");
     step2.classList.remove("active");
@@ -566,6 +581,12 @@ document.querySelectorAll(".service-btn").forEach(btn => {
     // Open modal
     bookingModal.classList.add("active");
     document.body.style.overflow = "hidden";
+
+    // Focus initial input
+    const firstInput = document.getElementById("leafName");
+    if (firstInput) {
+      setTimeout(() => firstInput.focus(), 50);
+    }
   });
 });
 
@@ -608,15 +629,11 @@ backBtn.addEventListener("click", () => {
   step1.classList.add("active");
 });
 
-modalClose.addEventListener("click", () => {
-  bookingModal.classList.remove("active");
-  document.body.style.overflow = "";
-});
+modalClose.addEventListener("click", closeModal);
 
 bookingModal.addEventListener("click", (e) => {
   if (e.target === bookingModal) {
-    bookingModal.classList.remove("active");
-    document.body.style.overflow = "";
+    closeModal();
   }
 });
 
@@ -710,6 +727,7 @@ if (oracleToggle) {
 
   closeOracle.addEventListener('click', () => {
     oracleChat.classList.add('hidden');
+    oracleToggle.focus();
   });
 
   const appendMessage = (text, type) => {
@@ -759,3 +777,14 @@ if (oracleToggle) {
   });
 }
 
+// Global Keyboard Accessibility Listeners
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (bookingModal && bookingModal.classList.contains("active")) {
+      closeModal();
+    } else if (oracleChat && !oracleChat.classList.contains("hidden")) {
+      oracleChat.classList.add("hidden");
+      if (oracleToggle) oracleToggle.focus();
+    }
+  }
+});
