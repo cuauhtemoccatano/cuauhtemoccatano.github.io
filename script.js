@@ -348,7 +348,13 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    back_to_info: "Back to step 1",
+    close_oracle: "Close Oracle AI Assistant",
+    send_message: "Send message",
+    oracle_toggle: "Open Oracle AI Assistant",
+    scan_url_label: "Brand website URL",
+    terminal_input_label: "Terminal command prompt"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +426,13 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    back_to_info: "Volver al paso 1",
+    close_oracle: "Cerrar asistente de IA El Oráculo",
+    send_message: "Enviar mensaje",
+    oracle_toggle: "Abrir asistente de IA El Oráculo",
+    scan_url_label: "URL del sitio web de la marca",
+    terminal_input_label: "Línea de comandos de la terminal"
   }
 };
 
@@ -436,6 +448,14 @@ function updateLanguage(lang) {
       } else {
         el.innerText = t[key];
       }
+    }
+  });
+
+  // 1b. Accessibility Labels with data-i18n-aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) {
+      el.setAttribute("aria-label", t[key]);
     }
   });
 
