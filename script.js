@@ -348,7 +348,16 @@ const translations = {
     suite_general: "General Consultation",
     btn_next: "Pick a Time",
     pick_time: "Select Date & Time",
-    syncing: "Syncing availability..."
+    syncing: "Syncing availability...",
+    oracle_toggle: "Open Oracle Chat",
+    close_oracle: "Close Oracle",
+    send_message: "Send message",
+    back_to_info: "Back to contact info",
+    terminal_input_label: "Terminal command prompt",
+    oracle_input_label: "Ask the Oracle",
+    scan_url_label: "Brand website URL",
+    close_modal: "Close Modal",
+    lang_switch_label: "Switch Language"
   },
   ES: {
     home: "Inicio", about: "Sobre Mí", services: "Servicios", skills: "Habilidades", projects: "Ingeniería", launchpad_hub: "Launchpad", podcasts: "Podcasts", contact: "Contacto",
@@ -420,7 +429,16 @@ const translations = {
     suite_general: "Consultoría General",
     btn_next: "Elegir Horario",
     pick_time: "Selecciona Fecha y Hora",
-    syncing: "Sincronizando disponibilidad..."
+    syncing: "Sincronizando disponibilidad...",
+    oracle_toggle: "Abrir chat del Oráculo",
+    close_oracle: "Cerrar Oráculo",
+    send_message: "Enviar mensaje",
+    back_to_info: "Volver a la información de contacto",
+    terminal_input_label: "Línea de comandos de la terminal",
+    oracle_input_label: "Preguntar al Oráculo",
+    scan_url_label: "URL del sitio web de la marca",
+    close_modal: "Cerrar ventana modal",
+    lang_switch_label: "Cambiar idioma"
   }
 };
 
@@ -437,6 +455,20 @@ function updateLanguage(lang) {
         el.innerText = t[key];
       }
     }
+  });
+
+  // 1b. ARIA Labels, Placeholders, Titles
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key]) el.setAttribute("aria-label", t[key]);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key]) el.setAttribute("placeholder", t[key]);
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key]) el.setAttribute("title", t[key]);
   });
 
   // 2. Section Titles Mapping
