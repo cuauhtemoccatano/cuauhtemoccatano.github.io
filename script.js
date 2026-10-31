@@ -759,3 +759,17 @@ if (oracleToggle) {
   });
 }
 
+// Global Keyboard Accessibility: Dismiss Modals/Overlays on Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (bookingModal && bookingModal.classList.contains('active')) {
+      bookingModal.classList.remove('active');
+      document.body.style.overflow = '';
+      const firstServiceBtn = document.querySelector('.service-btn');
+      if (firstServiceBtn) firstServiceBtn.focus();
+    } else if (oracleChat && !oracleChat.classList.contains('hidden')) {
+      oracleChat.classList.add('hidden');
+      if (oracleToggle) oracleToggle.focus();
+    }
+  }
+});
