@@ -620,6 +620,19 @@ bookingModal.addEventListener("click", (e) => {
   }
 });
 
+// Escape key listener for modal and chat dismissal
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (bookingModal && bookingModal.classList.contains("active")) {
+      bookingModal.classList.remove("active");
+      document.body.style.overflow = "";
+    } else if (oracleChat && !oracleChat.classList.contains("hidden")) {
+      oracleChat.classList.add("hidden");
+      if (oracleToggle) oracleToggle.focus();
+    }
+  }
+});
+
 // Initialize Language on Load
 const savedLang = localStorage.getItem("preferredLang");
 const browserLang = navigator.language.startsWith("es") ? "ES" : "EN";
@@ -710,6 +723,7 @@ if (oracleToggle) {
 
   closeOracle.addEventListener('click', () => {
     oracleChat.classList.add('hidden');
+    oracleToggle.focus();
   });
 
   const appendMessage = (text, type) => {
