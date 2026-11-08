@@ -533,8 +533,19 @@ const suiteMap = {
   "Ingeniería Digital": "Engineering"
 };
 
+let lastFocusedServiceBtn = null;
+
+const closeBookingModal = () => {
+  bookingModal.classList.remove("active");
+  document.body.style.overflow = "";
+  if (lastFocusedServiceBtn) {
+    lastFocusedServiceBtn.focus();
+  }
+};
+
 document.querySelectorAll(".service-btn").forEach(btn => {
   btn.addEventListener("click", () => {
+    lastFocusedServiceBtn = btn;
     // Identify service
     const h3Element = btn.parentElement.querySelector("h3");
     const suiteTitle = h3Element?.innerText.trim();
@@ -608,15 +619,11 @@ backBtn.addEventListener("click", () => {
   step1.classList.add("active");
 });
 
-modalClose.addEventListener("click", () => {
-  bookingModal.classList.remove("active");
-  document.body.style.overflow = "";
-});
+modalClose.addEventListener("click", closeBookingModal);
 
 bookingModal.addEventListener("click", (e) => {
   if (e.target === bookingModal) {
-    bookingModal.classList.remove("active");
-    document.body.style.overflow = "";
+    closeBookingModal();
   }
 });
 
@@ -701,16 +708,19 @@ const oracleInput = document.getElementById('oracle-input');
 const sendOracle = document.getElementById('send-oracle');
 
 if (oracleToggle) {
+  const closeOracleChat = () => {
+    oracleChat.classList.add('hidden');
+    oracleToggle.focus();
+  };
+
   oracleToggle.addEventListener('click', () => {
-    oracleChat.classList.toggle('hidden');
-    if (!oracleChat.classList.contains('hidden')) {
+    const isHidden = oracleChat.classList.toggle('hidden');
+    if (!isHidden) {
       oracleInput.focus();
     }
   });
 
-  closeOracle.addEventListener('click', () => {
-    oracleChat.classList.add('hidden');
-  });
+  closeOracle.addEventListener('click', closeOracleChat);
 
   const appendMessage = (text, type) => {
     const msgDiv = document.createElement('div');
@@ -759,3 +769,14 @@ if (oracleToggle) {
   });
 }
 
+// Global Keyboard Accessibility: Dismiss Modals/Overlays on Escape
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (bookingModal && bookingModal.classList.contains("active")) {
+      closeBookingModal();
+    } else if (oracleChat && !oracleChat.classList.contains("hidden")) {
+      oracleChat.classList.add("hidden");
+      if (oracleToggle) oracleToggle.focus();
+    }
+  }
+});
